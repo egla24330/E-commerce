@@ -37,33 +37,20 @@ export default {
 }
 */
 
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
-import { readFileSync } from 'fs'
+
+// vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  plugins: [
-    react(),
-    {
-      name: 'copy-redirects',
-      closeBundle() {
-        // CORRECTED PATH: Remove the extra 'client' directory
-        const redirectsPath = resolve(__dirname, 'public/_redirects')
-        this.emitFile({
-          type: 'asset',
-          fileName: '_redirects',
-          source: readFileSync(redirectsPath, 'utf-8')
-        })
-      }
-    }
-  ],
+  plugins: [react()],
   build: {
     outDir: 'dist',
+    // Vite automatically copies files from public directory
     rollupOptions: {
       output: {
         assetFileNames: 'assets/[name]-[hash][extname]'
       }
     }
   }
-})
+});
