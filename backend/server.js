@@ -25,6 +25,8 @@ app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json());
 app.use(express.static('public'));
 
+
+
 // Routes
 app.use('/api/user', userRouter);
 app.use('/api/product', productRouter);
@@ -36,6 +38,14 @@ app.use('/api/message', contactRouter);
 // Health check route
 app.get('/', (req, res) => {
   res.send('API is working');
+});
+
+//Serve static files from dist
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// Handle all routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 // Start server (PORT from environment)
