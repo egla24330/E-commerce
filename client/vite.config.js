@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+/*import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
@@ -35,3 +35,35 @@ export default {
   },//server:{port:5173}
 
 }
+*/
+
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { resolve } from 'path'
+import { readFileSync } from 'fs'
+
+export default defineConfig({
+  plugins: [
+    react(),
+    {
+      name: 'copy-redirects',
+      closeBundle() {
+        // CORRECTED PATH: Remove the extra 'client' directory
+        const redirectsPath = resolve(__dirname, 'public/_redirects')
+        this.emitFile({
+          type: 'asset',
+          fileName: '_redirects',
+          source: readFileSync(redirectsPath, 'utf-8')
+        })
+      }
+    }
+  ],
+  build: {
+    outDir: 'dist',
+    rollupOptions: {
+      output: {
+        assetFileNames: 'assets/[name]-[hash][extname]'
+      }
+    }
+  }
+})
