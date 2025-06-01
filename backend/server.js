@@ -10,6 +10,7 @@ import cartRouter from './routes/cartRouter.js';
 import orderRouter from './routes/orderRouter.js';
 import contactRouter from './routes/contactRoute.js';
 import withdrawalRouter from './routes/withdrawalRoute.js';
+import path from'path'
 
 // Load environment variables first
 dotenv.config({ path: './config.env' });
