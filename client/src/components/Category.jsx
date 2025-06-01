@@ -92,7 +92,7 @@ const CategoryPage = () => {
                 </motion.div>
             )}
 
-            <Pagination/>
+            
         </div>
     );
 };
