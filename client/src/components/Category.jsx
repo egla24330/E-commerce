@@ -6,7 +6,7 @@ import { products } from "../assets/assets/frontend_assets/assets";
 import Searchbox from "./Searchbox";
 import { ShopContext } from "../context/Shopcontext";
 import Productitem from "./Productitem";
-import Pagination from "./Pagination ";
+import Pagination from "./Pagination";
 const CategoryPage = () => {
     const { search } = useContext(ShopContext);
     const { categorySlug } = useParams();
