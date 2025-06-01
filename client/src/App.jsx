@@ -60,10 +60,10 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Login />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy/>} />
-            <Route path='/profile' element={token ? <ProfilePage/>:<ProfilePage/>} />
-            <Route path="/place-order" element={token ? <PlaceOrder /> : <PlaceOrder />} />
-            <Route path="/orders" element={token ? <Orders/> : <Login />} />
-            <Route path="/verify-payment/:id" element={token ? <VerifyPayment/> : <VerifyPayment />} />
+            <Route path='/profile' element={token ? <ProfilePage/>:<Login/>} />
+            <Route path="/place-order" element={token ? <PlaceOrder /> : <Login/>} />
+            <Route path="/orders" element={token ? <Orders/> : <Login/>} />
+            <Route path="/verify-payment/:id" element={token ? <VerifyPayment/> : <Login/>} />
             <Route path="/category/:categorySlug" element={<Category />} />
             <Route path='/faq' element={<FAQs />} />
             <Route path='/ProductList/:slug' element={<ProductList/>}/>
