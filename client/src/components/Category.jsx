@@ -2,10 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
-<<<<<<< HEAD
-//import { products } from "../assets/assets/frontend_assets/assets";
-=======
->>>>>>> f2597f6 (Added _redirects file for SPA routing)
 import Searchbox from "./Searchbox";
 import { ShopContext } from "../context/Shopcontext";
 import Productitem from "./Productitem";
@@ -94,12 +90,6 @@ const CategoryPage = () => {
                     ))}
                 </motion.div>
             )}
-
-<<<<<<< HEAD
-            
-=======
-            {/* <Pagination/> */}
->>>>>>> f2597f6 (Added _redirects file for SPA routing)
         </div>
     );
 };
