@@ -3,9 +3,9 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 
 export const ShopContext = createContext();
-
+//push into git
 const ShopProvider = (props) => {
-  const backendurl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+  const backendurl = import.meta.env.VITE_BACKEND_URL || 'https://e-commerce-backend-bo7f.onrender.com';
   const currency = 'ETB ';
   const delivery_fee = 50;
 

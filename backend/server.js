@@ -35,7 +35,7 @@ app.use('/api/message', contactRouter);
 
 // Health check route
 app.get('/', (req, res) => {
-  res.send('API is working 🚀');
+  res.send('API is working');
 });
 
 // Start server (PORT from environment)
