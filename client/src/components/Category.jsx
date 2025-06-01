@@ -90,11 +90,8 @@ const CategoryPage = () => {
                     ))}
                 </motion.div>
             )}
-<<<<<<< HEAD
-=======
 
             {/* <Pagination/> */}
->>>>>>> 263b16e552d6a40a06f5c723928083d2e238dee8
         </div>
     );
 };
