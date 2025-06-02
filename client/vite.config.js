@@ -35,7 +35,6 @@ export default {
   },//server:{port:5173}
 
 }
-*/
 
 
 // vite.config.js
@@ -53,4 +52,18 @@ export default defineConfig({
       }
     }
   }
+});
+
+*/
+
+// vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  base: '/', // ✅ IMPORTANT: this tells Vite how to resolve routes
+  build: {
+    outDir: 'dist', // default is 'dist', but confirm it matches your server
+  },
 });
