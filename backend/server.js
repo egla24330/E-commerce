@@ -10,7 +10,12 @@ import cartRouter from './routes/cartRouter.js';
 import orderRouter from './routes/orderRouter.js';
 import contactRouter from './routes/contactRoute.js';
 import withdrawalRouter from './routes/withdrawalRoute.js';
-import path from'path'
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Fix for __dirname in ES modules
+
+
 
 // Load environment variables first
 dotenv.config({ path: './config.env' });
@@ -25,6 +30,9 @@ connectCloudinary();
 app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json());
 app.use(express.static('public'));
+// Fix for __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
 
@@ -41,10 +49,10 @@ app.get('/', (req, res) => {
   res.send('API is working');
 });
 
-//Serve static files from dist
+// Serve static files from 'dist'
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Handle all routes
+// Handle all routes (SPA fallback)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
