@@ -14,15 +14,15 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 // Fix for __dirname in ES modules
-
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Load environment variables first
 dotenv.config({ path: './config.env' });
 
 const app = express();
 
-// Connect to databases
+// Connect to MongoDB and Cloudinary
 connectToMongoDB();
 connectCloudinary();
 
@@ -30,13 +30,8 @@ connectCloudinary();
 app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json());
 app.use(express.static('public'));
-// Fix for __dirname in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
-
-
-// Routes
+// API Routes
 app.use('/api/user', userRouter);
 app.use('/api/product', productRouter);
 app.use('/api/withdrawal', withdrawalRouter);
@@ -44,20 +39,20 @@ app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/message', contactRouter);
 
-// Health check route
+// Health check
 app.get('/', (req, res) => {
   res.send('API is working');
 });
 
-// Serve static files from 'dist'
+// Serve frontend build (from dist folder)
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Handle all routes (SPA fallback)
-app.get('*', (req, res) => {
+// SPA fallback route (for React/Vue/SPA routing)
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
-// Start server (PORT from environment)
+// Start server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running at http://0.0.0.0:${PORT}`);
