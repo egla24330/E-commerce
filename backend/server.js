@@ -10,13 +10,16 @@ import cartRouter from './routes/cartRouter.js';
 import orderRouter from './routes/orderRouter.js';
 import contactRouter from './routes/contactRoute.js';
 import withdrawalRouter from './routes/withdrawalRoute.js';
-import path from 'path';
+import p from 'path';
 import { fileURLToPath } from 'url';
+import history from 'connect-history-api-fallback';
 
 // Fix for __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = p.dirname(__filename);
 
+//console.log( __filename)
+//console.log( __dirname)
 // Load environment variables first
 dotenv.config({ path: './config.env' });
 
@@ -44,13 +47,21 @@ app.get('/', (req, res) => {
   res.send('API is working');
 });
 
-// Serve frontend build (from dist folder)
-app.use(express.static(path.join(__dirname, 'dist')));
 
-// SPA fallback route (for React/Vue/SPA routing)
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+
+
+
+app.use((err, req, res, next) => {
+  console.error('Unexpected error:', err);
+  res.status(500).json({ success: false, message: 'Internal Server Error' });
 });
+
+// Add after API routes, before static serving
+app.use(history());
+
+// Then serve static files
+app.use(express.static(p.join(__dirname, 'dist')));
+
 
 // Start server
 const PORT = process.env.PORT || 4000;
