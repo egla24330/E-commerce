@@ -20,10 +20,21 @@ dotenv.config({ path: './config.env' });
 
 const app = express();
 
+// 1. Disable problematic Express features
+app.disable('etag'); // Prevent 304 status conflicts
+app.disable('x-powered-by'); // Security measure
+
 connectToMongoDB();
 connectCloudinary();
 
-app.use(cors({ origin: '*', credentials: true }));
+// 2. Simplified CORS configuration
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
 app.use(express.json());
 
 // API Routes
@@ -34,22 +45,49 @@ app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/message', contactRouter);
 
-// Serve static files from Vite build
+// 3. Serve static files from Vite build
 const staticDir = path.join(__dirname, 'dist');
-app.use(express.static(staticDir));
+app.use(express.static(staticDir, {
+  // Cache settings for better performance
+  maxAge: '1y',
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'no-cache, no-store');
+    }
+  }
+}));
 
-// SPA fallback - must come AFTER static files and API routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(staticDir, 'index.html'));
+// 4. Fixed SPA Fallback Handler
+app.use((req, res, next) => {
+  // Skip API routes
+  if (req.path.startsWith('/api/')) return next();
+  
+  // Serve index.html for all non-API routes
+  res.sendFile(path.join(staticDir, 'index.html'), (err) => {
+    if (err) {
+      console.error('SPA fallback error:', err);
+      if (!res.headersSent) {
+        res.status(500).send('Internal Server Error');
+      }
+    }
+  });
 });
 
-// Global error handler
+// 5. Enhanced error handler
 app.use((err, req, res, next) => {
-  console.error('Unexpected error:', err);
-  res.status(500).json({ success: false, message: 'Internal Server Error' });
+  console.error('\n💥 UNEXPECTED ERROR:', err.message);
+  console.error('Request URL:', req.originalUrl);
+  console.error('Stack Trace:\n', err.stack);
+  
+  res.status(500).json({ 
+    success: false, 
+    message: 'Internal Server Error',
+    error: process.env.NODE_ENV === 'development' ? err.message : undefined
+  });
 });
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`Serving static files from: ${staticDir}`);
 });
