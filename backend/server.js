@@ -10,27 +10,27 @@ import cartRouter from './routes/cartRouter.js';
 import orderRouter from './routes/orderRouter.js';
 import contactRouter from './routes/contactRoute.js';
 import withdrawalRouter from './routes/withdrawalRoute.js';
+
+import history from 'connect-history-api-fallback';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// Path setup for ES modules
+// __dirname workaround for ES module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Load environment variables
 dotenv.config({ path: './config.env' });
 
-// Init app
 const app = express();
 
-// Connect services
+// Connect to database and cloudinary
 connectToMongoDB();
 connectCloudinary();
 
-// Middlewares
+// Middleware
 app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json());
-app.use(express.static('public'));
 
 // API routes
 app.use('/api/user', userRouter);
@@ -40,10 +40,13 @@ app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/message', contactRouter);
 
-// Serve frontend (MUST come after API routes)
+// Support SPA routing (must come before static)
+app.use(history());
+
+// Serve static files (built Vite app)
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// React Router fallback for SPA
+// Catch-all to serve index.html for unknown frontend routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
@@ -57,5 +60,5 @@ app.use((err, req, res, next) => {
 // Start server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
