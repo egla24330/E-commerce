@@ -10,19 +10,20 @@ import cartRouter from './routes/cartRouter.js';
 import orderRouter from './routes/orderRouter.js';
 import contactRouter from './routes/contactRoute.js';
 import withdrawalRouter from './routes/withdrawalRoute.js';
-import history from 'connect-history-api-fallback';
-import p from 'path';
+import path from 'path';
 import { fileURLToPath } from 'url';
 
+// Path setup for ES modules
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = p.dirname(__filename);
+const __dirname = path.dirname(__filename);
 
 // Load environment variables
 dotenv.config({ path: './config.env' });
 
+// Init app
 const app = express();
 
-// Connect to DB and Cloudinary
+// Connect services
 connectToMongoDB();
 connectCloudinary();
 
@@ -31,7 +32,7 @@ app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json());
 app.use(express.static('public'));
 
-// API Routes
+// API routes
 app.use('/api/user', userRouter);
 app.use('/api/product', productRouter);
 app.use('/api/withdrawal', withdrawalRouter);
@@ -39,16 +40,15 @@ app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/message', contactRouter);
 
-// 🛑 REMOVE this:
-// app.get('/', (req, res) => res.send('API is working'));
+// Serve frontend (MUST come after API routes)
+app.use(express.static(path.join(__dirname, 'dist')));
 
-// Fallback for SPA (MUST come before static files)
-app.use(history());
+// React Router fallback for SPA
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 
-// Serve frontend (Vite dist folder)
-app.use(express.static(p.join(__dirname, 'dist')));
-
-// Error handling middleware
+// Global error handler
 app.use((err, req, res, next) => {
   console.error('Unexpected error:', err);
   res.status(500).json({ success: false, message: 'Internal Server Error' });
