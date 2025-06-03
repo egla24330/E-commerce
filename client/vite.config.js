@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 import path from 'path';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
   plugins: [
@@ -9,11 +9,11 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: path.resolve(__dirname, '_redirects'),
-          dest: '.' // this puts it in the dist root
-        }
-      ]
-    })
+          src: 'static/_redirects', // relative to `client/`
+          dest: '.' // put in root of `dist/`
+        },
+      ],
+    }),
   ],
   build: {
     outDir: path.resolve(__dirname, '../backend/dist'),
