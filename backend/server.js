@@ -1,6 +1,5 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import mongoose from 'mongoose';
 import connectToMongoDB from './configs/mongodb.js';
 import connectCloudinary from './configs/cloudinary.js';
 import cors from 'cors';
@@ -10,11 +9,10 @@ import cartRouter from './routes/cartRouter.js';
 import orderRouter from './routes/orderRouter.js';
 import contactRouter from './routes/contactRoute.js';
 import withdrawalRouter from './routes/withdrawalRoute.js';
-
-import history from 'connect-history-api-fallback';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+// Get directory path
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -36,11 +34,14 @@ app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/message', contactRouter);
 
-// Serve frontend (Vite)
-app.use(history());
-app.use(express.static(path.join(__dirname, 'dist')));
+// Serve static files from Vite build
+const staticDir = path.join(__dirname, 'dist');
+app.use(express.static(staticDir));
 
-// No app.get('*') needed! ❌
+// SPA fallback - must come AFTER static files and API routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(staticDir, 'index.html'));
+});
 
 // Global error handler
 app.use((err, req, res, next) => {
