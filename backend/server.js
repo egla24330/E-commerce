@@ -36,13 +36,20 @@ app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/message', contactRouter);
 
-// Admin panel static serving
-app.use('/admin', history({ verbose: true }));
+// Admin panel static serving (Serve static first, then fallback)
 app.use('/admin', express.static(path.join(__dirname, 'admin-dist')));
+app.use('/admin', history({
+  verbose: true,
+  index: '/admin/index.html'
+}));
 
-// Client app static serving
-app.use('/', history({ verbose: true }));
+// Client app static serving (Serve static first, then fallback)
 app.use('/', express.static(path.join(__dirname, 'client-dist')));
+app.use('/', history({
+  verbose: true,
+  index: '/index.html'
+}));
+
 
 // Global error handler
 app.use((err, req, res, next) => {
