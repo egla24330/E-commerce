@@ -1,10 +1,9 @@
 import express from 'express';
-import dotenv from 'dotenv';
-import mongoose from 'mongoose';
-import cors from 'cors';
 import path from 'path';
 import history from 'connect-history-api-fallback';
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+import cors from 'cors';
 
 import connectToMongoDB from './configs/mongodb.js';
 import connectCloudinary from './configs/cloudinary.js';
@@ -22,15 +21,15 @@ const __dirname = path.dirname(__filename);
 dotenv.config();
 const app = express();
 
-// ✅ Connect to services
 connectToMongoDB();
 connectCloudinary();
 
-// ✅ Middleware
 app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json());
 
-// ✅ API Routes
+// ==============================
+// ✅ API ROUTES
+// ==============================
 app.use('/api/user', userRouter);
 app.use('/api/product', productRouter);
 app.use('/api/withdrawal', withdrawalRouter);
@@ -38,13 +37,13 @@ app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/message', contactRouter);
 
-/// ✅✅ IMPORTANT: Admin goes first
-const adminPath = path.join(__dirname, 'admin-dist');
+// ==============================
+// ✅ STATIC ADMIN
+// ==============================
+const adminPath = path.join(__dirname, 'admin-dist'); // or just 'dist' if that's your admin build folder
 
-// Serve static admin files
 app.use('/admin', express.static(adminPath));
 
-// Handle admin refresh (history fallback)
 app.use(
   '/admin',
   history({
@@ -53,10 +52,11 @@ app.use(
   })
 );
 
-// Serve static again after history
 app.use('/admin', express.static(adminPath));
 
-/// ✅✅ THEN Client goes after admin
+// ==============================
+// ✅ STATIC CLIENT
+// ==============================
 const clientPath = path.join(__dirname, 'client-dist');
 
 app.use('/', express.static(clientPath));
@@ -70,13 +70,17 @@ app.use(
 
 app.use('/', express.static(clientPath));
 
+// ==============================
 // ✅ Error handler
+// ==============================
 app.use((err, req, res, next) => {
   console.error('❌ Server error:', err);
   res.status(500).json({ success: false, message: 'Internal Server Error' });
 });
 
-// ✅ Start server
+// ==============================
+// ✅ START
+// ==============================
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
