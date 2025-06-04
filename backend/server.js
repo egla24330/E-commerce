@@ -36,19 +36,25 @@ app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/message', contactRouter);
 
-// Admin panel static serving (Serve static first, then fallback)
-app.use('/admin', express.static(path.join(__dirname, 'admin-dist')));
+// Admin panel SPA fallback
 app.use('/admin', history({
   verbose: true,
-  index: '/admin/index.html'
+  index: '/admin/index.html',
+  rewrites: [
+    { from: /^\/admin\/.*$/, to: '/admin/index.html' }
+  ]
 }));
+app.use('/admin', express.static(path.join(__dirname, 'admin-dist')));
 
-// Client app static serving (Serve static first, then fallback)
-app.use('/', express.static(path.join(__dirname, 'client-dist')));
+// Client SPA fallback
 app.use('/', history({
   verbose: true,
-  index: '/index.html'
+  index: '/index.html',
+  rewrites: [
+    { from: /^\/(?!admin).*/, to: '/index.html' }
+  ]
 }));
+app.use('/', express.static(path.join(__dirname, 'client-dist')));
 
 
 // Global error handler
