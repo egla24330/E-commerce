@@ -40,14 +40,18 @@ app.use('/api/message', contactRouter);
 
 
 // Admin panel history + static
+// Serve static files first
+app.use('/admin', express.static(path.join(__dirname, 'admin-dist')));
+
+// Then handle history fallback (for SPA route refreshes like /admin/orders)
 app.use('/admin', history({
   index: '/admin/index.html',
   rewrites: [{ from: /^\/admin\/.*$/, to: '/admin/index.html' }],
 }));
-app.use('/admin', express.static(path.join(__dirname, 'admin-dist')));
 
 
 
+app.use('/', express.static(path.join(__dirname, 'dist')));
 // Client SPA fallback
 app.use('/', history({
   verbose: true,
