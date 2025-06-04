@@ -22,15 +22,15 @@ const __dirname = path.dirname(__filename);
 dotenv.config();
 const app = express();
 
-// DB & Cloudinary
+// ✅ Connect to services
 connectToMongoDB();
 connectCloudinary();
 
-// Middlewares
+// ✅ Middleware
 app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json());
 
-// API Routes
+// ✅ API Routes
 app.use('/api/user', userRouter);
 app.use('/api/product', productRouter);
 app.use('/api/withdrawal', withdrawalRouter);
@@ -38,8 +38,13 @@ app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/message', contactRouter);
 
-// Serve Admin Static Files
-app.use('/admin', express.static(path.join(__dirname, 'admin-dist')));
+/// ✅✅ IMPORTANT: Admin goes first
+const adminPath = path.join(__dirname, 'admin-dist');
+
+// Serve static admin files
+app.use('/admin', express.static(adminPath));
+
+// Handle admin refresh (history fallback)
 app.use(
   '/admin',
   history({
@@ -47,24 +52,31 @@ app.use(
     rewrites: [{ from: /^\/admin\/.*$/, to: '/admin/index.html' }],
   })
 );
-app.use('/admin', express.static(path.join(__dirname, 'admin-dist'))); // re-serve after history
 
-// Serve Client Static Files
-app.use('/', express.static(path.join(__dirname, 'client-dist')));
+// Serve static again after history
+app.use('/admin', express.static(adminPath));
+
+/// ✅✅ THEN Client goes after admin
+const clientPath = path.join(__dirname, 'client-dist');
+
+app.use('/', express.static(clientPath));
+
 app.use(
   '/',
   history({
     index: '/index.html',
   })
 );
-app.use('/', express.static(path.join(__dirname, 'client-dist')));
 
-// Error handler
+app.use('/', express.static(clientPath));
+
+// ✅ Error handler
 app.use((err, req, res, next) => {
   console.error('❌ Server error:', err);
   res.status(500).json({ success: false, message: 'Internal Server Error' });
 });
 
+// ✅ Start server
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
