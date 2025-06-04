@@ -28,7 +28,7 @@ connectCloudinary();
 app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json());
 
-// API Routes
+// ========== API ROUTES ================
 app.use('/api/user', userRouter);
 app.use('/api/product', productRouter);
 app.use('/api/withdrawal', withdrawalRouter);
@@ -36,34 +36,24 @@ app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/message', contactRouter);
 
+// ========== ADMIN STATIC SETUP ================
+// Serve static files first!
+app.use('/admin', express.static(path.join(__dirname, 'dist-admin')));
 
-
-
-// Admin panel history + static
-// Serve static files first
-app.use('/admin', express.static(path.join(__dirname, 'admin-dist')));
-
-// Then handle history fallback (for SPA route refreshes like /admin/orders)
+// Use history fallback only after static
 app.use('/admin', history({
   index: '/admin/index.html',
-  rewrites: [{ from: /^\/admin\/.*$/, to: '/admin/index.html' }],
+  rewrites: [{ from: /^\/admin\/.*$/, to: '/admin/index.html' }]
 }));
 
+// ========== CLIENT STATIC SETUP ================
+app.use('/', express.static(path.join(__dirname, 'dist-client')));
 
-
-app.use('/', express.static(path.join(__dirname, 'dist')));
-// Client SPA fallback
 app.use('/', history({
-  verbose: true,
-  index: '/index.html',
-  rewrites: [
-    { from: /^\/(?!admin).*/, to: '/index.html' }
-  ]
+  index: '/index.html'
 }));
-app.use('/', express.static(path.join(__dirname, 'dist')));
 
-
-// Global error handler
+// ========== ERROR HANDLING ================
 app.use((err, req, res, next) => {
   console.error('❌ Server error:', err);
   res.status(500).json({ success: false, message: 'Internal Server Error' });
@@ -71,5 +61,5 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Server ready at http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
