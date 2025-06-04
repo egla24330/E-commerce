@@ -1,9 +1,11 @@
-// admin/vite.config.js
-
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: '/admin/', // <<< Important: tells Vite where to load assets from
+  base: '/admin/',
+  build: {
+    outDir: '../backend/admin-dist', // ✅ Save into backend folder directly
+    emptyOutDir: true,
+  },
   plugins: [react()],
-})
+});
