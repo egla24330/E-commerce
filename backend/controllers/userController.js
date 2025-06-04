@@ -53,6 +53,7 @@ const registerUser = async (req, res) => {
     try {
 
         const { name, password, email, referralCode } = req.body
+        console.log({name, password, email, referralCode})
         const exists = await userModel.findOne({ email });
         if (exists) {
             return res.json({ success: false, message: "User already exists" });
@@ -71,7 +72,7 @@ const registerUser = async (req, res) => {
             email,
             password: hashedPassword,
             coins: 0,
-           referredBy: referralCode
+            referredBy: referralCode
         });
         let code;
         let cond = true
@@ -98,7 +99,7 @@ const registerUser = async (req, res) => {
         } else {
             res.json({
                 success: false,
-                message: "samething went wrong",
+                message: "something went wrong",
             })
 
         }
