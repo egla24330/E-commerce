@@ -38,15 +38,14 @@ app.use('/api/message', contactRouter);
 
 
 
-// Admin panel SPA fallback
+
+// Admin panel history + static
 app.use('/admin', history({
-  verbose: true,
   index: '/admin/index.html',
-  rewrites: [
-    { from: /^\/admin\/.*$/, to: '/admin/index.html' },
-  ]
+  rewrites: [{ from: /^\/admin\/.*$/, to: '/admin/index.html' }],
 }));
 app.use('/admin', express.static(path.join(__dirname, 'admin-dist')));
+
 
 
 // Client SPA fallback
