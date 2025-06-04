@@ -1,12 +1,12 @@
+// client/vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import path from 'path';
 
 export default defineConfig({
-  base: '/',
+  base: '/', // default
   plugins: [react()],
   build: {
-    outDir: path.resolve(__dirname, '../backend/client-dist'),
+    outDir: '../backend/client-dist',
     emptyOutDir: true,
   },
 });
