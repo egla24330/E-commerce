@@ -57,7 +57,7 @@ app.use('/', history({
     { from: /^\/(?!admin).*/, to: '/index.html' }
   ]
 }));
-app.use('/', express.static(path.join(__dirname, 'client-dist')));
+app.use('/', express.static(path.join(__dirname, 'dist')));
 
 
 // Global error handler
