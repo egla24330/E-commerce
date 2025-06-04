@@ -2,33 +2,35 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import path from 'path';
+import history from 'connect-history-api-fallback';
+import { fileURLToPath } from 'url';
+
 import connectToMongoDB from './configs/mongodb.js';
 import connectCloudinary from './configs/cloudinary.js';
+
 import userRouter from './routes/userRoute.js';
 import productRouter from './routes/productRoute.js';
 import cartRouter from './routes/cartRouter.js';
 import orderRouter from './routes/orderRouter.js';
 import contactRouter from './routes/contactRoute.js';
 import withdrawalRouter from './routes/withdrawalRoute.js';
-import history from 'connect-history-api-fallback';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-dotenv.config({ path: './config.env' });
-
+dotenv.config();
 const app = express();
 
-// Connect DB and cloudinary
+// DB & Cloudinary
 connectToMongoDB();
 connectCloudinary();
 
+// Middlewares
 app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json());
 
-// ========== API ROUTES ================
+// API Routes
 app.use('/api/user', userRouter);
 app.use('/api/product', productRouter);
 app.use('/api/withdrawal', withdrawalRouter);
@@ -36,24 +38,28 @@ app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/message', contactRouter);
 
-// ========== ADMIN STATIC SETUP ================
-// Serve static files first!
-app.use('/admin', express.static(path.join(__dirname, 'dist-admin')));
+// Serve Admin Static Files
+app.use('/admin', express.static(path.join(__dirname, 'admin-dist')));
+app.use(
+  '/admin',
+  history({
+    index: '/admin/index.html',
+    rewrites: [{ from: /^\/admin\/.*$/, to: '/admin/index.html' }],
+  })
+);
+app.use('/admin', express.static(path.join(__dirname, 'admin-dist'))); // re-serve after history
 
-// Use history fallback only after static
-app.use('/admin', history({
-  index: '/admin/index.html',
-  rewrites: [{ from: /^\/admin\/.*$/, to: '/admin/index.html' }]
-}));
+// Serve Client Static Files
+app.use('/', express.static(path.join(__dirname, 'client-dist')));
+app.use(
+  '/',
+  history({
+    index: '/index.html',
+  })
+);
+app.use('/', express.static(path.join(__dirname, 'client-dist')));
 
-// ========== CLIENT STATIC SETUP ================
-app.use('/', express.static(path.join(__dirname, 'dist-client')));
-
-app.use('/', history({
-  index: '/index.html'
-}));
-
-// ========== ERROR HANDLING ================
+// Error handler
 app.use((err, req, res, next) => {
   console.error('❌ Server error:', err);
   res.status(500).json({ success: false, message: 'Internal Server Error' });
@@ -61,5 +67,5 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
