@@ -36,15 +36,18 @@ app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/message', contactRouter);
 
+
+
 // Admin panel SPA fallback
 app.use('/admin', history({
   verbose: true,
   index: '/admin/index.html',
   rewrites: [
-    { from: /^\/admin\/.*$/, to: '/admin/index.html' }
+    { from: /^\/admin\/.*$/, to: '/admin/index.html' },
   ]
 }));
 app.use('/admin', express.static(path.join(__dirname, 'admin-dist')));
+
 
 // Client SPA fallback
 app.use('/', history({
