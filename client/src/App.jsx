@@ -32,6 +32,8 @@ const Terms = lazy(()=>import('./pages/Terms'))
 const HelpCenter =lazy(()=>import('./pages/HelpCenter'))
 const Shipping =lazy(()=>import('./pages/Shipping'))
 const DevelopedBy =lazy(()=>import('./pages/DevelopedBy'))
+const FeedbackForm =lazy(()=>import('./pages/FeedbackForm'))
+
 
 const App = () => {
 
@@ -72,6 +74,7 @@ const App = () => {
             <Route path='/support' element={<HelpCenter/>}/>
             <Route path='/shipping' element={<Shipping/>}/>
             <Route path='/dev' element={<DevelopedBy/>}/>
+             <Route path='/feed-back-form' element={<FeedbackForm/>}/>
             <Route path="*" element={<Pagenotfound />} />
           </Routes>
         </Suspense>
