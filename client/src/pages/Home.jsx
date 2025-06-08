@@ -6,6 +6,9 @@ import Newslatter from '../components/Newslatter'
 import Feature from '../components/Feature'
 import CategoryListPage from '../components/CategoryListPage'
 import Testimonials from '../components/Testimonials'
+
+
+
 import { Helmet } from 'react-helmet'
 
 const Home = () => {
@@ -25,6 +28,7 @@ const Home = () => {
                 <Feature />
                 <Ourpolicy />
                 <Testimonials />
+             
             </div>
         </>
     )

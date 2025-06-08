@@ -33,6 +33,7 @@ const HelpCenter =lazy(()=>import('./pages/HelpCenter'))
 const Shipping =lazy(()=>import('./pages/Shipping'))
 const DevelopedBy =lazy(()=>import('./pages/DevelopedBy'))
 const FeedbackForm =lazy(()=>import('./pages/FeedbackForm'))
+import Chatbot from './components/Chatbot'
 
 
 const App = () => {
@@ -76,9 +77,11 @@ const App = () => {
             <Route path='/dev' element={<DevelopedBy/>}/>
              <Route path='/feed-back-form' element={<FeedbackForm/>}/>
             <Route path="*" element={<Pagenotfound />} />
+
           </Routes>
         </Suspense>
       </div>
+      <Chatbot/>
       <Footer/>
     </>
   )

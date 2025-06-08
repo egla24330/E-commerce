@@ -74,7 +74,7 @@ const Footer = () => {
                     to="/dev"
                     className="font-medium text-indigo-600 hover:text-indigo-800 transition-colors group"
                 >
-                    Dataora
+                    Datora
                     <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
                 </Link>
             </div>

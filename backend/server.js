@@ -14,6 +14,7 @@ import cartRouter from './routes/cartRouter.js';
 import orderRouter from './routes/orderRouter.js';
 import contactRouter from './routes/contactRoute.js';
 import withdrawalRouter from './routes/withdrawalRoute.js';
+import chatbotRouter from './routes/chatbotRouter.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -36,6 +37,7 @@ app.use('/api/withdrawal', withdrawalRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/message', contactRouter);
+app.use('/api/my-bot',chatbotRouter)
 
 // ==============================
 // ✅ STATIC ADMIN
