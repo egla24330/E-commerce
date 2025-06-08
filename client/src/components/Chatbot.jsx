@@ -1,8 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect,useContext } from "react";
 import { FiMessageSquare, FiX } from "react-icons/fi";
 import ReactMarkdown from "react-markdown";
-
+import { ShopContext } from "../context/Shopcontext";
 const Chatbot = () => {
+  const {AI} = useContext(ShopContext);
+  console.log({AI})
   const [open, setOpen] = useState(false);
   const [inputText, setInputText] = useState("");
   const [messages, setMessages] = useState([]);
@@ -16,12 +18,37 @@ You are a helpful assistant for YegnaCart, an Ethiopian-based e-commerce platfor
 
 💳 After checkout, users upload bank receipts to verify payments. If a product is not yet verified, the assistant should show a warning icon and guide users to click "Verify" at the top right to upload their receipt.
 
-💸 NetMarket System: Users registered under someone can earn coins when they buy goods. 1 coin = 0.25 ETB. To request withdrawals: click the profile icon → My Profile → Withdrawal Request → Fill in coin amount, Account Holder Name, Phone Number, and Bank Account Number.
+💸 NetMarket System: Users registered under someone can earn coins when they buy goods. 1 coin = 0.25 ETB. To request withdrawals: click the profile icon → My Profile → Withdrawal Request → Fill in coin amount, Account Holder Name, Phone Number, and Bank Account Number  and minimum Withdrawal coin is 999 coins.
 
-🛠️ Built & Maintained by Datora — a digital studio founded by Abdi. Our mission is to empower local businesses through modern digital commerce. We value innovation, impact, and quality engineering.
+🛠️ Built & Maintained by Datora — a digital studio founded by Abdi Gemechu and Betel Syoum. Our mission is to empower local businesses through modern digital commerce. We value innovation, impact, and quality engineering.
 
 Keep responses friendly, simple, and helpful.
 `;
+
+const speak = (text) => {
+    if (synth.speaking) synth.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US";
+    utterance.rate = 1;
+    synth.speak(utterance);
+  };
+
+  const handleVoiceInput = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) return alert("Your browser doesn't support voice input.");
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = "en-US";
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onresult = (event) => {
+      const speechText = event.results[0][0].transcript;
+      setInputText(speechText);
+    };
+    recognition.start();
+  };
+
 
   const scrollToBottom = () => {
     chatRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -45,7 +72,7 @@ Keep responses friendly, simple, and helpful.
       const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         method: "POST",
         headers: {
-          Authorization: "Bearer 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",
+          Authorization: `Bearer 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`,
           "Content-Type": "application/json",
           "HTTP-Referer": "https://your-domain.com",
           "X-Title": "YegnaCart Chatbot"
@@ -63,6 +90,7 @@ Keep responses friendly, simple, and helpful.
 
       // Simulate word-by-word typing
       let display = "";
+     
       const words = fullResponse.split(" ");
       for (let i = 0; i < words.length; i++) {
         await new Promise((r) => setTimeout(r, 25));
@@ -72,6 +100,8 @@ Keep responses friendly, simple, and helpful.
           { role: "assistant", content: display.trim() }
         ]);
       }
+
+
     } catch (err) {
       setMessages([
         ...newMessages,
@@ -119,20 +149,27 @@ Keep responses friendly, simple, and helpful.
           </div>
 
           <form onSubmit={handleSubmit} className="flex gap-2 border-t px-3 py-2">
-            <input
-              type="text"
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-              placeholder="Type a question..."
-              className="flex-1 text-sm px-3 py-2 border rounded-full outline-none"
-            />
-            <button
-              type="submit"
-              className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-full text-sm"
-            >
-              Send
-            </button>
-          </form>
+        <button
+          type="button"
+          onClick={handleVoiceInput}
+          className="text-xl text-gray-600 hover:text-indigo-500"
+        >
+          🎙️
+        </button>
+        <input
+          type="text"
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+          placeholder="Type a question..."
+          className="flex-1 text-sm px-3 py-2 border rounded-full outline-none"
+        />
+        <button
+          type="submit"
+          className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-full text-sm"
+        >
+          Send
+        </button>
+      </form>
         </div>
       )}
     </>
