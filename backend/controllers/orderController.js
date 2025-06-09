@@ -3,9 +3,10 @@ import userModel from "../models/userModel.js";
 import { v2 as cloudinary } from 'cloudinary';
 import axios from 'axios'
 
+  const botToken ='8104420367:AAGaW20GFPrjYTiYzXAIHjIL955UfCq2izI'; // const chatId = 5200971756
+  const chatIds =[6804194223, 5200971756];
+
 const sendTelegramAlert = async ({ name, phone, total, cartItems }) => {
-  const botToken = '8104420367:AAGaW20GFPrjYTiYzXAIHjIL955UfCq2izI'; // const chatId = 5200971756
-  const chatIds = [6804194223, 5200971756];
 
   //const items = cartItems.map(item => `- ${item.name}`).join('\n');
   const items = cartItems.map(item => {
@@ -62,15 +63,15 @@ const addOrder = async (req, res) => {
       receiptUrl: '',
       userId
     })
-    let order = await newOrder.save();
-
+    
     await sendTelegramAlert({
       name: form.name,
       phone: form.phone,
       total: totalPrice,
       cartItems,
-    });
+    }); 
 
+    let order = await newOrder.save();
     res.json({
       success: true,
       message: "Order added successfully",
@@ -197,8 +198,6 @@ const updateOrder = async (req, res) => {
       message: "Order updated successfully",
       order: updatedOrder,
     });
-   
-
   } catch (error) {
     res.json({
       success: false,
