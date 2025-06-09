@@ -28,8 +28,7 @@ const sendTelegramAlert = async ({ name, phone, total, cartItems }) => {
     try {
       await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         chat_id: chatId,
-        photo: 'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
-        message: msg, 
+        text: msg, 
         parse_mode: 'Markdown',
       });
     } catch (err) {
