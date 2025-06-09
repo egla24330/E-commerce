@@ -16,7 +16,7 @@ const sendTelegramAlert = async ({ name, phone, total, cartItems, photo, id }) =
       : '';
 
     return `- ${item.product?.name} (Qty: ${item.quantity}${variantText})`;
-  }).join('\n');
+  }).join('\n')||''
   const message = `📦${photo ? '*order verification msg*' : '*this from backed!!! New Order!*\n👤 '} *Name:* ${name}
   \n📞 *Phone:* +251${phone}\n💰 *Total:* ETB ${total}\n🛒 *Items:*\n${items}`;
 
@@ -37,6 +37,7 @@ const sendTelegramAlert = async ({ name, phone, total, cartItems, photo, id }) =
       });
     } catch (err) {
       console.error(`Failed to send to ${chatId}:`, err.message);
+      
     }
   }
 
@@ -189,6 +190,11 @@ const updateOrder = async (req, res) => {
       imageUrls.push(r.secure_url);
 
     }
+
+     await sendTelegramAlert({
+      id,
+      photo: imageUrls[0]
+    });
     //Example: update the order with the receipt URL(s)
     const updatedOrder = await orderModel.findByIdAndUpdate(
       id,
@@ -200,10 +206,7 @@ const updateOrder = async (req, res) => {
       message: "Order updated successfully",
       order: updatedOrder,
     });
-    await sendTelegramAlert({
-      id,
-      photo: imageUrls[0]
-    });
+   
 
   } catch (error) {
     res.json({
