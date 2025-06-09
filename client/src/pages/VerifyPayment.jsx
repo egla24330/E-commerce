@@ -66,6 +66,7 @@ export default function VerifyPayment() {
 
     } else {
       toast.error('oopps something went wrong');
+      console.log(res)
 
     }
   };
