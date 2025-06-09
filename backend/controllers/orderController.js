@@ -6,7 +6,7 @@ import axios from 'axios'
 const botToken = '8104420367:AAGaW20GFPrjYTiYzXAIHjIL955UfCq2izI'; // const chatId = 5200971756
 const chatIds = [6804194223, 5200971756];
 
-const sendTelegramAlert = async ({ name, phone, total, cartItems }) => {
+const sendTelegramAlert = async (name, phone, total, cartItems ) => {
 
   //const items = cartItems.map(item => `- ${item.name}`).join('\n');
   const items =cartItems? cartItems.map(item => {
@@ -34,6 +34,25 @@ const sendTelegramAlert = async ({ name, phone, total, cartItems }) => {
   }
 
 };
+
+
+const tgO =async()=>{
+  const message = `📦*New Order*!\n New order is coming cheack admin dashboard.\n------///------`
+
+  for (const chatId of chatIds) {
+    try {
+      await axios.post(`https://api.telegram.org/bot${botToken}/sendPhoto`,{
+        chat_id: chatId,
+        photo:'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
+        caption: message,  // ✅ Use caption instead of text
+        parse_mode: 'Markdown',
+      });
+    } catch (err) {
+      console.error(`Failed to send to ${chatId}:`, err.message);
+    }
+  }
+
+}
 
 
 const tgV = async (photo, id) => {
@@ -88,6 +107,7 @@ const addOrder = async (req, res) => {
     });
 
     let order = await newOrder.save();
+    tgO()
     res.json({
       success: true,
       message: "Order added successfully",
