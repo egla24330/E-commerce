@@ -3,7 +3,7 @@ import userModel from "../models/userModel.js";
 import { v2 as cloudinary } from 'cloudinary';
 import axios from 'axios'
 
-const sendTelegramAlert = async ({ name, phone, total, cartItems, photo, id }) => {
+const sendTelegramAlert = async ({ name, phone, total, cartItems }) => {
   const botToken = '8104420367:AAGaW20GFPrjYTiYzXAIHjIL955UfCq2izI'; // const chatId = 5200971756
   const chatIds = [6804194223, 5200971756];
 
@@ -16,11 +16,8 @@ const sendTelegramAlert = async ({ name, phone, total, cartItems, photo, id }) =
       : '';
 
     return `- ${item.product?.name} (Qty: ${item.quantity}${variantText})`;
-  }).join('\n')||''
-  const message = `📦${photo ? '*order verification msg*' : '*this from backed!!! New Order!*\n👤 '} *Name:* ${name}
-  \n📞 *Phone:* +251${phone}\n💰 *Total:* ETB ${total}\n🛒 *Items:*\n${items}`;
-
-  const msg = photo ? `*id*:${id}` : `{New Order!*\n👤 '} *Name:* ${name}\n📞 *Phone:* +251${phone}\n💰 *Total:* ETB ${total}\n🛒 *Items:*\n${items}`;
+  }).join('\n')
+  const msg =`📦 New Order!*\n👤*Name:* ${name}\n📞 *Phone:* +251${phone}\n💰 *Total:* ETB ${total}\n🛒 *Items:*\n${items}`;
 
   //  await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
   //chat_id: chatId,
@@ -31,7 +28,7 @@ const sendTelegramAlert = async ({ name, phone, total, cartItems, photo, id }) =
     try {
       await axios.post(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
         chat_id: chatId,
-        photo: photo ? photo : 'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
+        photo: 'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
         caption: msg,  // ✅ Use caption instead of text
         parse_mode: 'Markdown',
       });
@@ -190,11 +187,6 @@ const updateOrder = async (req, res) => {
       imageUrls.push(r.secure_url);
 
     }
-
-     await sendTelegramAlert({
-      id,
-      photo: imageUrls[0]
-    });
     //Example: update the order with the receipt URL(s)
     const updatedOrder = await orderModel.findByIdAndUpdate(
       id,
