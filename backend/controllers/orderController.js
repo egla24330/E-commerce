@@ -26,10 +26,10 @@ const sendTelegramAlert = async ({ name, phone, total, cartItems }) => {
   //  });
   for (const chatId of chatIds) {
     try {
-      await axios.post(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+      await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         chat_id: chatId,
         photo: 'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
-        caption: msg,  // ✅ Use caption instead of text
+        message: msg, 
         parse_mode: 'Markdown',
       });
     } catch (err) {
