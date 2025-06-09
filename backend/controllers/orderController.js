@@ -3,13 +3,13 @@ import userModel from "../models/userModel.js";
 import { v2 as cloudinary } from 'cloudinary';
 import axios from 'axios'
 
-  const botToken ='8104420367:AAGaW20GFPrjYTiYzXAIHjIL955UfCq2izI'; // const chatId = 5200971756
-  const chatIds =[6804194223, 5200971756];
+const botToken = '8104420367:AAGaW20GFPrjYTiYzXAIHjIL955UfCq2izI'; // const chatId = 5200971756
+const chatIds = [6804194223, 5200971756];
 
 const sendTelegramAlert = async ({ name, phone, total, cartItems }) => {
 
   //const items = cartItems.map(item => `- ${item.name}`).join('\n');
-  const items = cartItems.map(item => {
+  const items =cartItems? cartItems.map(item => {
     const variantText = item.variant
       ? ' ' + Object.entries(item.variant).map(([key, val]) =>
         `${key.charAt(0).toUpperCase() + key.slice(1)}: ${val?.value}`
@@ -17,28 +17,44 @@ const sendTelegramAlert = async ({ name, phone, total, cartItems }) => {
       : '';
 
     return `- ${item.product?.name} (Qty: ${item.quantity}${variantText})`;
-  }).join('\n')
-  const msg =`📦 New Order!*\n👤*Name:* ${name}\n📞 *Phone:* +251${phone}\n💰 *Total:* ETB ${total}\n🛒 *Items:*\n${items}`;
+  }).join('\n') :''
 
-  //  await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-  //chat_id: chatId,
-  // text: message,
-  //  parse_mode: 'Markdown',
-  //  });
+  const message = `📦 New Order!*\n👤*Name:* ${name}\n📞 *Phone:* +251${phone}\n💰 *Total:* ETB ${total}\n🛒 *Items:*\n${items}`;
   for (const chatId of chatIds) {
     try {
-      await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`,{
         chat_id: chatId,
-        text: msg, 
+        text: message,
         parse_mode: 'Markdown',
       });
     } catch (err) {
       console.error(`Failed to send to ${chatId}:`, err.message);
-      
+
     }
   }
 
 };
+
+
+const tgV = async (photo, id) => {
+
+  const message = `📦Order verfication!\n Id:${id}`
+
+  for (const chatId of chatIds) {
+    try {
+      await axios.post(`https://api.telegram.org/bot${botToken}/sendPhoto`,{
+        chat_id: chatId,
+        photo: photo ? photo : 'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
+        caption: message,  // ✅ Use caption instead of text
+        parse_mode: 'Markdown',
+      });
+    } catch (err) {
+      console.error(`Failed to send to ${chatId}:`, err.message);
+    }
+  }
+
+
+}
 
 const addOrder = async (req, res) => {
   try {
@@ -63,13 +79,13 @@ const addOrder = async (req, res) => {
       receiptUrl: '',
       userId
     })
-    
+
     await sendTelegramAlert({
       name: form.name,
       phone: form.phone,
       total: totalPrice,
       cartItems,
-    }); 
+    });
 
     let order = await newOrder.save();
     res.json({
@@ -187,6 +203,8 @@ const updateOrder = async (req, res) => {
       imageUrls.push(r.secure_url);
 
     }
+
+    tgV(imageUrls[0],id)
     //Example: update the order with the receipt URL(s)
     const updatedOrder = await orderModel.findByIdAndUpdate(
       id,
