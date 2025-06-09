@@ -8,15 +8,17 @@ const sendTelegramAlert = async ({ name, phone, total, cartItems, photo, id }) =
   const chatIds = [6804194223, 5200971756];
 
   //const items = cartItems.map(item => `- ${item.name}`).join('\n');
-  const items = cartItems.map(item => {
-    const variantText = item.variant
-      ? ' ' + Object.entries(item.variant).map(([key, val]) =>
-        `${key.charAt(0).toUpperCase() + key.slice(1)}: ${val?.value}`
-      ).join(', ')
-      : '';
+  const items = cartItems
+    ? cartItems.map(item => {
+        const variantText = item.variant
+          ? ' ' + Object.entries(item.variant).map(([key, val]) =>
+              `${key.charAt(0).toUpperCase() + key.slice(1)}: ${val?.value}`
+            ).join(', ')
+          : '';
 
-    return `- ${item.product?.name} (Qty: ${item.quantity}${variantText})`;
-  }).join('\n');
+        return `- ${item.product?.name} (Qty: ${item.quantity}${variantText})`;
+      }).join('\n')
+    : '';
   const message = `📦${photo ? '*order verification msg*' : '*this from backed!!! New Order!*\n👤 '} *Name:* ${name}
   \n📞 *Phone:* +251${phone}\n💰 *Total:* ETB ${total}\n🛒 *Items:*\n${items}`;
 
@@ -32,7 +34,7 @@ const sendTelegramAlert = async ({ name, phone, total, cartItems, photo, id }) =
       await axios.post(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
         chat_id: chatId,
         photo: photo ? photo : 'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
-        caption: message,  // ✅ Use caption instead of text
+        caption: msg,  // ✅ Use caption instead of text
         parse_mode: 'Markdown',
       });
     } catch (err) {
@@ -189,6 +191,11 @@ const updateOrder = async (req, res) => {
       imageUrls.push(r.secure_url);
 
     }
+
+    await sendTelegramAlert({
+      id,
+      photo: imageUrls[0]
+    });
     //Example: update the order with the receipt URL(s)
     const updatedOrder = await orderModel.findByIdAndUpdate(
       id,
@@ -200,10 +207,7 @@ const updateOrder = async (req, res) => {
       message: "Order updated successfully",
       order: updatedOrder,
     });
-    await sendTelegramAlert({
-      id,
-      photo: imageUrls[0]
-    });
+    
 
   } catch (error) {
     res.json({
