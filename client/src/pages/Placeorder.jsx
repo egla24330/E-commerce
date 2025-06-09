@@ -30,45 +30,6 @@ const Placeorder = () => {
   const [totalPrice, setTotalPrice] = useState(getCartTotal() + delivery_fee);
   const [paymentMethod, setPaymentMethod] = useState('');
   const navigate = useNavigate();
-
-  const sendTelegramAlert = async ({ name, phone, total, cartItems }) => {
-    const botToken = '8104420367:AAGaW20GFPrjYTiYzXAIHjIL955UfCq2izI';
-    const chatId = 5200971756
-    const chatIds = [6804194223,5200971756];
-
-    //const items = cartItems.map(item => `- ${item.name}`).join('\n');
-    const items = cartItems.map(item => {
-  const variantText = item.variant
-    ? ' ' + Object.entries(item.variant).map(([key, val]) => 
-        `${key.charAt(0).toUpperCase() + key.slice(1)}: ${val?.value}`
-      ).join(', ')
-    : '';
-
-  return `- ${item.product?.name} (Qty: ${item.quantity}${variantText})`;
-}).join('\n');
-    const message = `📦 *New Order!*\n👤 *Name:* ${name}\n📞 *Phone:* +251${phone}\n💰 *Total:* ETB ${total}\n🛒 *Items:*\n${items}`;
-
-  //  await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-      //chat_id: chatId,
-     // text: message,
-    //  parse_mode: 'Markdown',
-  //  });
-  for (const chatId of chatIds) {
-  try {
-    await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-      chat_id: chatId,
-      text: message,
-      parse_mode: 'Markdown',
-    });
-  } catch (err) {
-    console.error(`Failed to send to ${chatId}:`, err.message);
-  }
-}
-
-
-  };
-
-
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -222,7 +183,7 @@ const Placeorder = () => {
         cartItems,
         totalPrice,
       })
-      console.log('cart',cartItems)
+      console.log('cart', cartItems)
       const response = await axios.post(`${backendurl}/api/order/add`, {
         form,
         paymentMethod,
@@ -231,12 +192,6 @@ const Placeorder = () => {
       }, { headers: { token } });
 
       if (response.data.success) {
-        await sendTelegramAlert({
-          name: form.name,
-          phone: form.phone,
-          total: totalPrice,
-          cartItems,
-        });
 
         toast.success('Order placed successfully');
         navigate('/verify-payment/' + response.data.order);

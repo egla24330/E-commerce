@@ -44,7 +44,7 @@
  * @description Provides methods for user authentication, including login, logout, and registration.
  */
 
- api key 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
+ //api key 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
 api key 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
 
 

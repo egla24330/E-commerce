@@ -72,15 +72,15 @@ const speak = (text) => {
       const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         method: "POST",
         headers: {
-          Authorization: `Bearer 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`,
+          "Authorization": "Bearer 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",
           "Content-Type": "application/json",
-          "HTTP-Referer": "https://your-domain.com",
+          "HTTP-Referer": "https://localhost:3000",
           "X-Title": "YegnaCart Chatbot"
         },
         body: JSON.stringify({
-          model: "deepseek/deepseek-r1-0528:free",
-          messages: [
-            { role: "user", content: `${platformInfo}\nUser: ${userMessage}` }
+          "model": "deepseek/deepseek-r1-0528:free",
+          "messages": [
+            { "role": "user", "content": `${platformInfo}\nUser: ${userMessage}` }
           ]
         })
       });

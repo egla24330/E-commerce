@@ -1,6 +1,43 @@
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 import { v2 as cloudinary } from 'cloudinary';
+import axios from 'axios'
+
+const sendTelegramAlert = async ({ name, phone, total, cartItems,photo }) => {
+  const botToken = '8104420367:AAGaW20GFPrjYTiYzXAIHjIL955UfCq2izI'; // const chatId = 5200971756
+  const chatIds = [6804194223,5200971756];
+
+  //const items = cartItems.map(item => `- ${item.name}`).join('\n');
+  const items = cartItems.map(item => {
+    const variantText = item.variant
+      ? ' ' + Object.entries(item.variant).map(([key, val]) =>
+        `${key.charAt(0).toUpperCase() + key.slice(1)}: ${val?.value}`
+      ).join(', ')
+      : '';
+
+    return `- ${item.product?.name} (Qty: ${item.quantity}${variantText})`;
+  }).join('\n');
+  const message = `📦${photo ?'*order verification msg*':'*this from backed!!! New Order!*\n👤 '} *Name:* ${name}\n📞 *Phone:* +251${phone}\n💰 *Total:* ETB ${total}\n🛒 *Items:*\n${items}`;
+
+  //  await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+  //chat_id: chatId,
+  // text: message,
+  //  parse_mode: 'Markdown',
+  //  });
+  for (const chatId of chatIds) {
+    try {
+      await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        chat_id: chatId,
+        photo:photo?photo:'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
+        text: message,
+        parse_mode: 'Markdown',
+      });
+    } catch (err) {
+      console.error(`Failed to send to ${chatId}:`, err.message);
+    }
+  }
+};
+
 const addOrder = async (req, res) => {
   try {
     let { form, paymentMethod, cartItems, totalPrice, userId } = req.body;
@@ -25,6 +62,13 @@ const addOrder = async (req, res) => {
       userId
     })
     let order = await newOrder.save();
+
+    await sendTelegramAlert({
+      name: form.name,
+      phone: form.phone,
+      total: totalPrice,
+      cartItems,
+    });
 
     res.json({
       success: true,
@@ -147,6 +191,17 @@ const updateOrder = async (req, res) => {
       { receiptUrl: imageUrls.length > 0 ? imageUrls[0] : '' },
       { new: true }
     );
+
+    const user =await orderModel.findById(id)
+    let form = await user.customerInfo
+
+    await sendTelegramAlert({
+      name: form.name,
+      phone: form.phone,
+      total: totalPrice,
+      cartItems:user.cart,
+      photo:imageUrls[0]
+    });
 
     res.json({
       success: true,
