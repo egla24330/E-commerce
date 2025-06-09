@@ -99,15 +99,17 @@ const addOrder = async (req, res) => {
       userId
     })
 
+
+    let order = await newOrder.save();
+    tgO()
+    
     await sendTelegramAlert({
       name: form.name,
       phone: form.phone,
       total: totalPrice,
       cartItems,
     });
-
-    let order = await newOrder.save();
-    tgO()
+    
     res.json({
       success: true,
       message: "Order added successfully",
