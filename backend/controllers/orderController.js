@@ -3,7 +3,7 @@ import userModel from "../models/userModel.js";
 import { v2 as cloudinary } from 'cloudinary';
 import axios from 'axios'
 
-const sendTelegramAlert = async ({ name, phone, total, cartItems,photo }) => {
+const sendTelegramAlert = async ({ name, phone, total, cartItems,photo,id}) => {
   const botToken = '8104420367:AAGaW20GFPrjYTiYzXAIHjIL955UfCq2izI'; // const chatId = 5200971756
   const chatIds = [6804194223,5200971756];
 
@@ -17,7 +17,10 @@ const sendTelegramAlert = async ({ name, phone, total, cartItems,photo }) => {
 
     return `- ${item.product?.name} (Qty: ${item.quantity}${variantText})`;
   }).join('\n');
-  const message = `📦${photo ?'*order verification msg*':'*this from backed!!! New Order!*\n👤 '} *Name:* ${name}\n📞 *Phone:* +251${phone}\n💰 *Total:* ETB ${total}\n🛒 *Items:*\n${items}`;
+  const message = `📦${photo ?'*order verification msg*':'*this from backed!!! New Order!*\n👤 '} *Name:* ${name}
+  \n📞 *Phone:* +251${phone}\n💰 *Total:* ETB ${total}\n🛒 *Items:*\n${items}`;
+
+  const msg = photo ? `*id*:${id}`: `{New Order!*\n👤 '} *Name:* ${name}\n📞 *Phone:* +251${phone}\n💰 *Total:* ETB ${total}\n🛒 *Items:*\n${items}`;
 
   //  await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
   //chat_id: chatId,
@@ -25,17 +28,18 @@ const sendTelegramAlert = async ({ name, phone, total, cartItems,photo }) => {
   //  parse_mode: 'Markdown',
   //  });
   for (const chatId of chatIds) {
-    try {
-      await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        chat_id: chatId,
-        photo:photo?photo:'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
-        text: message,
-        parse_mode: 'Markdown',
-      });
-    } catch (err) {
-      console.error(`Failed to send to ${chatId}:`, err.message);
-    }
+  try {
+    await axios.post(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+      chat_id: chatId,
+      photo: photo ? photo : 'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
+      caption: message,  // ✅ Use caption instead of text
+      parse_mode: 'Markdown',
+    });
+  } catch (err) {
+    console.error(`Failed to send to ${chatId}:`, err.message);
   }
+}
+
 };
 
 const addOrder = async (req, res) => {
@@ -192,17 +196,10 @@ const updateOrder = async (req, res) => {
       { new: true }
     );
 
-    const user =await orderModel.findById(id)
-    let form = await user.customerInfo
-
-    await sendTelegramAlert({
-      name: form.name,
-      phone: form.phone,
-      total: totalPrice,
-      cartItems:user.cart,
+   await sendTelegramAlert({
+      id,
       photo:imageUrls[0]
     });
-
     res.json({
       success: true,
       message: "Order updated successfully",
