@@ -6,10 +6,10 @@ import axios from 'axios'
 const botToken = '8104420367:AAGaW20GFPrjYTiYzXAIHjIL955UfCq2izI'; // const chatId = 5200971756
 const chatIds = [6804194223, 5200971756];
 
-const sendTelegramAlert = async (name, phone, total, cartItems ) => {
+const sendTelegramAlert = async (name, phone, total, cartItems) => {
 
   //const items = cartItems.map(item => `- ${item.name}`).join('\n');
-  const items =cartItems? cartItems.map(item => {
+  const items = cartItems ? cartItems.map(item => {
     const variantText = item.variant
       ? ' ' + Object.entries(item.variant).map(([key, val]) =>
         `${key.charAt(0).toUpperCase() + key.slice(1)}: ${val?.value}`
@@ -17,12 +17,12 @@ const sendTelegramAlert = async (name, phone, total, cartItems ) => {
       : '';
 
     return `- ${item.product?.name} (Qty: ${item.quantity}${variantText})`;
-  }).join('\n') :''
+  }).join('\n') : ''
 
   const message = `📦 New Order!*\n👤*Name:* ${name}\n📞 *Phone:* +251${phone}\n💰 *Total:* ETB ${total}\n🛒 *Items:*\n${items}`;
   for (const chatId of chatIds) {
     try {
-      await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`,{
+      await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         chat_id: chatId,
         text: message,
         parse_mode: 'Markdown',
@@ -36,14 +36,25 @@ const sendTelegramAlert = async (name, phone, total, cartItems ) => {
 };
 
 
-const tgO =async()=>{
-  const message = `📦*New Order*!\n New order is coming cheack admin dashboard.\n------///------`
+const tgO = async (name,phone,price,cartItems) => {
+
+  const item = cartItems.map(item => {
+    const variantText = item.variant
+      ? ' ' + Object.entries(item.variant).map(([key, val]) =>
+        `${key.charAt(0).toUpperCase() + key.slice(1)}: ${val?.value}`
+      ).join(', ')
+      : '';
+
+    return `- ${item.product?.name} (Qty: ${item.quantity}${variantText})`;
+  }).join('\n')
+
+const message = `📦*New Order*!\n*Name*: ${name}\n *phone number *: +251${phone}\n *Total price * : ${price}\n *item*: ${item} New order is coming cheack admin dashboard.\n------///------`
 
   for (const chatId of chatIds) {
     try {
-      await axios.post(`https://api.telegram.org/bot${botToken}/sendPhoto`,{
+      await axios.post(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
         chat_id: chatId,
-        photo:'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
+        photo: 'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
         caption: message,  // ✅ Use caption instead of text
         parse_mode: 'Markdown',
       });
@@ -61,7 +72,7 @@ const tgV = async (photo, id) => {
 
   for (const chatId of chatIds) {
     try {
-      await axios.post(`https://api.telegram.org/bot${botToken}/sendPhoto`,{
+      await axios.post(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
         chat_id: chatId,
         photo: photo ? photo : 'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
         caption: message,  // ✅ Use caption instead of text
@@ -101,15 +112,16 @@ const addOrder = async (req, res) => {
 
 
     let order = await newOrder.save();
-    tgO()
+    const name = form.name
+    const phone = form.phone
+    const price  = totalPrice
     
-    await sendTelegramAlert({
-      name: form.name,
-      phone: form.phone,
-      total: totalPrice,
-      cartItems,
-    });
-    
+      tgO(name,phone,price,cartItems)
+
+    //await sendTelegramAlert({
+
+    // });
+
     res.json({
       success: true,
       message: "Order added successfully",
@@ -226,7 +238,7 @@ const updateOrder = async (req, res) => {
 
     }
 
-    tgV(imageUrls[0],id)
+    tgV(imageUrls[0], id)
     //Example: update the order with the receipt URL(s)
     const updatedOrder = await orderModel.findByIdAndUpdate(
       id,
