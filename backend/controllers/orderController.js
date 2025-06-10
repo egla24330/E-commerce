@@ -18,10 +18,10 @@ const tgO = async (name, phone, price, cartItems) => {
     return `- ${item.product?.name} (Qty: ${item.quantity}${variantText})`;
   }).join('\n')
   const newOrderMessage = `🛍️ *New Order Received!*\n\n` +
-    `👤 *Customer*: ${name}\n` +
-    `📞 *Phone*: +251${phone}\n` +
-    `💰 *Total Price*: ${price}\n` +
-    `📦 *Items*: ${item}\n\n` +
+    `👤 Customer: ${name}\n\n` +
+    `📞 Phone: +251${phone}\n\n` +
+    `💰 Total Price: ${price}\n\n` +
+    `📦 Items: ${item}\n\n` +
     `🧾 Please review it in the admin dashboard!\n\n` +
     `🎯 *Status*: _Pending verification_\n` +
     `\n🔗 Tap the button below to view the order:\n━━━━━━━━━━━━━━━`;

@@ -8,6 +8,10 @@ import axios from "axios";
 import ReceiptSuccessModal from '../components/ReceiptSuccessModal'
 import { Helmet } from "react-helmet";
 export default function VerifyPayment() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+  
   const [receipt, setReceipt] = useState(null);
   const [status, setStatus] = useState("");
   const [name, setName] = useState("");
