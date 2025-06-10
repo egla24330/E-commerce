@@ -54,11 +54,18 @@ const Login = () => {
           password: formData.password,
           referralCode
         })
-        toast.success(res.data.message)
-        setToken(res.data.token)
-        localStorage.setItem('token', res.data.token)
-        setFormData({ name: '', email: '', password: '' })
-        navigate('/')
+
+        if (res.data.success) {
+          toast.success(res.data.message)
+          setToken(res.data.token)
+          localStorage.setItem('token', res.data.token)
+          setFormData({ name: '', email: '', password: '' })
+          navigate('/')
+          navigate('/')
+        } else {
+          toast.error(res.data.message)
+        }
+
       } else {
         let res = await axios.post(`${backendurl}/api/user/login`, {
           email: formData.email,
@@ -188,7 +195,7 @@ const Login = () => {
                 onClick={() => setShowPassword(prev => !prev)}
                 className="absolute top-1/2 right-3 -translate-y-1/2 text-indigo-400 hover:text-indigo-600 transition"
               >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
               </button>
             </div>
 
