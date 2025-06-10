@@ -10,10 +10,12 @@ import 'react-image-gallery/styles/css/image-gallery.css';
 import { ShopContext } from '../context/Shopcontext.jsx';
 import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const ProductPage = () => {
-
+  let navi = useNavigate()
 
   const { currency, backendurl, addToCart, itemCount, removeCartItem, subtotal } = useContext(ShopContext);
   const { id } = useParams();
@@ -73,8 +75,7 @@ const ProductPage = () => {
       toast.error('Please select all options before adding to cart.');
       return;
     }
-    window.location.href = '/cart';
-
+    navi('/cart')
     addToCart(product, selectedVariant, 1);
     
     //toast.success('Added to cart');
