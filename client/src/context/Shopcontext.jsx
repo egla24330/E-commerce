@@ -6,8 +6,7 @@ import { Import } from 'lucide-react';
 export const ShopContext = createContext();
 //push into git
 const ShopProvider = (props) => {
-  const backendurl = 'http://localhost:4000'
-  // || 'https://e-commerce-backend-bo7f.onrender.com';
+  const backendurl = 'https://e-commerce-backend-bo7f.onrender.com';
   //console.log('test 1', import.meta.env.VITE_TELEGRAM_BOT_TOKEN)
  // console.log('test', import.meta.VITE_OPENAI_KEY)
  //console.log(import.meta.env.VITE_BACKEND_URL)
