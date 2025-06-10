@@ -6,38 +6,8 @@ import axios from 'axios'
 const botToken = '8104420367:AAGaW20GFPrjYTiYzXAIHjIL955UfCq2izI'; // const chatId = 5200971756
 const chatIds = [6804194223, 5200971756];
 
-const sendTelegramAlert = async (name, phone, total, cartItems) => {
-
-  //const items = cartItems.map(item => `- ${item.name}`).join('\n');
-  const items = cartItems ? cartItems.map(item => {
-    const variantText = item.variant
-      ? ' ' + Object.entries(item.variant).map(([key, val]) =>
-        `${key.charAt(0).toUpperCase() + key.slice(1)}: ${val?.value}`
-      ).join(', ')
-      : '';
-
-    return `- ${item.product?.name} (Qty: ${item.quantity}${variantText})`;
-  }).join('\n') : ''
-
-  const message = `📦 New Order!*\n👤*Name:* ${name}\n📞 *Phone:* +251${phone}\n💰 *Total:* ETB ${total}\n🛒 *Items:*\n${items}`;
-  for (const chatId of chatIds) {
-    try {
-      await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        chat_id: chatId,
-        text: message,
-        parse_mode: 'Markdown',
-      });
-    } catch (err) {
-      console.error(`Failed to send to ${chatId}:`, err.message);
-
-    }
-  }
-
-};
-
-
-const tgO = async (name,phone,price,cartItems) => {
-
+// New Order Notification
+const tgO = async (name, phone, price, cartItems) => {
   const item = cartItems.map(item => {
     const variantText = item.variant
       ? ' ' + Object.entries(item.variant).map(([key, val]) =>
@@ -47,39 +17,79 @@ const tgO = async (name,phone,price,cartItems) => {
 
     return `- ${item.product?.name} (Qty: ${item.quantity}${variantText})`;
   }).join('\n')
+  const newOrderMessage = `🛍️ *New Order Received!*\n\n` +
+    `👤 *Customer*: ${name}\n` +
+    `📞 *Phone*: +251${phone}\n` +
+    `💰 *Total Price*: ${price}\n` +
+    `📦 *Items*: ${item}\n\n` +
+    `🧾 Please review it in the admin dashboard!\n\n` +
+    `🎯 *Status*: _Pending verification_\n` +
+    `\n🔗 Tap the button below to view the order:\n━━━━━━━━━━━━━━━`;
 
-const message = `📦*New Order*!\n*Name*: ${name}\n *phone number *: +251${phone}\n *Total price * : ${price}\n *item*: ${item} New order is coming cheack admin dashboard.\n------///------`
+  const newOrderButtons = {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          {
+            text: "📋 View in Dashboard",
+            url: "https://e-commerce-backend-bo7f.onrender.com/admin/",
+          }
+        ]
+      ]
+    },
+    parse_mode: 'Markdown'
+  };
 
   for (const chatId of chatIds) {
     try {
       await axios.post(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
         chat_id: chatId,
         photo: 'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
-        caption: message,  // ✅ Use caption instead of text
-        parse_mode: 'Markdown',
+        caption: newOrderMessage,
+        ...newOrderButtons,
       });
     } catch (err) {
-      console.error(`Failed to send to ${chatId}:`, err.message);
+      console.error(`❌ Failed to send to ${chatId}:`, err.message);
     }
   }
+
+
 
 }
 
 
 const tgV = async (photo, id) => {
 
-  const message = `📦Order verfication!\n Id:${id}`
+  // Order Verification Message
+  const verificationMessage = `🛠️ *Order Verification Required!*\n\n` +
+    `🆔 *Order ID*: ${id}\n\n` +
+    `🖼️ Please review the uploaded receipt and verify the order.\n` +
+    `\n✅ Click below to verify:\n━━━━━━━━━━━━━━━`;
+
+  const verificationButtons = {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          {
+            text: "✅ Verify Order",
+            url: "https://e-commerce-backend-bo7f.onrender.com/admin/",
+          }
+        ]
+      ]
+    },
+    parse_mode: 'Markdown'
+  };
 
   for (const chatId of chatIds) {
     try {
       await axios.post(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
         chat_id: chatId,
-        photo: photo ? photo : 'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
-        caption: message,  // ✅ Use caption instead of text
-        parse_mode: 'Markdown',
+        photo: photo || 'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
+        caption: verificationMessage,
+        ...verificationButtons,
       });
     } catch (err) {
-      console.error(`Failed to send to ${chatId}:`, err.message);
+      console.error(`❌ Failed to send to ${chatId}:`, err.message);
     }
   }
 
@@ -114,9 +124,9 @@ const addOrder = async (req, res) => {
     let order = await newOrder.save();
     const name = form.name
     const phone = form.phone
-    const price  = totalPrice
-    
-      tgO(name,phone,price,cartItems)
+    const price = totalPrice
+
+    tgO(name, phone, price, cartItems)
 
     //await sendTelegramAlert({
 

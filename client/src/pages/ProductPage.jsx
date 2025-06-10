@@ -16,10 +16,6 @@ const ProductPage = () => {
 
 
   const { currency, backendurl, addToCart, itemCount, removeCartItem, subtotal } = useContext(ShopContext);
-  let ok = () => {
-    console.log(itemCount)
-    console.log(subtotal)
-  }
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [selectedVariant, setSelectedVariant] = useState({});
@@ -72,17 +68,29 @@ const ProductPage = () => {
     //toast.success('Added to cart');
   };
 
+  const handleBuy = () => {
+    if (!allVariantsSelected) {
+      toast.error('Please select all options before adding to cart.');
+      return;
+    }
+    window.location.href = '/cart';
+
+    addToCart(product, selectedVariant, 1);
+    
+    //toast.success('Added to cart');
+  };
+
 
 
   return (
     <>
-    <Helmet>
-      <title>{product.name} | E-commerce</title>
-      <meta name="description" content={product.description?.slice(0, 160) || 'Product details'} />
-      <meta property="og:title" content={product.name} />
-      <meta property="og:description" content={product.description?.slice(0, 160) || 'Product details'} />
-      {product.images?.[0] && <meta property="og:image" content={product.images[0]} />}
-    </Helmet>
+      <Helmet>
+        <title>{product.name} | E-commerce</title>
+        <meta name="description" content={product.description?.slice(0, 160) || 'Product details'} />
+        <meta property="og:title" content={product.name} />
+        <meta property="og:description" content={product.description?.slice(0, 160) || 'Product details'} />
+        {product.images?.[0] && <meta property="og:image" content={product.images[0]} />}
+      </Helmet>
       <div className="max-w-5xl mx-auto p-4 grid md:grid-cols-2 gap-8">
         {/* Image Gallery */}
         <div>
@@ -147,14 +155,25 @@ const ProductPage = () => {
             </div>
           )}
 
-          {/* Add to Cart */}
-          <button
-            onClick={handleAddToCart}
-            disabled={product.stock < 1 || !allVariantsSelected}
-            className="mt-4 px-6 py-2 bg-green-700 text-white rounded hover:opacity-90 disabled:opacity-50"
-          >
-            Add to Cart
-          </button>
+          <div className='gap-2 flex items-center'>
+            {/* Add to Cart */}
+            <button
+              onClick={handleAddToCart}
+              disabled={product.stock < 1 || !allVariantsSelected}
+              className="mt-4 px-6 py-2 bg-green-700 text-white rounded hover:opacity-90 disabled:opacity-50"
+            >
+              Add to Cart
+            </button>
+
+            <button
+              onClick={handleBuy}
+              disabled={product.stock < 1 || !allVariantsSelected}
+              className="mt-4 px-6 py-2 bg-yellow-500 text-white rounded hover:opacity-90 disabled:opacity-50"
+            >
+              Buy Now
+            </button>
+          </div>
+
 
         </div>
 
