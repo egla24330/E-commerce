@@ -62,7 +62,7 @@ const ProductPage = () => {
       return;
     }
     addToCart(product, selectedVariant, 1);
-    toast.success('Added to cart!');
+   // toast.success('Added to cart! basis');
   };
 
   const handleBuy = () => {

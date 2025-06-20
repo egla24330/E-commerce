@@ -51,3 +51,7 @@ api key sk-or-v1-b6d6570826d549c6e3eaedb76033e8a93fa7bcf16abb4c8d2da61aa7dfc7322
 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
 
  --------/-
+ git status            
+git add .             
+git commit -m "fix add btn issue" 
+git push            

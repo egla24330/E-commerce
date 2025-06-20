@@ -52,7 +52,7 @@ const ShopProvider = (props) => {
   }, []);
 
   // 🛒 Add to Cart
-  const addToCart = (product, selectedVariant = {}) => {
+  const addToCart = (product, selectedVariant = {},x) => {
     const id = `${product._id}-${Object.values(selectedVariant).map(v => v.value).join('-') || 'default'}`;
 
     setCartItems(prev => {
@@ -62,11 +62,11 @@ const ShopProvider = (props) => {
           item.id === id ? { ...item, quantity: item.quantity + 1 } : item
         );
       } else {
-        return [...prev, { id, product, variant: selectedVariant, quantity: 1 }];
+        return [...prev, { id, product, variant: selectedVariant, quantity:x?x: 1 }];
       }
     });
 
-    toast.success('Added to cart');
+    toast.success('Added to cart ');
   };
 
   // ✏️ Update Quantity
