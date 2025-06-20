@@ -1,8 +1,5 @@
-// ProductPage.jsx
-// This component displays detailed information about a single product, including images, variants, price, stock status, and allows users to select options and add the product to their cart.
-
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
 import ImageGallery from 'react-image-gallery';
@@ -10,18 +7,17 @@ import 'react-image-gallery/styles/css/image-gallery.css';
 import { ShopContext } from '../context/Shopcontext.jsx';
 import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
-import { useNavigate } from 'react-router-dom';
-
-
+import BuyNowModal from '../components/BuyNowModal.jsx'; // Import the modal
 
 const ProductPage = () => {
-  let navi = useNavigate()
+  let navi = useNavigate();
 
-  const { currency, backendurl, addToCart, itemCount, removeCartItem, subtotal } = useContext(ShopContext);
+  const { currency, backendurl, addToCart } = useContext(ShopContext);
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [selectedVariant, setSelectedVariant] = useState({});
   const [loading, setLoading] = useState(true);
+  const [showBuyNow, setShowBuyNow] = useState(false); // Modal state
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -65,33 +61,25 @@ const ProductPage = () => {
       toast.error('Please select all options before adding to cart.');
       return;
     }
-
     addToCart(product, selectedVariant, 1);
-    //toast.success('Added to cart');
+    toast.success('Added to cart!');
   };
 
   const handleBuy = () => {
     if (!allVariantsSelected) {
-      toast.error('Please select all options before adding to cart.');
+      toast.error('Please select all options before proceeding.');
       return;
     }
-    navi('/cart')
-    addToCart(product, selectedVariant, 1);
-    
-    //toast.success('Added to cart');
+    setShowBuyNow(true); // Open the modal
   };
-
-
 
   return (
     <>
       <Helmet>
         <title>{product.name} | E-commerce</title>
         <meta name="description" content={product.description?.slice(0, 160) || 'Product details'} />
-        <meta property="og:title" content={product.name} />
-        <meta property="og:description" content={product.description?.slice(0, 160) || 'Product details'} />
-        {product.images?.[0] && <meta property="og:image" content={product.images[0]} />}
       </Helmet>
+
       <div className="max-w-5xl mx-auto p-4 grid md:grid-cols-2 gap-8">
         {/* Image Gallery */}
         <div>
@@ -129,8 +117,7 @@ const ProductPage = () => {
                   <button
                     key={idx}
                     type="button"
-                    className={`px-3 py-1 border rounded-md text-sm ${selectedVariant[group.label]?.value === v.value ? 'bg-black text-white' : ''
-                      }`}
+                    className={`px-3 py-1 border rounded-md text-sm ${selectedVariant[group.label]?.value === v.value ? 'bg-black text-white' : ''}`}
                     onClick={() =>
                       setSelectedVariant(prev => ({
                         ...prev,
@@ -145,7 +132,6 @@ const ProductPage = () => {
             </div>
           ))}
 
-
           {product.tags?.length > 0 && (
             <div className="flex gap-2 mt-2 flex-wrap">
               {product.tags.map((tag, idx) => (
@@ -157,7 +143,6 @@ const ProductPage = () => {
           )}
 
           <div className='gap-2 flex items-center'>
-            {/* Add to Cart */}
             <button
               onClick={handleAddToCart}
               disabled={product.stock < 1 || !allVariantsSelected}
@@ -174,12 +159,17 @@ const ProductPage = () => {
               Buy Now
             </button>
           </div>
-
-
         </div>
-
       </div>
 
+      {showBuyNow && (
+        <BuyNowModal
+          product={product}
+          variant={selectedVariant}
+          onClose={() => setShowBuyNow(false)}
+          currency={currency}
+        />
+      )}
     </>
   );
 };

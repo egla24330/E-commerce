@@ -1,0 +1,236 @@
+import React, { useState, useContext, useEffect, use } from 'react'
+import { FaUser, FaLock, FaUserPlus } from 'react-icons/fa'
+import { motion } from 'framer-motion'
+import { ShopContext } from '../context/Shopcontext'
+import { useNavigate,useSearchParams} from 'react-router-dom'
+import { toast } from 'react-toastify'
+import axios from 'axios'
+import AuthContext from '../context/Authcontext'
+import { ClipLoader } from "react-spinners";
+import { FaGoogle } from 'react-icons/fa';
+import { auth, provider, signInWithPopup } from '../firebase.js'
+import { Helmet } from 'react-helmet'
+
+const Login = () => {
+  const { userData, setToken, token } = useContext(AuthContext)
+  const navigate = useNavigate()
+  let x = window.location.pathname === '/register'
+  const [isRegistering, setIsRegistering] = useState(x ?true:false)
+  const { backendurl } = useContext(ShopContext)
+  const [loading, setLoading] = useState(false)
+  const [loadingGoogle, setLoadingGoogle] = useState(false)
+  const [searchParams] = useSearchParams();
+
+  const referralCode= searchParams.get('ref') || null;
+
+  console.log('referralCode', referralCode)
+  useEffect(() => {
+    if (token) {
+      navigate('/')
+    }
+  }, [token])
+
+  // Form data state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  })
+
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
+console.log({referralCode})
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+      setLoading(true)
+      if (isRegistering) {
+          let res = await axios.post(`${backendurl}/api/user/register`, { name: formData.name, email: formData.email, password: formData.password,referralCode })
+          toast.success(res.data.message)
+          setToken(res.data.token)
+          localStorage.setItem('token', res.data.token)
+          navigate('/')
+      
+
+      } else {
+        let res = await axios.post(`${backendurl}/api/user/login`, { email: formData.email, password: formData.password })
+        if (res.data.success) {
+          navigate('/')
+          toast.success(res.data.message)
+          setToken(res.data.token)
+          localStorage.setItem('token', res.data.token)
+          navigate('/')
+
+
+
+        } else {
+          toast.error(res.data.message)
+
+        }
+      }
+    } catch (error) {
+
+    } finally {
+      setLoading(false)
+      setFormData({ name: '', email: '', password: '' })
+    }
+
+    // Clear form
+
+  }
+
+  const handleGoogleLogin = async () => {
+    try {
+      setLoadingGoogle(true)
+      const result = await signInWithPopup(auth, provider);
+      const { displayName, email, photoURL, uid } = result.user;
+      console.log('data that get from response', { displayName, email, photoURL, uid, referralCode })
+
+
+      const res = await axios.post(`${backendurl}/api/user/google-auth`, {
+        googleId: uid,
+        name: displayName,
+        email,
+        avatar: photoURL,
+        referralCode: referralCode
+      });
+
+      console.log(res.data)
+      if (res.data.success) {
+        setToken(res.data.token)
+        localStorage.setItem('token', res.data.token)
+        navigate('/')
+      }
+
+
+
+    } catch (er) {
+      console.log(er)
+    } finally {
+      setLoadingGoogle(false)
+    }
+
+  }
+
+
+  return (
+    <>
+      <Helmet>
+        <title>{isRegistering ? 'Sign Up' : 'Login'} | E-commerce</title>
+        <meta name="description" content={isRegistering ? 'Create an account to start shopping on our E-commerce platform.' : 'Login to your E-commerce account to continue shopping.'} />
+      </Helmet>
+      <div className="flex items-start justify-center min-h-screen pt-20 px-1 sm:px-0 ">
+        <motion.div
+          className="w-full max-w-sm p-6 rounded-xl text-gray-700"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+        <motion.h2
+          className="text-xl font-bold mb-6 text-center"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          {isRegistering ? 'Create Account' : 'Welcome Back'}
+        </motion.h2>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {isRegistering && (
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1 }}
+            >
+              <FaUserPlus className="absolute top-1/2 -translate-y-1/2 left-3 text-gray-400" />
+              <input
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                required
+                value={formData.name}
+                onChange={handleChange}
+                className="w-full pl-10 pr-4 py-2 text-sm border rounded-lg outline-none focus:ring-1 focus:ring-indigo-500"
+              />
+            </motion.div>
+          )}
+
+          <div className="relative">
+            <FaUser className="absolute top-1/2 -translate-y-1/2 left-3 text-gray-400" />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              autoComplete="email"
+              required
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full pl-10 pr-4 py-2 text-sm border rounded-lg outline-none focus:ring-1 focus:ring-indigo-500"
+            />
+          </div>
+
+          <div className="relative">
+            <FaLock className="absolute top-1/2 -translate-y-1/2 left-3 text-gray-400" />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              autoComplete='current-password'
+              required
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full pl-10 pr-4 py-2 text-sm border rounded-lg outline-none focus:ring-1 focus:ring-indigo-500"
+            />
+          </div>
+
+          <motion.button
+            type="submit"
+            className="w-full py-2 text-sm font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-500 transition"
+            whileTap={{ scale: 0.97 }}
+          >
+            {loading ? <ClipLoader size={20} color={'white'} /> : (isRegistering ? 'Sign up' : 'Login')}
+          </motion.button>
+        </form>
+
+        <div className="mt-4 text-center text-sm">
+          {isRegistering ? 'Already have an account?' : "Don't have an account?"}{' '}
+          <button
+            type="button"
+            onClick={() => setIsRegistering(!isRegistering)}
+            className="text-indigo-600 hover:underline font-medium"
+          >
+            {isRegistering ? 'Login' : 'Sign up'}
+          </button>
+        </div>
+
+        <div className="flex items-center gap-3 mt-4">
+          <div className="h-px bg-gray-300 flex-1"></div>
+          <span className="text-xs text-gray-400">OR</span>
+          <div className="h-px bg-gray-300 flex-1"></div>
+        </div>
+
+        <button
+          type="button"
+          onClick={handleGoogleLogin}
+          className="w-full mt-4 py-2 flex items-center justify-center gap-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition"
+        >
+          {!loadingGoogle && (<img
+            src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+            alt="Google"
+            className="w-5 h-5"
+          />)}
+
+          <span className="text-sm font-medium text-gray-700">{loadingGoogle ? <ClipLoader size={20} /> : 'Continue with Google'}</span>
+        </button>
+      </motion.div>
+      </div>
+    </>
+  )
+}
+
+export default Login
