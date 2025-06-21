@@ -3,7 +3,7 @@ import express from 'express';
 
 const FeedbackRouter = express.Router();
 
-const botToken = '8104420367:AAGaW20GFPrjYTiYzXAIHjIL955UfCq2izI';
+
 const chatIds = [6804194223];
 
 async function sendTelegramAlert({ name, email, message, rating }) {
@@ -14,7 +14,7 @@ async function sendTelegramAlert({ name, email, message, rating }) {
         `🌟 *Rating*: ${rating} / 5\n\n` +
         `🕒 _Submitted just now._`;
 
-    const url = `https://api.telegram.org/bot${process.env.T_V}/sendMessage`;
+    const url = `https://api.telegram.org/bot${process.env.T_F}/sendMessage`;
 
     for (const chatId of chatIds) {
         try {
