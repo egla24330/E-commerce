@@ -43,7 +43,7 @@ const FeedbackForm = () => {
       description: "Completely unsatisfied",
       emoji: "😞"
     },
-  ];
+  ].reverse();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -171,8 +171,8 @@ const FeedbackForm = () => {
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                 >
-                  <span className="text-2xl mb-1">{option.emoji}</span>
-                  <span className="text-sm font-medium">{option.label}</span>
+                    <span class="text-2xl mb-1">{option.emoji}</span>
+                  <span className="text-[10px] font-medium">{option.label}</span>
                   
                 </motion.label>
               </React.Fragment>
