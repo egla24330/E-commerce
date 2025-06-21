@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
+import axios from "axios";
+import { ShopContext } from "../context/Shopcontext";
 
 const FeedbackForm = () => {
+  const { backendurl } = useContext(ShopContext)
+   useEffect(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, []);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -50,7 +57,7 @@ const FeedbackForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -69,13 +76,26 @@ const FeedbackForm = () => {
       return;
     }
 
-    // Simulate API call
-    setTimeout(() => {
-      console.log("Feedback submitted:", formData);
+    try {
+      console.log(formData)
+      const res = await axios.post(`${backendurl}/api/feedback`, formData);
+      console.log(res);
       toast.success("Thank you for your feedback!");
-      setFormData({ name: "", email: "", rating: "5", message: "" });
+      setFormData({
+      name: "",
+      email: "",
+      rating: "5",
+      message: "",
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to submit feedback. Please try again.");
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
+     
+    // Simulate API call
+    
   };
 
   // Animation variants
@@ -171,7 +191,7 @@ const FeedbackForm = () => {
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                 >
-                    <span class="text-2xl mb-1">{option.emoji}</span>
+                    <span className="text-2xl mb-1">{option.emoji}</span>
                   <span className="text-[10px] font-medium">{option.label}</span>
                   
                 </motion.label>

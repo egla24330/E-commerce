@@ -4,7 +4,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import axios from 'axios'
 
 const botToken = '8104420367:AAGaW20GFPrjYTiYzXAIHjIL955UfCq2izI'; // const chatId = 5200971756
-const chatIds = [6804194223, 5200971756];
+const chatIds = [6804194223];
 
 // New Order Notification
 const tgO = async (name, phone, price, cartItems) => {
@@ -42,7 +42,7 @@ const tgO = async (name, phone, price, cartItems) => {
 
   for (const chatId of chatIds) {
     try {
-      await axios.post(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+      await axios.post(`https://api.telegram.org/bot${process.env.T_O}/sendPhoto`, {
         chat_id: chatId,
         photo: 'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
         caption: newOrderMessage,
@@ -82,7 +82,7 @@ const tgV = async (photo, id) => {
 
   for (const chatId of chatIds) {
     try {
-      await axios.post(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+      await axios.post(`https://api.telegram.org/bot${process.env.T_V}/sendPhoto`, {
         chat_id: chatId,
         photo: photo || 'https://res.cloudinary.com/ddsvxw9i6/image/upload/v1749486505/sprou6apkepul2dmlxdh.png',
         caption: verificationMessage,
