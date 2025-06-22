@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useContext } from 'react';
 import { User, Mail, IdCard, Gift, Share2 } from 'lucide-react';
 import { toast } from 'react-toastify';
@@ -6,23 +5,22 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ShopContext } from "../context/Shopcontext.jsx";
 import AuthContext from '../context/Authcontext';
 import { ClipLoader } from 'react-spinners';
-import { use } from 'react';
 import axios from 'axios';
 import ReceiptSuccessModal from '../components/ReceiptSuccessModal.jsx';
 import { Helmet } from 'react-helmet';
 
-
 const ProfilePage = () => {
   const { backendurl } = useContext(ShopContext);
-  const { token } = useContext(AuthContext)
+  const { token } = useContext(AuthContext);
   const [withdrawal, setWithdrawal] = useState(false);
   const [withdrawalAmount, setWithdrawalAmount] = useState(0);
   const [banckAccount, setBankAccount] = useState('');
   const [Name, setName] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loadingWithdrawal, setLoadingWithdrawal] = useState(false); // Renamed for clarity
+  const [loadingProfile, setLoadingProfile] = useState(true); // New loading state for profile data
   const [id, setId] = useState('');
   const [warn, setWarn] = useState(false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null); // Initialize as null to clearly indicate no data yet
   const [deposite, setDeposit] = useState(0);
   const [Phone, setPhone] = useState('');
 
@@ -31,17 +29,16 @@ const ProfilePage = () => {
 
   /////
 
-
   useEffect(() => {
     if (withdrawalAmount < 999) {
       setWarn(true);
     } else {
       setWarn(false);
     }
-  }, [setWithdrawalAmount, withdrawalAmount]);
-
+  }, [withdrawalAmount]);
 
   const fetchUserData = async () => {
+    setLoadingProfile(true); // Set loading to true when fetching starts
     try {
       const response = await axios.post(`${backendurl}/api/user/me`, {}, {
         headers: { token },
@@ -49,33 +46,26 @@ const ProfilePage = () => {
       console.log('User data fetched:', response);
 
       if (response.data.success === true) {
-        //toast.success('User data fetched successfully');
-        setUser(response.data.userData)
+        setUser(response.data.userData);
         setId(response.data.userData._id);
         setDeposit(response.data.userData.coins);
       } else {
         toast.error('Failed to fetch user data');
       }
-
-
-
-
     } catch (error) {
       toast.error('Error fetching user data');
-
-      return null;
+      console.error('Error fetching user data:', error);
+    } finally {
+      setLoadingProfile(false); // Set loading to false regardless of success or error
     }
-  }
+  };
 
   useEffect(() => {
-    fetchUserData()
-  }, []);
+    fetchUserData();
+  }, [token, backendurl]); // Added token and backendurl to dependency array
 
+  const inviteLink = user?.referralCode ? `${window.location.origin}/register?ref=${user.referralCode}` : '';
 
-
-  ;
-
-  const inviteLink = `${window.location.origin}/register?ref=${user?.referralCode}`;
   const handleInvite = async () => {
     try {
       if (navigator.share) {
@@ -94,84 +84,88 @@ const ProfilePage = () => {
     }
   };
 
-  if (!user) return <div className="p-6 text-center">Loading profile...</div>;
-
-
   let withdrawalFun = async () => {
     let myLoader = toast.loading('Processing withdrawal request...');
 
     if (!Phone.trim() || !/^09\d{8}$/.test(Phone)) {
       toast.error("Enter a valid Ethiopian phone number (e.g., 09XXXXXXXX)");
+      toast.update(myLoader, { render: 'Invalid phone number', type: 'error', isLoading: false, autoClose: 3000 });
       return;
     }
 
     if (!banckAccount.trim() || banckAccount.length < 6) {
       toast.error("Enter a valid Bank Account Number");
+      toast.update(myLoader, { render: 'Invalid bank account number', type: 'error', isLoading: false, autoClose: 3000 });
       return;
     }
 
     if (warn) {
-      toast.error('Minimum withdrawal amount is 999 coin.')
+      toast.error('Minimum withdrawal amount is 999 coin.');
+      toast.update(myLoader, { render: 'Minimum withdrawal amount not met', type: 'error', isLoading: false, autoClose: 3000 });
+      return;
     } else if (withdrawalAmount > deposite) {
-
-      toast.error('You cannot withdraw more than your current balance.')
-    } else {
-      setLoading(true);
-      try {
-        let leftDeposite = deposite - withdrawalAmount
-        console.log({
-          leftDeposite,
-          banckAccount,
-          Name,
-          id,
-          Phone,
-          withdrawalAmount,
-
-        })
-        const res = await axios.post(`${backendurl}/api/withdrawal/withdrawal-update`, { coin: leftDeposite }, {
-          headers: { token },
-        })
-
-        if (res.data.success) {
-          const response = await axios.post(`${backendurl}/api/withdrawal/withdrawal-request`, {
-            withdrawalAmount,
-            bankAccount: banckAccount,
-            name: Name,
-            userId: id,
-            phone: Phone,
-            leftDeposite
-          });
-          //response.data.success ? toast.success(response.data.message) : toast.error(response.data.message);
-          fetchUserData(); // Refresh user data after withdrawal
-          toast.update(myLoader, { render: 'Withdrawal request submitted successfully!', type: 'success', isLoading: false, autoClose: 3000 });
-
-        } else {
-          fetchUserData
-          toast.error('something went wrong')
-          toast.update(myLoader, { render: 'Failed to update coins', type: 'error', isLoading: false, autoClose: 3000 });
-        }
-
-      } catch (err) {
-        console.log(err)
-        fetchUserData(); // Refresh user data in case of error
-        toast.update(myLoader, { render: 'Error processing withdrawal request', type: 'error', isLoading: false, autoClose: 3000 });
-      } finally {
-        setLoading(false);
-        setShowSuccess(true);
-
-      }
-
+      toast.error('You cannot withdraw more than your current balance.');
+      toast.update(myLoader, { render: 'Insufficient balance', type: 'error', isLoading: false, autoClose: 3000 });
+      return;
     }
 
+    setLoadingWithdrawal(true);
+    try {
+      let leftDeposite = deposite - withdrawalAmount;
+      const res = await axios.post(`${backendurl}/api/withdrawal/withdrawal-update`, { coin: leftDeposite }, {
+        headers: { token },
+      });
+
+      if (res.data.success) {
+        const response = await axios.post(`${backendurl}/api/withdrawal/withdrawal-request`, {
+          withdrawalAmount,
+          bankAccount: banckAccount,
+          name: Name,
+          userId: id,
+          phone: Phone,
+          leftDeposite
+        });
+
+        if (response.data.success) {
+          fetchUserData(); // Refresh user data after withdrawal
+          toast.update(myLoader, { render: 'Withdrawal request submitted successfully!', type: 'success', isLoading: false, autoClose: 3000 });
+          setShowSuccess(true);
+        } else {
+          toast.error(response.data.message);
+          toast.update(myLoader, { render: response.data.message, type: 'error', isLoading: false, autoClose: 3000 });
+        }
+      } else {
+        toast.error('Something went wrong');
+        toast.update(myLoader, { render: 'Failed to update coins', type: 'error', isLoading: false, autoClose: 3000 });
+      }
+    } catch (err) {
+      console.error(err);
+      fetchUserData(); // Refresh user data in case of error
+      toast.update(myLoader, { render: 'Error processing withdrawal request', type: 'error', isLoading: false, autoClose: 3000 });
+    } finally {
+      setLoadingWithdrawal(false);
+    }
+  };
+
+  if (loadingProfile) {
+    return (
+      <div className="flex justify-center items-center h-[70vh] gap-2">
+        <ClipLoader color="#4F46E5" size={30} /> <p>loading user data .....</p>
+      </div>
+    );
   }
 
+  // This check is important now that `user` can be null initially
+  if (!user) {
+    return <div className="p-6 text-center text-red-600">Failed to load profile data. Please try again.</div>;
+  }
 
   return (
     <>
-    <Helmet>
-      <title>Profile | YegnaCart</title>
-      <meta name="description" content="View and manage your YegnaCart profile, check your YegnaCoins balance, invite friends, and request withdrawals." />
-    </Helmet>
+      <Helmet>
+        <title>Profile | YegnaCart</title>
+        <meta name="description" content="View and manage your YegnaCart profile, check your YegnaCoins balance, invite friends, and request withdrawals." />
+      </Helmet>
       <div className="max-w-3xl mx-auto mt-10 p-1 sm:p-3 bg-white shadow-lg rounded-2xl border border-gray-200 space-y-6">
         {/* Profile Header */}
         <div className="flex items-center gap-4">
@@ -189,7 +183,7 @@ const ProfilePage = () => {
             <Mail className="w-5 h-5 text-indigo-500" />
             <span>{user.email}</span>
           </div>
-         
+
           <div className="flex items-center gap-3">
             <Gift className="w-5 h-5 text-yellow-500" />
             <span>YegnaCoins: <strong>{user.coins}</strong></span>
@@ -229,14 +223,13 @@ const ProfilePage = () => {
               <p className="text-red-600 text-sm mb-4">Minimum withdrawal amount is 999 YegnaCoins.</p>
             )}
 
-
             <div className='flex flex-col sm:flex-row gap-2'>
               <div className='w-full p-1 '>
                 <label className="block text-xs text-gray-700 mb-2">Withdrawal Amount (in YegnaCoins)</label>
                 <input
                   type="number"
                   placeholder="Withdrawal Amount"
-                  onChange={(e) => setWithdrawalAmount(e.target.value)}
+                  onChange={(e) => setWithdrawalAmount(Number(e.target.value))}
                   className="w-full p-2 border border-gray-300 rounded-lg mb-3"
                 />
               </div>
@@ -258,8 +251,7 @@ const ProfilePage = () => {
                   type="number"
                   placeholder="😠😠😠😠"
                   disabled
-                  value={deposite < withdrawalAmount ? '' : deposite - withdrawalAmount}
-                  onChange={(e) => setWithdrawalAmount(e.target.value)}
+                  value={deposite < withdrawalAmount ? 'Insufficient' : deposite - withdrawalAmount}
                   className="w-full p-2 border border-gray-300 rounded-lg mb-3"
                 />
               </div>
@@ -274,7 +266,6 @@ const ProfilePage = () => {
                 className="w-full p-2 border border-gray-300 rounded-lg mb-3"
               />
             </div>
-
 
             <div className='w-full p-1 '>
               <label className="block text-sm text-gray-700 mb-2">id</label>
@@ -305,29 +296,23 @@ const ProfilePage = () => {
               className="w-full p-2 border border-gray-300 rounded-lg mb-3"
             />
             <button
-              onClick={() => {
-                // Handle withdrawal logic here
-                withdrawalFun()
-              }}
+              onClick={withdrawalFun}
               className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+              disabled={loadingWithdrawal} // Disable button during withdrawal processing
             >
-              {loading ? <ClipLoader color="#ffffff" size={20} /> : 'Submit Withdrawal Request'}
+              {loadingWithdrawal ? <ClipLoader color="#ffffff" size={20} /> : 'Submit Withdrawal Request'}
             </button>
           </div>
         )}
-
-
       </div>
 
       <ReceiptSuccessModal
         show={showSuccess}
         onClose={() => setShowSuccess(false)}
-        p1={`Hi ${Name  ?Name :'User'}, Your withdrawal request has been successfully submitted Please wait for the processing time to complete .`}
+        p1={`Hi ${Name ? Name : 'User'}, Your withdrawal request has been successfully submitted. Please wait for the processing time to complete.`}
         p2="Thank you for your patience!"
       />
-
     </>
-
   );
 };
 
