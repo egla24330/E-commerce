@@ -10,7 +10,8 @@ const Footer = () => {
 
                 {/* Logo & Mission */}
                 <div className="col-span-1 md:col-span-3 lg:col-span-2">
-                    <img src={assets.logoo} alt="YegnaCart Logo" className='w-44 mb-4' />
+                    {/* <img src={assets.logoo} alt="YegnaCart Logo" className='w-44 mb-4' /> */}
+                    <h1 className='text-3xl font-bold '>Zaycommerce</h1>
                     <p className="text-sm leading-relaxed text-gray-600 max-w-md">
                         YegnaCart empowers Ethiopian buyers and sellers with a trusted, seamless shopping experience. From fashion to electronics, real estate, and more — everything in one place.
                     </p>
@@ -69,7 +70,7 @@ const Footer = () => {
             {/* Divider */}
            
             <div className="border-t border-gray-200 mt-12 pt-6 text-center text-xs text-gray-500">
-                &copy; {new Date().getFullYear()} YegnaCart. All rights reserved | Developed by{' '}
+                &copy; {new Date().getFullYear()} zaycommerce. All rights reserved | Developed by{' '}
                 <Link
                     to="/dev"
                     className="font-medium text-indigo-600 hover:text-indigo-800 transition-colors group"

@@ -36,7 +36,7 @@ const Navbar = () => {
   return (
     <div className='flex items-center justify-between py-6 font-medium border-b-2'>
       {/* <img src={assets.logoo} alt="logo" className='w-32' /> */}
-      <p onClick={() => navi('/')} className='text-indigo-600 mynerve-regular cursor-pointer'>yegnafits </p>
+      <p onClick={() => navi('/')} className='text-indigo-600 mynerve-regular cursor-pointer'>Zaycommerce </p>
       {/* <ul className='sm:flex gap-5 text-sm text-gray-700 hidden'>
         <NavLink to={'/'} className='flex items-center gap-1 flex-col '>
           <p>HOME</p>
