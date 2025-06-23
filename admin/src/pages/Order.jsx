@@ -3,33 +3,13 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { AdminContext } from '../context/admincontext';
 import { ClipLoader } from 'react-spinners';
-import OrderCard from '../components/OrderCard';
+import Ordercard from '../components/orderCard';
 import { AnimatePresence } from 'framer-motion'; // Import AnimatePresence
-import { FaTrash, FaCheck, FaTimes, FaClock, FaReceipt, FaChevronDown, FaChevronUp } from 'react-icons/fa';
-
-// ... (statusOptions and statusIcons remain the same) ...
-const statusOptions = [
-    'pending_verification',
-    'completed',
-    'cancelled',
-    'processing',
-    'shipped',
-    'delivered',
-    'refunded',
-];
-
-const statusIcons = {
-    pending_verification: <FaClock className="text-yellow-500" />,
-    completed: <FaCheck className="text-green-600" />,
-    cancelled: <FaTimes className="text-red-500" />,
-    processing: <FaClock className="text-blue-500" />,
-    shipped: <FaCheck className="text-blue-600" />,
-    delivered: <FaCheck className="text-purple-600" />,
-    refunded: <FaTimes className="text-gray-500" />,
-};
 
 
-const AdminOrders = () => {
+
+
+const Orders = () => {
   const { backendurl, token } = useContext(AdminContext);
 
   const [loading, setLoading] = useState(false);
@@ -117,7 +97,7 @@ const AdminOrders = () => {
         <AnimatePresence> {/* Wrap the mapping with AnimatePresence */}
           <div className="space-y-8">
             {orders.map((order) => (
-              <OrderCard
+              <Ordercard
                 key={order._id}
                 order={order}
                 loading={loading}
@@ -135,4 +115,4 @@ const AdminOrders = () => {
   );
 };
 
-export default AdminOrders;
+export default Orders;
