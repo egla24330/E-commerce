@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { AdminContext } from '../context/admincontext';
 import { ClipLoader } from 'react-spinners';
 import { AnimatePresence } from 'framer-motion'; // Import AnimatePresence
-import OrderCard from '../components/OrderCard';
+import Myordercard from '../components/Myordercard';
 
 
 const Orders = () => {
@@ -95,7 +95,7 @@ const Orders = () => {
         <AnimatePresence> {/* Wrap the mapping with AnimatePresence */}
           <div className="space-y-8">
             {orders.map((order) => (
-              <OrderCard
+              <Myordercard
                 key={order._id}
                 order={order}
                 loading={loading}

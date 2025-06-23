@@ -27,7 +27,7 @@ const calculateOrderTotal = (cart) => {
   }, 0);
 };
 
-const OrderCard = ({ order, loading, updateStatus, deleteOrder, sendGift, setFirstLevel, setSecondLevel }) => {
+const Myordercard = ({ order, loading, updateStatus, deleteOrder, sendGift, setFirstLevel, setSecondLevel }) => {
   const orderTotal = calculateOrderTotal(order.cart);
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -187,5 +187,5 @@ const OrderCard = ({ order, loading, updateStatus, deleteOrder, sendGift, setFir
   );
 };
 
-export default OrderCard;
+export default Myordercard;
 // This code defines an OrderCard component that displays order details, allows status updates, and provides options for sending gifts and deleting orders. It uses Framer Motion for animations and includes a customer info section.
