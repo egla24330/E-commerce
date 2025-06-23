@@ -4,7 +4,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import slugify from 'slugify'
 const addProduct = async (req, res) => {
   try {
-    const { name, description, category, price, variants, isFeatured, tags, stock } = req.body;
+    const { name, description, category, price, variants, isFeatured, tags, stock, profit } = req.body;
     const image1 = req.files?.image1?.[0];
     const image2 = req.files?.image2?.[0];
     const image3 = req.files?.image3?.[0];
@@ -27,6 +27,7 @@ const addProduct = async (req, res) => {
         description,
         category,
         price,
+        profit: profit || 0, 
         images: imageUrl,
         variants: JSON.parse(variants),
         isFeatured,
@@ -47,6 +48,7 @@ const addProduct = async (req, res) => {
           description,
           category,
           price,
+          profit: profit || 0,
           images: imageUrl,
           variants: JSON.parse(variants),
           isFeatured,
@@ -234,7 +236,7 @@ const  getForUpdate =async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
-    const { name, description, category, price, isFeatured, tags, stock } = req.body;
+    const { name, description, category, price, isFeatured, tags, stock, profit } = req.body;
     const { id } = req.params;
 
     // Find existing product
@@ -271,6 +273,7 @@ const updateProduct = async (req, res) => {
     product.isFeatured = typeof isFeatured !== "undefined" ? isFeatured : product.isFeatured;
     product.tags = tags ? JSON.parse(tags) : product.tags;
     product.stock = typeof stock !== "undefined" ? stock : product.stock;
+    product.profit = profit || product.profit;
 
     await product.save();
 

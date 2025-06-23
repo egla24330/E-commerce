@@ -20,7 +20,15 @@ const orderSchema = new mongoose.Schema({
   userId:String,
   status: {
     type: String,
-    enum: ["pending_verification", "paid", "rejected"],
+    enum: [
+      "pending_verification",
+      "processing",
+      "shipped",
+      "delivered",
+      "completed",
+      "cancelled",
+      "refunded"
+    ],
     default: "pending_verification",
   },
   referralRewarded: { type: Boolean, default: false },

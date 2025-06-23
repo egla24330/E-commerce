@@ -10,6 +10,7 @@ const FeedbackForm = () => {
    useEffect(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, []);
+    
   const [formData, setFormData] = useState({
     name: "",
     email: "",

@@ -38,7 +38,7 @@ const Add = () => {
   const [tags, setTags] = useState('');
   const [isFeatured, setIsFeatured] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [profit, setProfit] = useState(0);
   const [variants, setVariants] = useState([]);
   const [newVariantLabel, setNewVariantLabel] = useState('');
   const [newVariantValue, setNewVariantValue] = useState('');
@@ -164,6 +164,10 @@ const Add = () => {
       toast.error('Please select a category');
       return;
     }
+    if (price <= 0) {
+      toast.error('Price must be greater than 0');
+      return;
+    }
     
     setLoading(true);
 
@@ -180,6 +184,7 @@ const Add = () => {
       formData.append("isFeatured", isFeatured);
       formData.append("tags", JSON.stringify(tags.split(',').map(tag => tag.trim())));
       formData.append("variants", JSON.stringify(variants));
+      formData.append("profit", profit);
 
       // Mock API call for demonstration
       //console.log('Submitting product:', {
@@ -207,6 +212,7 @@ const Add = () => {
       setIsFeatured(false);
       setVariants([]);
       setImages([null, null, null, null]);
+      setProfit(0);
 
     } catch (err) {
       console.error(err);
@@ -387,6 +393,17 @@ const Add = () => {
                   placeholder="Detailed product description..."
                 />
               </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Profit</label>
+              <input
+                className="w-[w-100px] px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition"
+                type="number"
+             //   value={profit}
+                onChange={e => setProfit(+e.target.value)}
+                placeholder="0.00"
+              />
             </div>
 
             {/* Variants Section */}

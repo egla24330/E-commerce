@@ -61,6 +61,7 @@ const productSchema = new mongoose.Schema({
   isFeatured: { type: Boolean, default: false },
   tags: [String], // For keyword search
   rating: { type: Number, default: 0 },
+  profit: { type: Number, default: 0 }, // Profit margin
   reviews: [reviewSchema],
   createdAt: { type: Date, default: Date.now }
 });
