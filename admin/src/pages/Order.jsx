@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { AdminContext } from '../context/admincontext';
 import { ClipLoader } from 'react-spinners';
-import Ordercard from '../components/orderCard';
+import Ordercard from '../components/Ordercard';
 import { AnimatePresence } from 'framer-motion'; // Import AnimatePresence
 
 
