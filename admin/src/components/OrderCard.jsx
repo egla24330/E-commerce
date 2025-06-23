@@ -188,3 +188,4 @@ const OrderCard = ({ order, loading, updateStatus, deleteOrder, sendGift, setFir
 };
 
 export default OrderCard;
+// This code defines an OrderCard component that displays order details, allows status updates, and provides options for sending gifts and deleting orders. It uses Framer Motion for animations and includes a customer info section.

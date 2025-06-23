@@ -3,10 +3,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { AdminContext } from '../context/admincontext';
 import { ClipLoader } from 'react-spinners';
-import Ordercard from '../components/Ordercard';
 import { AnimatePresence } from 'framer-motion'; // Import AnimatePresence
-
-
+import OrderCard from '../components/orderCard';
 
 
 const Orders = () => {
@@ -97,7 +95,7 @@ const Orders = () => {
         <AnimatePresence> {/* Wrap the mapping with AnimatePresence */}
           <div className="space-y-8">
             {orders.map((order) => (
-              <Ordercard
+              <OrderCard
                 key={order._id}
                 order={order}
                 loading={loading}
