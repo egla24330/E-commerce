@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { AdminContext } from '../context/admincontext';
 import { ClipLoader } from 'react-spinners';
 import { AnimatePresence } from 'framer-motion'; // Import AnimatePresence
-import OrderCard from '../components/orderCard';
+import OrderCard from '../components/OrderCard';
 
 
 const Orders = () => {
