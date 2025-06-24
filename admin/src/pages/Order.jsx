@@ -7,7 +7,7 @@ import { AnimatePresence } from 'framer-motion'; // Import AnimatePresence
 import Myordercard from '../components/Myordercard';
 
 
-const Orders = () => {
+const Order= () => {
   const { backendurl, token } = useContext(AdminContext);
 
   const [loading, setLoading] = useState(false);
@@ -113,4 +113,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default Order;
