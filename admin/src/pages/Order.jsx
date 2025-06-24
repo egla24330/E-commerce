@@ -6,7 +6,7 @@ import { AdminContext } from '../context/admincontext';
 import { ClipLoader } from 'react-spinners';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FaTrash, FaCheck, FaTimes, FaClock, FaReceipt, FaChevronDown, FaChevronUp, FaPercentage, FaCoins } from 'react-icons/fa';
-import CustomerInfoSection from './CustomerInfoSection'; // Keep this import since it's a separate module
+import CustomerInfoSection from '../components/CustomerInfoSection'; // Keep this import since it's a separate module
 
 const statusIcons = {
   pending_verification: <FaClock className="text-yellow-500" />,
