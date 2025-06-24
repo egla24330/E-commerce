@@ -33,12 +33,12 @@ const App = () => {
           <Sidebar />
           <div className=' w-[90%] min-h-screen'>
             <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/add' element={<Add />} />
-              <Route path='/list' element={<List />} />
-              <Route path='/orders' element={<Order />} />
+              <Route path='/' element={<Home/>}/>
+              <Route path='/add' element={<Add/>} />
+              <Route path='/list' element={<List/>} />
+              <Route path='/orders' element={<Order/>} />
               <Route path='/message' element={<AdminMessages/>} />
-              <Route path='/cashout' element={<CashOut />} />
+              <Route path='/cashout' element={<CashOut/>} />
               <Route path="/update-product/:id" element={<UpdateProduct />} />
             </Routes>
           </div>
