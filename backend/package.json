@@ -10,8 +10,8 @@
 
     "build": "npm run build-client && npm run build-admin",
 
-    "build-client": "cd client && npm install && npm run build && rm -rf ../client-dist && mv dist ../client-dist",
-    "build-admin": "cd admin && npm install && npm run build && rm -rf ../admin-dist && mv dist ../admin-dist"
+    "build-client": "cd ../client && npm install && npm run build && xcopy /E /I /Y dist\\* ..\\backend\\client-dist\\",
+    "build-admin": "cd ../admin && npm install && npm run build && xcopy /E /I /Y dist\\* ..\\backend\\admin-dist\\"
   },
   "dependencies": {
     "axios": "^1.9.0",

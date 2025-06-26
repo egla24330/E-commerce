@@ -3,10 +3,10 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: '/admin/', // ✅ necessary for subpath deployment
+  base: '/admin/', // VERY IMPORTANT!
   plugins: [react()],
   build: {
-    outDir: '../admin-dist', // ✅ place dist in backend root
+    outDir: '../backend/admin-dist', // output admin build to backend folder
     emptyOutDir: true,
   },
 });

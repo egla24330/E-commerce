@@ -23,6 +23,7 @@ const Home = () => {
                 <meta name="description" content="Shop electronics, fashion, books, and more. Enjoy fast delivery and affordable prices across Ethiopia." />
             </Helmet>
             <div className='bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors'>
+              
                 <Hero />
                 <CategoryListPage />
                 <Feature />

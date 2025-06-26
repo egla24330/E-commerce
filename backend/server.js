@@ -17,77 +17,82 @@ import withdrawalRouter from './routes/withdrawalRoute.js';
 import chatbotRouter from './routes/chatbotRouter.js';
 import FeedbackRouter from './routes/feedbackRouter.js';
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config();
 const app = express();
 
+// ✅ Connect to DBs
 connectToMongoDB();
 connectCloudinary();
 
+// ✅ Global Middleware
 app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json());
 
-// ==============================
-// ✅ API ROUTES
-// ==============================
+// ✅ API Routes
 app.use('/api/user', userRouter);
 app.use('/api/product', productRouter);
 app.use('/api/withdrawal', withdrawalRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/message', contactRouter);
-app.use('/api/my-bot',chatbotRouter)
-app.use('/api',FeedbackRouter)
+app.use('/api/my-bot', chatbotRouter);
+app.use('/api', FeedbackRouter);
 
+// ===============================
+// ✅ ADMIN SPA (Served at /admin)
+// ===============================
+const adminDistPath = path.join(__dirname, 'admin-dist');
 
-// ==============================
-// ✅ STATIC ADMIN
-// ==============================
-const adminPath = path.join(__dirname, 'admin-dist'); // or just 'dist' if that's your admin build folder
+// Serve static files first for /admin
+app.use('/admin', express.static(adminDistPath));
 
-app.use('/admin', express.static(adminPath));
-
+// Then history fallback for /admin (after static)
 app.use(
   '/admin',
   history({
     index: '/admin/index.html',
-    rewrites: [{ from: /^\/admin\/.*$/, to: '/admin/index.html' }],
+    verbose: true,
+    rewrites: [
+      { from: /^\/admin\/.*$/, to: '/admin/index.html' }
+    ]
   })
 );
 
-app.use('/admin', express.static(adminPath));
+// Re-serve static files after fallback for /admin
+app.use('/admin', express.static(adminDistPath));
 
-// ==============================
-// ✅ STATIC CLIENT
-// ==============================
-const clientPath = path.join(__dirname, 'client-dist');
+// ===============================
+// ✅ CLIENT SPA (Served at / )
+// ===============================
+const clientDistPath = path.join(__dirname, 'client-dist');
 
-app.use('/', express.static(clientPath));
+// Serve static files first for /
+app.use('/', express.static(clientDistPath));
 
+// Then history fallback for / (after static)
 app.use(
   '/',
   history({
     index: '/index.html',
+    verbose: true,
   })
 );
 
-app.use('/', express.static(clientPath));
+// Re-serve static files after fallback for /
+app.use('/', express.static(clientDistPath));
 
-// ==============================
-// ✅ Error handler
-// ==============================
+
+// ✅ Global Error Handler
 app.use((err, req, res, next) => {
   console.error('❌ Server error:', err);
   res.status(500).json({ success: false, message: 'Internal Server Error' });
 });
 
-// ==============================
-// ✅ START
-// ==============================
-const PORT = process.env.PORT || 4000;
+// ✅ Start Server
+const PORT = process.env.PORT || 4000; // Changed 000 to 4000 as a common default
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
