@@ -1,3 +1,4 @@
+
 {
   "name": "backend",
   "version": "1.0.0",
@@ -5,13 +6,11 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-
-    "build": "npm run build-client && npm run build-admin",
-
-    "build-client": "cd client && npm install && npm run build && rm -rf ../client-dist && mv dist ../client-dist",
-    "build-admin": "cd admin && npm install && npm run build && rm -rf ../admin-dist && mv dist ../admin-dist"
+  "start": "node server.js",
+  "dev": "nodemon server.js",
+  "build": "npm run build-client && npm run build-admin",
+  "build-client": "cd ../client && npm install && npm run build",
+  "build-admin": "cd ../admin && npm install && npm run build"
   },
   "dependencies": {
     "axios": "^1.9.0",
