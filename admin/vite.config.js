@@ -6,7 +6,7 @@ export default defineConfig({
   base: '/admin/', // ✅ necessary for subpath deployment
   plugins: [react()],
   build: {
-    outDir: '../admin-dist', // ✅ place dist in backend root
+    outDir: '../backend/admin-dist', // ✅ place dist in backend root
     emptyOutDir: true,
   },
 });

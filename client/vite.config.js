@@ -6,7 +6,7 @@ export default defineConfig({
   base: '/', // correct for serving at root
   plugins: [react()],
   build: {
-    outDir: '../client-dist', // ✅ place dist in backend root
+    outDir: '../backend/client-dist', // ✅ place dist in backend root
     emptyOutDir: true,
   },
 });

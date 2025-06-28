@@ -3,7 +3,7 @@ import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 import Add from './pages/Add'
 import List from './pages/List'
-import Order from './pages/Order'
+import Orders from './pages/Order'
 import { Routes, Route } from 'react-router-dom'
 import AdminLogin from './pages/AdminLogin'
 import { useState, useContext } from 'react'
@@ -36,7 +36,7 @@ const App = () => {
               <Route path='/' element={<Home/>}/>
               <Route path='/add' element={<Add/>} />
               <Route path='/list' element={<List/>} />
-              <Route path='/orders' element={<Order/>} />
+              <Route path='/orders' element={<Orders/>} />
               <Route path='/message' element={<AdminMessages/>} />
               <Route path='/cashout' element={<CashOut/>} />
               <Route path="/update-product/:id" element={<UpdateProduct />} />
