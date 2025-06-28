@@ -319,11 +319,10 @@ const adminGetAllOrder = async (req, res) => {
 // PATCH update order status
 const updateStatusOrder = async (req, res) => {
   const { status } = req.body;
-  const validStatuses = ['pending_verification', 'completed', 'cancelled'];
-
-  if (!validStatuses.includes(status)) {
-    return res.status(400).json({ error: 'Invalid status value' });
-  }
+  //const validStatuses = ['pending_verification', 'completed', 'cancelled'];
+  //if (!validStatuses.includes(status)) {
+   // return res.status(400).json({ error: 'Invalid status value' });
+  //}
 
   try {
     const order = await orderModel.findByIdAndUpdate(

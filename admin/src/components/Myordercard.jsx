@@ -1,6 +1,20 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FaChevronDown, FaChevronUp, FaReceipt, FaTrash, FaCheck, FaPercentage, FaCoins } from "react-icons/fa";
+import {
+    FaChevronDown,
+    FaChevronUp,
+    FaReceipt,
+    FaTrash,
+    FaCheck,
+    FaPercentage,
+    FaCoins,
+    FaClock,
+    FaTruck,
+    FaBoxOpen,
+    FaUndo,
+    FaMoneyBillWave,
+    FaCheckCircle
+} from "react-icons/fa";
 import ClipLoader from "react-spinners/ClipLoader";
 import SummaryCard from "./SummaryCard";
 import CustomerInfoSection from "./CustomerInfoSection";
@@ -10,19 +24,30 @@ import CustomerInfoSection from "./CustomerInfoSection";
   const [isExpanded, setIsExpanded] = useState(false);
   const toggleExpand = () => setIsExpanded(!isExpanded);
 const statusOptions = [
-    "pending",
-    "processing",
-    "shipped",
-    "delivered",
-    "cancelled"
+  "pending",
+  "pending_verification",
+  "processing",
+  "shipped",
+  "out_for_delivery",
+  "delivered",
+  "returned",
+  "refunded",
+  "cancelled",
+  "completed"
 ];
 
+
 const statusIcons = {
-    pending: <FaReceipt className="text-gray-400" title="Pending" />,
-    processing: <FaCheck className="text-blue-500" title="Processing" />,
-    shipped: <FaCheck className="text-yellow-500" title="Shipped" />,
-    delivered: <FaCheck className="text-green-600" title="Delivered" />,
-    cancelled: <FaTrash className="text-red-600" title="Cancelled" />
+  pending: <FaReceipt className="text-gray-400" title="Pending" />,
+  pending_verification: <FaClock className="text-yellow-600" title="Pending Verification" />,
+  processing: <FaCheck className="text-blue-500" title="Processing" />,
+  shipped: <FaTruck className="text-indigo-500" title="Shipped" />,
+  out_for_delivery: <FaTruck className="text-purple-500" title="Out for Delivery" />,
+  delivered: <FaBoxOpen className="text-green-600" title="Delivered" />,
+  returned: <FaUndo className="text-red-400" title="Returned" />,
+  refunded: <FaMoneyBillWave className="text-emerald-500" title="Refunded" />,
+  cancelled: <FaTrash className="text-red-600" title="Cancelled" />,
+  completed: <FaCheckCircle className="text-green-700" title="Completed" />
 };
 
 function calculateOrderTotal(cart = []) {

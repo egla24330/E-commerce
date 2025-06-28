@@ -4,17 +4,10 @@ import { ShopContext } from '../context/Shopcontext';
 import AuthContext from '../context/Authcontext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import {
-  FaCheckCircle,
-  FaClock,
-  FaTimesCircle,
-  FaMoneyBillAlt,
-  FaReceipt,
-  FaCalendarAlt,
-} from 'react-icons/fa';
-
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet';
+
+import {FaReceipt, FaClock, FaCalendarAlt,FaCheckCircle, FaTimesCircle, FaTruck, FaBoxOpen, FaHourglassHalf, FaBan, FaMoneyBillAlt } from 'react-icons/fa';
 
 const statusStyles = {
   pending_verification: {
@@ -32,7 +25,38 @@ const statusStyles = {
     text: 'Order Cancelled',
     color: 'text-red-600',
   },
+  processing: {
+    icon: <FaHourglassHalf />,
+    text: 'Processing Order',
+    color: 'text-blue-500',
+  },
+  shipping: {
+    icon: <FaTruck />,
+    text: 'Shipping in Progress',
+    color: 'text-indigo-600',
+  },
+  out_for_delivery: {
+    icon: <FaTruck />,
+    text: 'Out for Delivery',
+    color: 'text-purple-500',
+  },
+  delivered: {
+    icon: <FaBoxOpen />,
+    text: 'Delivered',
+    color: 'text-green-700',
+  },
+  returned: {
+    icon: <FaBan />,
+    text: 'Returned',
+    color: 'text-red-500',
+  },
+  refunded: {
+    icon: <FaMoneyBillAlt />,
+    text: 'Refunded',
+    color: 'text-emerald-600',
+  },
 };
+
 
 const Orders = () => {
   const { backendurl } = useContext(ShopContext);
