@@ -267,7 +267,7 @@ const updateOrder = async (req, res) => {
     });
   }
 }
-const adminGetAllOrder = async (req, res) => {
+/*const adminGetAllOrder = async (req, res) => {
   try {
     const orders = await orderModel.find()
     res.json({
@@ -280,7 +280,42 @@ const adminGetAllOrder = async (req, res) => {
       error: err
     });
   }
+};*/
+
+// GET /api/order/admin-orders?page=1&limit=6
+
+const adminGetAllOrder = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 6;
+
+    const totalOrders = await orderModel.countDocuments();
+    const totalPages = Math.ceil(totalOrders / limit);
+    const skip = (page - 1) * limit;
+
+    const orders = await orderModel
+      .find()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    res.json({
+      success: true,
+      orders,
+      page,
+      totalPages,
+      totalOrders,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      error: err.message,
+    });
+  }
 };
+
+
+
 // PATCH update order status
 const updateStatusOrder = async (req, res) => {
   const { status } = req.body;
