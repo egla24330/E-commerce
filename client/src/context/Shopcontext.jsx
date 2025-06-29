@@ -19,7 +19,7 @@ const ShopProvider = (props) => {
   const [products, setProducts] = useState([]);
   const [toggleStatus, setToggleStatus] = useState(false);
   const [productsLoading, setProductsLoading] = useState(true);
-
+ const [clickedProductId, setClickedProductId] = useState(null)
   const [cartItems, setCartItems] = useState(() => {
     const stored = localStorage.getItem('yegna_cart');
     return stored ? JSON.parse(stored) : [];
@@ -116,6 +116,8 @@ const ShopProvider = (props) => {
     removeFromCart,
     getCartTotal,
     getCartCount,
+    clickedProductId,
+    setClickedProductId,
   };
 
   return (

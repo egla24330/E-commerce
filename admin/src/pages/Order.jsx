@@ -87,7 +87,7 @@ const Orders = () => {
     <div className="p-6 h-[100vh] overflow-y-scroll bg-gray-50">
       {loading ? (
         <div className="flex justify-center items-center h-full">
-          <ClipLoader size={40} />
+          <ClipLoader size={20} /> <span className="ml-2 text-gray-600">Loading orders...</span>
         </div>
       ) : orders.length === 0 ? (
         <p className="text-gray-500 text-center text-lg mt-10">No orders available.</p>

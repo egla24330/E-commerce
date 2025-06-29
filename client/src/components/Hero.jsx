@@ -91,7 +91,7 @@ const Hero = () => {
           transition={{ delay: 0.2 }}
           className="text-center text-white px-4"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-2">YegnaFits</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-2">zaycommerce</h2>
           <p className="text-lg md:text-xl max-w-xl">{description}</p>
         </motion.div>
       </div>
