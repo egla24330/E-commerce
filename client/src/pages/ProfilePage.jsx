@@ -70,8 +70,8 @@ const ProfilePage = () => {
     try {
       if (navigator.share) {
         await navigator.share({
-          title: 'Join YegnaCart',
-          text: 'Join YegnaCart and earn 5 YegnaCoins!',
+          title: 'Join zaycommerce',
+          text: 'Join zaycommerce and get exclusive benefits!',
           url: inviteLink,
         });
       } else {
@@ -163,8 +163,8 @@ const ProfilePage = () => {
   return (
     <>
       <Helmet>
-        <title>Profile | YegnaCart</title>
-        <meta name="description" content="View and manage your YegnaCart profile, check your YegnaCoins balance, invite friends, and request withdrawals." />
+        <title>Profile | zaycommerce</title>
+        <meta name="description" content="View and manage your zaycommerce profile, check your ZCoins balance, invite friends, and request withdrawals." />
       </Helmet>
       <div className="max-w-3xl mx-auto mt-10 p-1 sm:p-3 bg-white shadow-lg rounded-2xl border border-gray-200 space-y-6">
         {/* Profile Header */}
@@ -186,7 +186,7 @@ const ProfilePage = () => {
 
           <div className="flex items-center gap-3">
             <Gift className="w-5 h-5 text-yellow-500" />
-            <span>YegnaCoins: <strong>{user.coins}</strong></span>
+            <span>ZCoins: <strong>{user.coins}</strong></span>
           </div>
         </div>
 
@@ -218,14 +218,14 @@ const ProfilePage = () => {
           >
             <h3 className="text-lg font-semibold text-gray-800 mb-2">Withdrawal Request</h3>
             <p className="text-sm text-gray-600 mb-4">Enter your bank account details to request a withdrawal.</p>
-            <p className="text-sm text-gray-600 mb-4 font-extrabold">1 YegnaCoins = 0.25 ETB</p>
+            <p className="text-sm text-gray-600 mb-4 font-extrabold">1 ZCoins = 0.25 ETB</p>
             {warn && (
-              <p className="text-red-600 text-sm mb-4">Minimum withdrawal amount is 999 YegnaCoins.</p>
+              <p className="text-red-600 text-sm mb-4">Minimum withdrawal amount is 999 ZCoins.</p>
             )}
 
             <div className='flex flex-col sm:flex-row gap-2'>
               <div className='w-full p-1 '>
-                <label className="block text-xs text-gray-700 mb-2">Withdrawal Amount (in YegnaCoins)</label>
+                <label className="block text-xs text-gray-700 mb-2">Withdrawal Amount (in ZCoins)</label>
                 <input
                   type="number"
                   placeholder="Withdrawal Amount"

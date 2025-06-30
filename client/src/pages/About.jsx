@@ -19,9 +19,9 @@ const About = () => {
 </Helmet>
 
       <div className="px-6 py-10 max-w-5xl mx-auto text-gray-800">
-        <h1 className="text-2xl font-bold text-center mb-6">About <span className="text-blue-600">YegnaCart</span></h1>
+        <h1 className="text-2xl font-bold text-center mb-6">About <span className="text-blue-600">zaycommerce</span></h1>
         <p className="text-center text-md mb-10 max-w-3xl mx-auto">
-          YegnaCart is an Ethiopian-based e-commerce platform built to make online shopping seamless, secure, and accessible to everyone.
+          zaycommerce is an Ethiopian-based e-commerce platform built to make online shopping seamless, secure, and accessible to everyone.
           We connect local businesses with customers by offering a wide range of products, secure payments, and fast delivery.
         </p>
 

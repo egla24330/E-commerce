@@ -10,10 +10,10 @@ const Footer = () => {
 
                 {/* Logo & Mission */}
                 <div className="col-span-1 md:col-span-3 lg:col-span-2">
-                    {/* <img src={assets.logoo} alt="YegnaCart Logo" className='w-44 mb-4' /> */}
+                    {/* <img src={assets.logoo} alt="zaycommerce Logo" className='w-44 mb-4' /> */}
                     <h1 className='text-3xl font-bold '>Zaycommerce</h1>
                     <p className="text-sm leading-relaxed text-gray-600 max-w-md">
-                        YegnaCart empowers Ethiopian buyers and sellers with a trusted, seamless shopping experience. From fashion to electronics, real estate, and more — everything in one place.
+                        zaycommerce empowers Ethiopian buyers and sellers with a trusted, seamless shopping experience. From fashion to electronics, real estate, and more — everything in one place.
                     </p>
                     <div className="flex items-center gap-4 mt-4">
                         <a href="https://facebook.com/yegnafits" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600"><Facebook size={20} /></a>

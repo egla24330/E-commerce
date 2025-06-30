@@ -11,11 +11,11 @@ const Terms = () => {
   return (
 
     <><Helmet>
-      <title>Terms & Conditions | YegnaCart</title>
-      <meta name="description" content="Read the Terms & Conditions for using YegnaCart. Learn about user responsibilities, orders, payments, withdrawals, prohibited activities, and more." />
-      <meta name="keywords" content="YegnaCart, Terms, Conditions, E-commerce, User Agreement, Payments, Withdrawals" />
-      <meta property="og:title" content="Terms & Conditions | YegnaCart" />
-      <meta property="og:description" content="Read the Terms & Conditions for using YegnaCart. Learn about user responsibilities, orders, payments, withdrawals, prohibited activities, and more." />
+      <title>Terms & Conditions | zaycommerce</title>
+      <meta name="description" content="Read the Terms & Conditions for using zaycommerce. Learn about user responsibilities, orders, payments, withdrawals, prohibited activities, and more." />
+      <meta name="keywords" content="zaycommerce, Terms, Conditions, E-commerce, User Agreement, Payments, Withdrawals" />
+      <meta property="og:title" content="Terms & Conditions | zaycommerce" />
+      <meta property="og:description" content="Read the Terms & Conditions for using zaycommerce. Learn about user responsibilities, orders, payments, withdrawals, prohibited activities, and more." />
     </Helmet>
       <div className="bg-white min-h-screen px-4 py-10 md:px-16 lg:px-32 text-gray-800">
         <motion.div
@@ -31,7 +31,7 @@ const Terms = () => {
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-2">1. Introduction</h2>
             <p>
-              Welcome to <strong>YegnaCart</strong>. By accessing or using our platform, you agree to be bound by these Terms & Conditions. Please read them carefully.
+              Welcome to <strong>zaycommerce</strong>. By accessing or using our platform, you agree to be bound by these Terms & Conditions. Please read them carefully.
             </p>
           </section>
 
@@ -81,7 +81,7 @@ const Terms = () => {
           <section className="mb-12">
             <h2 className="text-xl font-semibold mb-2">7. Contact Us</h2>
             <p>
-              For questions or concerns, reach out to us at <a href="mailto:support@yegnacart.com" className="text-indigo-600 underline">support@yegnacart.com</a>.
+              For questions or concerns, reach out to us at <a href="mailto:support@zaycommerce.com" className="text-indigo-600 underline">support@zaycommerce.com</a>.
             </p>
           </section>
 

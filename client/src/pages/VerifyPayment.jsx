@@ -127,10 +127,10 @@ export default function VerifyPayment() {
   return (
     <>
       <Helmet>
-        <title>Verify Payment | Yegna Shop</title>
-        <meta name="description" content="Upload your bank receipt to verify your payment for your Yegna Shop order." />
-        <meta property="og:title" content="Verify Payment | Yegna Shop" />
-        <meta property="og:description" content="Upload your bank receipt to verify your payment for your Yegna Shop order." />
+        <title>Verify Payment | zaycommerce Shop</title>
+        <meta name="description" content="Upload your bank receipt to verify your payment for your zaycommerce Shop order." />
+        <meta property="og:title" content="Verify Payment | zaycommerce Shop" />
+        <meta property="og:description" content="Upload your bank receipt to verify your payment for your zaycommerce Shop order." />
       </Helmet>
 
       <div className="max-w-xl mx-auto mt-16 bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
@@ -229,7 +229,7 @@ export default function VerifyPayment() {
             p2="Thank you for your patience!"
             show={showSuccess}
             onClose={() => {
-              localStorage.removeItem('yegna_cart');
+              localStorage.removeItem('zaycommerce_cart');
               localStorage.removeItem('order');
               navigate('/');
               location.reload();

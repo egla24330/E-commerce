@@ -8,18 +8,19 @@ const PrivacyPolicy = () => {
   return (
     <>
     <Helmet>
-      <title>Privacy Policy | YegnaCart</title>
-      <meta name="description" content="Read the YegnaCart Privacy Policy to learn how we collect, use, store, and protect your personal information when using our e-commerce platform." />
+      <title>Privacy Policy | zaycommerce</title>
+      <meta name="description" content="Read the zaycommerce Privacy Policy to learn how we collect, use, store, and protect your personal information when using our e-commerce platform." />
       <meta name="robots" content="index, follow" />
-      <meta property="og:title" content="Privacy Policy | YegnaCart" />
-      <meta property="og:description" content="Learn how YegnaCart handles your personal data and privacy when you use our platform." />
+      <meta property="og:title" content="Privacy Policy | zaycommerce" />
+      <meta property="og:description" content="Learn how zaycommerce handles your personal data and privacy when you use our platform." />
       <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://www.zaycommerce.com/privacy-policy" />
     </Helmet>
       <div className="max-w-3xl mx-auto px-4 py-8 text-gray-800">
         <h1 className="text-3xl font-bold mb-6 text-center">Privacy Policy</h1>
 
         <p className="mb-4">
-          At <strong>YegnaCart</strong>, your privacy is important to us. This policy outlines how we collect, use, store, and protect your information when you use our platform.
+          At <strong>zaycommerce</strong>, your privacy is important to us. This policy outlines how we collect, use, store, and protect your information when you use our platform.
         </p>
 
         <h2 className="text-xl font-semibold mt-6 mb-2">1. Information We Collect</h2>
@@ -83,7 +84,7 @@ const PrivacyPolicy = () => {
 
         <h2 className="text-xl font-semibold mt-6 mb-2">9. Contact Us</h2>
         <p className="mb-4">
-          If you have questions or concerns about this policy or how your data is handled, please contact us at <a href="mailto:support@yegnacart.com" className="text-blue-600">support@yegnacart.com</a>.
+          If you have questions or concerns about this policy or how your data is handled, please contact us at <a href="mailto:support@zaycommerce.com" className="text-blue-600">support@zaycommerce.com</a>.
         </p>
 
         <p className="text-sm text-gray-500 mt-6">Last updated: May 21, 2025</p>
