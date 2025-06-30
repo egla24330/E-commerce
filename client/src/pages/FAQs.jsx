@@ -70,10 +70,17 @@ const FAQs = () => {
 
   return (
     <>
-    <Helmet>
-      <title>FAQs | YegnaCart</title>
-      <meta name="description" content="Find answers to common questions about shopping, orders, payments, delivery, and more on YegnaCart." />
-    </Helmet>
+<Helmet>
+  <title>FAQs | ZayCommerce Frequently Asked Questions</title>
+  <meta name="description" content="Find answers to common questions about orders, payments, shipping, and returns on ZayCommerce. Shop with confidence." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="ZayCommerce FAQs | Help Center" />
+  <meta property="og:description" content="Explore frequently asked questions to get support on ordering, shipping, returns, and using the ZayCommerce platform." />
+  <meta property="og:url" content="https://www.zaycommerce.com/faqs" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://res.cloudinary.com/ddsvxw9i6/image/upload/v1751189453/lblg1dqtdgv5sd6qtpb0.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+</Helmet>
       <div className="max-w-4xl mx-auto px-2 py-20">
         <h1 className="text-2xl font-bold text-center text-gray-900 mb-10">Frequently Asked Questions</h1>
         <div className="bg-white shadow-md rounded-lg p-6 space-y-4">

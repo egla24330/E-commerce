@@ -7,10 +7,16 @@ const About = () => {
   }, []);
   return (
     <>
-      <Helmet>
-        <title>About Us – YegnaCart</title>
-        <meta name="description" content="Learn more about YegnaCart’s mission to empower Ethiopian online shopping." />
-      </Helmet>
+<Helmet>
+  <title>About Us | ZayCommerce – Building Ethiopia’s Digital Future</title>
+  <meta name="description" content="Learn more about ZayCommerce – Ethiopia’s online marketplace empowering local sellers and modernizing commerce. Our story, vision, and team." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="About ZayCommerce | Our Mission and Vision" />
+  <meta property="og:description" content="ZayCommerce is revolutionizing e-commerce in Ethiopia by connecting buyers and sellers through a trusted platform. Meet the team behind it." />
+  <meta property="og:url" content="https://www.zaycommerce.com/about" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://res.cloudinary.com/ddsvxw9i6/image/upload/v1751189453/lblg1dqtdgv5sd6qtpb0.jpg" />
+</Helmet>
 
       <div className="px-6 py-10 max-w-5xl mx-auto text-gray-800">
         <h1 className="text-2xl font-bold text-center mb-6">About <span className="text-blue-600">YegnaCart</span></h1>
