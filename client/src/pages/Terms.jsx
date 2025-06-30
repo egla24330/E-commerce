@@ -24,7 +24,7 @@ const Terms = () => {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <h1 className="text-3xl md:text-4xl font-bold mb-6 text-indigo-700">Terms & Conditions</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-6 text-black">Terms & Conditions</h1>
 
           <p className="mb-4 text-sm text-gray-500">Last Updated: May 27, 2025</p>
 

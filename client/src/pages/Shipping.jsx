@@ -29,7 +29,7 @@ const Shipping = () => {
                     <div className="mb-10">
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
                             <div>
-                                <h1 className="text-xl md:text-3xl font-bold mb-2 text-indigo-700">Shipping in Addis Ababa</h1>
+                                <h1 className="text-xl md:text-3xl font-bold mb-2 text-black">Shipping in Addis Ababa</h1>
                                 <p className="text-gray-600 max-w-2xl text-sm font-semibold">
                                     Learn about our local delivery process, fast timelines, and secure packaging within Addis Ababa.
                                 </p>

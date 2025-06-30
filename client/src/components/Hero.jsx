@@ -67,7 +67,7 @@ const Hero = () => {
   const { url, description } = images[currentIndex];
 
   return (
-    <div className="relative w-full h-[80vh] overflow-hidden">
+    <div className="relative w-full h-[80vh] overflow-hidden rounded-md">
       <AnimatePresence>
         {showImage && (
           <motion.img
@@ -83,7 +83,7 @@ const Hero = () => {
         )}
       </AnimatePresence>
 
-      <div className="absolute inset-0 bg-black/45 flex items-center justify-center z-10">
+      <div className="absolute inset-0 bg-black/45 flex items-center justify-center z-10 ">
         <motion.div
           key={description}
           initial={{ opacity: 0, y: 10 }}
@@ -91,7 +91,7 @@ const Hero = () => {
           transition={{ delay: 0.2 }}
           className="text-center text-white px-4"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-2">zaycommerce</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-2">Zero to All yours</h2>
           <p className="text-lg md:text-xl max-w-xl">{description}</p>
         </motion.div>
       </div>

@@ -10,6 +10,8 @@ import { ClipLoader } from "react-spinners"
 import { auth, provider, signInWithPopup } from '../firebase.js'
 import { Helmet } from 'react-helmet'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import { assets } from '../assets/assets/frontend_assets/assets.js'
+
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -127,9 +129,17 @@ const Login = () => {
         />
       </Helmet>
 
-      <div className="flex items-start justify-center min-h-screen pt-20 px-1 sm:px-0 ">
+      <div
+        className="flex items-start justify-center min-h-screen pt-20 px-1 sm:px-0"
+        style={{
+          backgroundImage: `url(${assets.loginbg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat"
+        }}
+      >
         <motion.div
-          className="w-full max-w-sm p-6 rounded-xl text-gray-700"
+          className="w-full max-w-sm p-6 rounded-xl text-gray-700 bg-white bg-opacity-90 shadow-lg"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
@@ -151,7 +161,7 @@ const Login = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.1 }}
               >
-                <FaUserPlus className="absolute top-1/2 -translate-y-1/2 left-3 text-indigo-400 group-focus-within:text-indigo-600 transition" />
+                <FaUserPlus className="absolute top-1/2 -translate-y-1/2 left-3 text-black group-focus-within:text-black transition" />
                 <input
                   type="text"
                   name="name"
@@ -159,13 +169,13 @@ const Login = () => {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-10 py-2 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-500 transition duration-200"
+                  className="w-full pl-10 pr-10 py-2 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-2 focus:ring-black focus:border-black transition duration-200"
                 />
               </motion.div>
             )}
 
             <div className="relative">
-              <FaUser className="absolute top-1/2 -translate-y-1/2 left-3 text-indigo-400 group-focus-within:text-indigo-600 transition" />
+              <FaUser className="absolute top-1/2 -translate-y-1/2 left-3 text-black group-focus-within:text-black transition" />
               <input
                 type="email"
                 name="email"
@@ -174,12 +184,12 @@ const Login = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full pl-10 pr-10 py-2 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-500 transition duration-200"
+                className="w-full pl-10 pr-10 py-2 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-2 focus:ring-black focus:border-black transition duration-200"
               />
             </div>
 
             <div className="relative group">
-              <FaLock className="absolute top-1/2 -translate-y-1/2 left-3 text-indigo-400 group-focus-within:text-indigo-600 transition" />
+              <FaLock className="absolute top-1/2 -translate-y-1/2 left-3 text-black group-focus-within:text-black transition" />
               <input
                 type={showPassword ? 'text' : 'password'}
                 name="password"
@@ -188,22 +198,20 @@ const Login = () => {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full pl-10 pr-10 py-2 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-500 transition duration-200"
+                className="w-full pl-10 pr-10 py-2 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-2 focus:ring-black focus:border-black transition duration-200"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(prev => !prev)}
-                className="absolute top-1/2 right-3 -translate-y-1/2 text-indigo-400 hover:text-indigo-600 transition"
+                className="absolute top-1/2 right-3 -translate-y-1/2 text-black hover:text-black transition"
               >
                 {showPassword ? <FaEye /> : <FaEyeSlash />}
               </button>
             </div>
 
-
-
             <motion.button
               type="submit"
-              className="w-full py-2 text-sm font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-500 transition"
+              className="w-full py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-900 transition"
               whileTap={{ scale: 0.97 }}
             >
               {loading ? <ClipLoader size={20} color={'white'} /> : (isRegistering ? 'Sign up' : 'Login')}
@@ -215,7 +223,7 @@ const Login = () => {
             <button
               type="button"
               onClick={() => setIsRegistering(!isRegistering)}
-              className="text-indigo-600 hover:underline font-medium"
+              className="text-black hover:underline font-medium"
             >
               {isRegistering ? 'Login' : 'Sign up'}
             </button>

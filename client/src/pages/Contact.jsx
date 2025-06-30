@@ -40,8 +40,14 @@ const ContactPage = () => {
   return (
     <>
       <Helmet>
-        <title>Contact Us – YegnaCart</title>
-        <meta name="description" content="Get in touch with the YegnaCart support team. We’re here to help you." />
+        <title>Contact Us | ZayCommerce Support Team</title>
+        <meta name="description" content="Need help or have a question? Contact ZayCommerce’s support team for assistance with orders, delivery, payments, or account issues." />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="Contact ZayCommerce | We’re Here to Help" />
+        <meta property="og:description" content="Reach out to our customer support team for fast, friendly service. We're here to help you shop smarter." />
+        <meta property="og:url" content="https://www.zaycommerce.com/contact" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://res.cloudinary.com/ddsvxw9i6/image/upload/v1751189453/lblg1dqtdgv5sd6qtpb0.jpg" />
       </Helmet>
 
 
@@ -94,7 +100,7 @@ const ContactPage = () => {
             <motion.button
               whileTap={{ scale: 0.96 }}
               type="submit"
-              className="w-full py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+              className="w-full py-3 rounded-xl bg-black text-white font-semibold hover:bg-black transition"
               disabled={loading}
             >
               {loading ? (

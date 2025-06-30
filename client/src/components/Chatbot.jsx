@@ -105,7 +105,7 @@ const speak = (text) => {
     } catch (err) {
       setMessages([
         ...newMessages,
-        { role: "assistant", content: "Sorry, something went wrong." }
+        { role: "assistant", content: "👋 Hi there! I'm currently under development and learning new things. I'll be ready to assist you very soon. Thanks for understanding!" }
       ]);
     } finally {
       setIsLoading(false);
@@ -117,7 +117,7 @@ const speak = (text) => {
       {/* Floating Toggle Button */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 z-50 bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 transition-transform duration-200 hover:scale-110"
+        className="fixed bottom-6 right-6 z-50 bg-black text-white p-3 rounded-full shadow-lg hover:bg-black transition-transform duration-200 hover:scale-110"
       >
         {open ? <FiX size={22} /> : <FiMessageSquare size={22} />}
       </button>
@@ -125,7 +125,7 @@ const speak = (text) => {
       {/* Chat Window */}
       {open && (
         <div className="fixed bottom-20 right-6 w-[360px] max-h-[500px] bg-white border shadow-xl rounded-xl flex flex-col overflow-hidden z-50">
-          <div className="bg-indigo-600 text-white px-4 py-2 font-semibold">
+          <div className="bg-black text-white px-4 py-2 font-semibold">
             YegnaCart Assistant
           </div>
 
@@ -135,7 +135,7 @@ const speak = (text) => {
                 key={i}
                 className={`px-3 py-2 rounded-lg max-w-[80%] ${
                   msg.role === "user"
-                    ? "bg-indigo-100 text-indigo-900 self-end ml-auto"
+                    ? "bg-indigo-50 text-black border self-end ml-auto"
                     : "bg-gray-100 text-gray-800 self-start mr-auto"
                 }`}
               >
@@ -152,7 +152,7 @@ const speak = (text) => {
         <button
           type="button"
           onClick={handleVoiceInput}
-          className="text-xl text-gray-600 hover:text-indigo-500"
+          className="text-xl text-gray-600 hover:text-black"
         >
           🎙️
         </button>
@@ -165,7 +165,7 @@ const speak = (text) => {
         />
         <button
           type="submit"
-          className="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-full text-sm"
+          className="bg-black hover:bg-black text-white px-4 py-2 rounded-full text-sm"
         >
           Send
         </button>

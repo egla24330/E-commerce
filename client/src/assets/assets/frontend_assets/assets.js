@@ -34,9 +34,14 @@ import hero9 from'./hero9.webp'
 import hero10 from'./hero10.jpg'
 import imagecopy from './imagecopy.png'
 
+import logo from './logo.png'   
+import loginbg from './loginbg.png'
 
 export const assets = {
+    logo,
+    imagecopy,
    imagecopy,
+   loginbg,
     hero1,
     hero2,
     hero3,

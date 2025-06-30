@@ -35,36 +35,10 @@ const Navbar = () => {
   
   return (
     <div className='flex items-center justify-between py-6 font-medium border-b-2'>
-      {/* <img src={assets.logoo} alt="logo" className='w-32' /> */}
-      <p onClick={() => navi('/')} className='text-indigo-600 mynerve-regular cursor-pointer'>Zaycommerce </p>
-      {/* <ul className='sm:flex gap-5 text-sm text-gray-700 hidden'>
-        <NavLink to={'/'} className='flex items-center gap-1 flex-col '>
-          <p>HOME</p>
-          <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
-        </NavLink>
-
-        <NavLink to={'/collection'} className='flex items-center gap-1 flex-col '>
-          <p>COLLECTION</p>
-          <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
-        </NavLink>
-
-        <NavLink to={'/about'} className='flex items-center gap-1 flex-col '>
-          <p>ABOUT</p>
-          <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
-        </NavLink>
-
-        <NavLink to={'/contact'} className='flex items-center gap-1 flex-col '>
-          <p>CONTACT</p>
-          <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
-        </NavLink>
-
-      </ul> */}
-      
-
+    <img onClick={() => navi('/')} src={assets.logo} alt="logo" className='w-10 cursor-pointer' /> 
       <div className='flex items-center gap-6 '>
         {/* search */}
         {/* <img src={assets.search_icon} onClick={serchIconWhenClick} className='w-5 cursor-pointer' /> */}
-
         {/* profile */}
         <div className="group relative z-50">
           <img className="w-5 cursor-pointer" onClick={() => token ? null : navi('/login')} src={assets.profile_icon} alt="" />
@@ -79,10 +53,6 @@ const Navbar = () => {
             }
           </div>
         </div>
-
-        {/* cart */}
-
-        
 {
   localStorage.getItem('order') ? (
     
@@ -100,48 +70,8 @@ const Navbar = () => {
   )
 }
         <img onClick={() => setToggleStatus(true)} src={assets.menu_icon} className='w-5 cursor-pointer' /> 
-
       </div>
-
        {toggleStatus? <Sidebar/> : null}
-
-      {/* <div
-        className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white text-gray-700 font-medium  duration-300 transition-all
-             ${open ? 'w-0' : 'w-full'} sm:hidden`}>
-        <div className='flex flex-col ok'>
-
-          <div className='flex items-center text-gray-600 gap-3 p-3'
-            onClick={() => setOpen(true)}>
-            <img src={assets.dropdown_icon}
-              alt="drob-icon"
-              className='w-2 rotate-180' />
-            <p>BACK</p>
-          </div>
-
-
-          <NavLink to={'/'} onClick={() => setOpen(true)} className='py-2 pl-6 border'>
-            <p>HOME</p>
-          </NavLink>
-
-          <NavLink to={'/collection'} onClick={() => setOpen(true)} className='py-2 pl-6 border'>
-            <p>COLLECTION</p>
-
-          </NavLink>
-
-          <NavLink to={'/about'} onClick={() => setOpen(true)} className='py-2 pl-6 border'>
-            <p>ABOUT</p>
-
-          </NavLink>
-
-          <NavLink to={'/contact'} onClick={() => setOpen(true)} className='py-2 pl-6 border'>
-            <p>CONTACT</p>
-
-          </NavLink>
-
-        </div>
-      </div> */}
-
-
     </div>
   )
 }

@@ -123,7 +123,7 @@ const FeedbackForm = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <h2 className="text-2xl font-bold text-center mb-6 text-indigo-700">
+      <h2 className="text-2xl font-bold text-center mb-6 text-black">
         We value your feedback 💬
       </h2>
       
@@ -142,7 +142,7 @@ const FeedbackForm = () => {
           <input
             type="text"
             name="name"
-            className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+            className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-black transition"
             value={formData.name}
             onChange={handleChange}
             placeholder="Your name"
@@ -157,7 +157,7 @@ const FeedbackForm = () => {
           <input
             type="email"
             name="email"
-            className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+            className="w-full border border-gray-300 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-black transition"
             value={formData.email}
             onChange={handleChange}
             placeholder="your.email@example.com"
@@ -186,8 +186,8 @@ const FeedbackForm = () => {
                   htmlFor={`rating-${option.value}`}
                   className={`flex flex-col items-center justify-center cursor-pointer rounded-xl p-2 text-center border transition-all ${
                     formData.rating === option.value
-                      ? "border-indigo-500 bg-indigo-50 shadow-inner"
-                      : "border-gray-300 hover:border-indigo-300 hover:bg-indigo-50/50"
+                      ? "border-black bg-blackshadow-inner"
+                      : "border-gray-300 hover:border-black hover:bg-black50"
                   }`}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
@@ -202,7 +202,7 @@ const FeedbackForm = () => {
           
           {/* Rating description */}
           <div className="mt-3 p-3 bg-gray-50 rounded-xl text-center">
-            <p className="font-medium text-indigo-700">
+            <p className="font-medium text-black">
               {ratingOptions.find(opt => opt.value === formData.rating)?.description}
             </p>
           </div>
@@ -216,7 +216,7 @@ const FeedbackForm = () => {
           <textarea
             name="message"
             rows="4"
-            className="w-full border border-gray-300 rounded-xl p-3 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+            className="w-full border border-gray-300 rounded-xl p-3 resize-none focus:outline-none focus:ring-2 focus:ring-black transition"
             value={formData.message}
             onChange={handleChange}
             placeholder="Tell us what you think..."
@@ -236,7 +236,7 @@ const FeedbackForm = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-3 px-4 rounded-xl transition duration-300 shadow-lg hover:shadow-xl ${
+            className={`w-full bg-gradient-to-r from-black to-purple-600 text-white font-semibold py-3 px-4 rounded-xl transition duration-300 shadow-lg hover:shadow-xl ${
               isSubmitting ? "opacity-70 cursor-not-allowed" : ""
             }`}
           >
