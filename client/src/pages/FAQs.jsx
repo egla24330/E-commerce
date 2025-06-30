@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { ChevronDown } from 'lucide-react'
-import { Helmet } from 'react-helmet'
+import React, { useState, useEffect } from 'react';
+import { ChevronDown } from 'lucide-react';
+import { Helmet } from 'react-helmet';
+
 const faqs = [
   {
-    question: 'What is YegnaCart?',
-    answer: 'YegnaCart is a trusted Ethiopian e-commerce platform offering products like fashion, electronics, real estate, and more—all in one place.'
+    question: 'What is zaycommerce?',
+    answer: 'zaycommerce is a trusted Ethiopian e-commerce platform offering products like fashion, electronics,and more—all in one place.'
   },
   {
     question: 'How do I place an order?',
@@ -42,8 +43,7 @@ const faqs = [
     question: 'How do I contact customer support?',
     answer: 'You can reach us via email, live chat, or our contact form. Visit the Contact Us page for full details.'
   }
-]
-
+];
 
 const FAQItem = ({ faq, isOpen, toggle }) => (
   <div className="border-b py-4">
@@ -59,28 +59,45 @@ const FAQItem = ({ faq, isOpen, toggle }) => (
     </button>
     {isOpen && <p className="mt-3 text-gray-600 text-sm">{faq.answer}</p>}
   </div>
-)
+);
 
 const FAQs = () => {
-  const [a, setA] = useState(false)
-  const [openIndex, setOpenIndex] = useState(null)
+  const [openIndex, setOpenIndex] = useState(null);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
   return (
     <>
-<Helmet>
-  <title>FAQs | ZayCommerce Frequently Asked Questions</title>
-  <meta name="description" content="Find answers to common questions about orders, payments, shipping, and returns on ZayCommerce. Shop with confidence." />
-  <meta name="robots" content="index, follow" />
-  <meta property="og:title" content="ZayCommerce FAQs | Help Center" />
-  <meta property="og:description" content="Explore frequently asked questions to get support on ordering, shipping, returns, and using the ZayCommerce platform." />
-  <meta property="og:url" content="https://www.zaycommerce.com/faqs" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://res.cloudinary.com/ddsvxw9i6/image/upload/v1751189453/lblg1dqtdgv5sd6qtpb0.jpg" />
-  <meta name="twitter:card" content="summary_large_image" />
-</Helmet>
+      <Helmet>
+        <title>FAQs | ZayCommerce Frequently Asked Questions</title>
+        <meta name="description" content="Find answers to common questions about orders, payments, shipping, and returns on ZayCommerce. Shop with confidence." />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="ZayCommerce FAQs | Help Center" />
+        <meta property="og:description" content="Explore frequently asked questions to get support on ordering, shipping, returns, and using the ZayCommerce platform." />
+        <meta property="og:url" content="https://www.zaycommerce.com/faqs" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://res.cloudinary.com/ddsvxw9i6/image/upload/v1751189453/lblg1dqtdgv5sd6qtpb0.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <script type="application/ld+json">
+          {JSON.stringify(faqSchema)}
+        </script>
+      </Helmet>
+
       <div className="max-w-4xl mx-auto px-2 py-20">
         <h1 className="text-2xl font-bold text-center text-gray-900 mb-10">Frequently Asked Questions</h1>
         <div className="bg-white shadow-md rounded-lg p-6 space-y-4">
@@ -94,9 +111,8 @@ const FAQs = () => {
           ))}
         </div>
       </div>
-
     </>
-  )
-}
+  );
+};
 
-export default FAQs
+export default FAQs;
