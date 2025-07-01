@@ -15,7 +15,7 @@ const About = () => {
   <meta property="og:description" content="ZayCommerce is revolutionizing e-commerce in Ethiopia by connecting buyers and sellers through a trusted platform. Meet the team behind it." />
   <meta property="og:url" content="https://www.zaycommerce.com/about" />
   <meta property="og:type" content="article" />
-  <meta property="og:image" content="https://res.cloudinary.com/ddsvxw9i6/image/upload/v1751189453/lblg1dqtdgv5sd6qtpb0.jpg" />
+  <meta property="og:image" content="https://www.zaycommerce.com/logo.png" />
 </Helmet>
 
       <div className="px-6 py-10 max-w-5xl mx-auto text-gray-800">

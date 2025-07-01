@@ -130,7 +130,7 @@ const Login = () => {
       </Helmet>
 
       <div
-        className="flex items-start justify-center min-h-screen pt-20 px-1 sm:px-0"
+        className="flex items-start justify-center min-h-screen pt-20 px-1 sm:px-0 "
         style={{
           backgroundImage: `url(${assets.loginbg})`,
           backgroundSize: "cover",
@@ -139,7 +139,7 @@ const Login = () => {
         }}
       >
         <motion.div
-          className="w-full max-w-sm p-6 rounded-xl text-gray-700 bg-white bg-opacity-90 shadow-lg"
+          className="w-full  max-w-md p-6 rounded-xl text-gray-700 bg-white bg-opacity-90 shadow-lg "
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
@@ -169,7 +169,7 @@ const Login = () => {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full pl-10 pr-10 py-2 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-2 focus:ring-black focus:border-black transition duration-200"
+                  className="w-full pl-10 pr-10 py-2 text-sm border border-gray-700 rounded-lg shadow-sm outline-none focus:ring-2 focus:ring-black focus:border-black transition duration-200"
                 />
               </motion.div>
             )}
@@ -184,7 +184,7 @@ const Login = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full pl-10 pr-10 py-2 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-2 focus:ring-black focus:border-black transition duration-200"
+                className="w-full pl-10 pr-10 py-2 text-sm border border-gray-700 rounded-lg shadow-sm outline-none focus:ring-2 focus:ring-black focus:border-black transition duration-200"
               />
             </div>
 
@@ -198,7 +198,7 @@ const Login = () => {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full pl-10 pr-10 py-2 text-sm border border-gray-300 rounded-lg shadow-sm outline-none focus:ring-2 focus:ring-black focus:border-black transition duration-200"
+                className="w-full pl-10 pr-10 py-2 text-sm border border-gray-700 rounded-lg shadow-sm outline-none focus:ring-2 focus:ring-black focus:border-black transition duration-200"
               />
               <button
                 type="button"
@@ -238,7 +238,7 @@ const Login = () => {
           <button
             type="button"
             onClick={handleGoogleLogin}
-            className="w-full mt-4 py-2 flex items-center justify-center gap-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition"
+            className="w-full mt-4 py-2 flex items-center justify-center gap-3 border border-gray-700 rounded-lg hover:bg-gray-100 transition"
           >
             {!loadingGoogle && (
               <img

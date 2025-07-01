@@ -88,6 +88,18 @@ const Orders = () => {
       <Helmet>
         <title>My Orders | E-commerce</title>
         <meta name="description" content="View your recent orders, order status, and receipts on your E-commerce account." />
+
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="My Orders | E-commerce" />
+        <meta property="og:description" content="View your recent orders, order status, and receipts on your E-commerce account." />
+        <meta property="og:url" content="https://www.zaycommerce.com/orders"  />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://www.zaycommerce.com/logo.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="My Orders | E-commerce" />
+        <meta name="twitter:description" content="View your recent orders, order status, and receipts on your E-commerce account." />
+        <link rel="canonical" href="https://www.zaycommerce.com/orders" />
+     
       </Helmet>
       
       <div className="min-h-screen bg-gray-50 px-4 sm:px-8 py-10">

@@ -105,7 +105,7 @@ const Testimonials = () => {
             transition={{ type: "spring", stiffness: 300 }}
           >
             {/* Avatar */}
-            <div className="w-14 h-14 rounded-full bg-indigo-100 flex items-center justify-center mb-3 text-indigo-600 text-xl font-bold">
+            <div className="w-14 h-14 rounded-full bg-gray-800 flex items-center justify-center mb-3 text-white text-xl font-bold">
               {t.name[0]}
             </div>
 
@@ -122,7 +122,7 @@ const Testimonials = () => {
             </div>
 
             {/* Name */}
-            <h4 className="font-semibold text-indigo-700">{t.name}</h4>
+            <h4 className="font-semibold text-black">{t.name}</h4>
           </motion.div>
         ))}
       </motion.div>

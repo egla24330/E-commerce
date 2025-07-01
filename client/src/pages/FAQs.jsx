@@ -91,7 +91,7 @@ const FAQs = () => {
         <meta property="og:description" content="Explore frequently asked questions to get support on ordering, shipping, returns, and using the ZayCommerce platform." />
         <meta property="og:url" content="https://www.zaycommerce.com/faqs" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://res.cloudinary.com/ddsvxw9i6/image/upload/v1751189453/lblg1dqtdgv5sd6qtpb0.jpg" />
+        <meta property="og:image" content="https://www.zaycommerce.com/logo.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <script type="application/ld+json">
           {JSON.stringify(faqSchema)}

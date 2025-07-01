@@ -152,8 +152,8 @@ export default function VerifyPayment() {
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="flex flex-col gap-2">
             <label className="text-sm font-medium text-gray-600">Upload Bank Receipt</label>
-            <div className="relative border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-blue-400 transition">
-              {receipt ? <img src={URL.createObjectURL(receipt)} alt="receipt" /> : <UploadCloud className="mx-auto text-blue-500 mb-3" size={40} />}
+            <div className="relative border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-black transition">
+              {receipt ? <img src={URL.createObjectURL(receipt)} alt="receipt" /> : <UploadCloud className="mx-auto text-black mb-3" size={40} />}
               <p className="text-gray-500 mb-2">{receipt ? receipt.name : "Click or drag to upload receipt"}</p>
               <input type="file" accept="image/*,application/pdf" onChange={(e) => setReceipt(e.target.files[0])} className="absolute inset-0 opacity-0 cursor-pointer" />
             </div>
@@ -168,7 +168,7 @@ export default function VerifyPayment() {
                     initial={{ width: 0 }}
                     animate={{ width: `${uploadPercentage}%` }}
                     transition={{ type: "spring", stiffness: 100, damping: 10 }}
-                    className="bg-blue-600 h-4 text-xs text-white text-center"
+                    className="bg-black h-4 text-xs text-white text-center"
                   >
                     {uploadPercentage}%
                   </motion.div>
@@ -192,7 +192,7 @@ export default function VerifyPayment() {
               {/* Fancy Circular Progress */}
               <div className="flex justify-center my-4">
                 <motion.svg
-                  className="w-16 h-16 text-blue-600"
+                  className="w-16 h-16 text-black"
                   viewBox="0 0 100 100"
                   initial={{ rotate: 0 }}
                   animate={{ rotate: 360 }}
@@ -216,7 +216,7 @@ export default function VerifyPayment() {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg transition flex items-center justify-center"
+            className="w-full bg-black hover:opacity-50 text-white font-medium py-2 rounded-lg transition flex items-center justify-center"
             disabled={loading}
           >
             {loading ? "Uploading..." : "Submit for Verification"}

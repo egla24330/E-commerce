@@ -47,7 +47,7 @@ const ContactPage = () => {
         <meta property="og:description" content="Reach out to our customer support team for fast, friendly service. We're here to help you shop smarter." />
         <meta property="og:url" content="https://www.zaycommerce.com/contact" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://res.cloudinary.com/ddsvxw9i6/image/upload/v1751189453/lblg1dqtdgv5sd6qtpb0.jpg" />
+        <meta property="og:image" content="https://www.zaycommerce.com/logo.png" />
       </Helmet>
 
 
@@ -67,7 +67,7 @@ const ContactPage = () => {
                 onChange={handleChange}
                 required
                 placeholder="Your name"
-                className="w-full pl-10 pr-4 py-3 bg-white/40 text-gray-700 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-400 outline-none backdrop-blur-sm placeholder-gray-400 transition"
+                className="w-full pl-10 pr-4 py-3 bg-white/40 text-gray-700 border border-gray-700 rounded-xl focus:ring-2 focus:ring-black outline-none backdrop-blur-sm placeholder-gray-400 transition"
               />
             </div>
 
@@ -80,7 +80,7 @@ const ContactPage = () => {
                 onChange={handleChange}
                 required
                 placeholder="Your email"
-                className="w-full pl-10 pr-4 py-3 bg-white/40 text-gray-700 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-400 outline-none backdrop-blur-sm placeholder-gray-400 transition"
+                className="w-full pl-10 pr-4 py-3 bg-white/40 text-gray-700 border border-gray-700 rounded-xl focus:ring-2 focus:ring-black outline-none backdrop-blur-sm placeholder-gray-400 transition"
               />
             </div>
 
@@ -93,7 +93,7 @@ const ContactPage = () => {
                 required
                 placeholder="Your message"
                 rows="5"
-                className="w-full pl-10 pr-4 py-3 bg-white/40 text-gray-700 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-400 outline-none backdrop-blur-sm placeholder-gray-400 transition resize-none"
+                className="w-full pl-10 pr-4 py-3 bg-white/40 text-gray-700 border border-gray-700 rounded-xl focus:ring-2 focus:ring-black outline-none backdrop-blur-sm placeholder-gray-400 transition resize-none"
               />
             </div>
 

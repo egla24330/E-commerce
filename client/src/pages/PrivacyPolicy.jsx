@@ -15,6 +15,13 @@ const PrivacyPolicy = () => {
       <meta property="og:description" content="Learn how zaycommerce handles your personal data and privacy when you use our platform." />
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://www.zaycommerce.com/privacy-policy" />
+      <meta property="og:image" content="https://www.zaycommerce.com/logo.png" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Privacy Policy | zaycommerce" />
+      <meta name="twitter:description" content="Read the zaycommerce Privacy Policy to learn how we collect, use, store, and protect your personal information when using our e-commerce platform." />
+      <meta name="twitter:image" content="https://www.zaycommerce.com/logo.png
+" />
+      <link rel="canonical" href="https://www.zaycommerce.com/privacy-policy" />
     </Helmet>
       <div className="max-w-3xl mx-auto px-4 py-8 text-gray-800">
         <h1 className="text-3xl font-bold mb-6 text-center">Privacy Policy</h1>

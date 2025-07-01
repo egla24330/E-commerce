@@ -23,6 +23,7 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config();
 const app = express();
+app.use(express.static(path.join(__dirname, 'public')));
 
 connectToMongoDB();
 connectCloudinary();

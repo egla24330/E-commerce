@@ -18,6 +18,14 @@ const Shipping = () => {
                 <meta property="og:title" content="Shipping in Addis Ababa | E-commerce" />
                 <meta property="og:description" content="Learn about our local delivery process, fast timelines, and secure packaging within Addis Ababa." />
                 <meta property="og:type" content="website" />
+                <meta property="og:image" content="https://www.zaycommerce.com/logo.png" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Shipping in Addis Ababa | E-commerce" />
+                <meta name="twitter:description" content="Learn about our local delivery process, fast timelines, and secure packaging within Addis Ababa." />
+                <link rel="canonical" href="https://www.zaycommerce.com/shipping" />
+                <link rel="alternate" href="https://www.zaycommerce.com/shipping" hreflang="en" />
+        
+
             </Helmet>
             <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-white px-4 py-10 md:px-8 lg:px-16 xl:px-32 text-gray-800">
                 <motion.div

@@ -165,10 +165,15 @@ const ProfilePage = () => {
       <Helmet>
         <title>Profile | zaycommerce</title>
         <meta name="description" content="View and manage your zaycommerce profile, check your ZCoins balance, invite friends, and request withdrawals." />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="Profile | zaycommerce" />
+        <meta property="og:description" content="View and manage your zaycommerce profile, check your ZCoins balance, invite friends, and request withdrawals." />
+        <meta property="og:url" content="https://www.zaycommerce.com/profile" />
+        <meta property="og:type" content="profile" />
       </Helmet>
       <div className="max-w-3xl mx-auto mt-10 p-1 sm:p-3 bg-white shadow-lg rounded-2xl border border-gray-200 space-y-6">
         {/* Profile Header */}
-        <div className="flex items-center gap-4">
+        <div className="flex flex-column items-center gap-4">
           {user.avatar ? <img src={user.avatar} alt="User Avatar" className="w-12 h-12 rounded-full" /> : <div className='flex items-center justify-center bg-red-100 w-[50px] h-[50px] rounded-full'> <User className="w-6 h-6 text-indigo-600" /> </div>}
 
           <div>

@@ -84,19 +84,7 @@ const Product = () => {
             <p className='mt-5 text-gray-500 md:w-4/5'>{productData.description}</p>
             <div className='flex flex-col gap-4 my-8'>
               <p>Select Size</p>
-              {
-                /*
-                  <div className='flex gap-2'>
-                  {
-                    
-                    productData.sizes.map((i, index) => (
-                      <button onClick={() => setSize(i)} className={`border bg-gray-100 px-4 py-2 rounded-md ${i === size ? 'bg-gray-300' : ''}`} key={index}>{i}</button>
-                    ))
-                  }
-                </div>
-                
-                */
-              }
+             
               {/* add cart btm*/}
               <div className='mt-4'>
                 <button

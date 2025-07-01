@@ -236,7 +236,7 @@ const Placeorder = () => {
                   value={form.name}
                   onChange={handleInputChange}
                   onBlur={handleBlur}
-                  className={`w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 ${errors.name ? 'border-red-500 focus:ring-red-200' : 'border-gray-300 focus:ring-blue-200'
+                  className={`w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 ${errors.name ? 'border-red-500 focus:ring-red-200' : 'border-gray-700 focus:ring-black'
                     } transition-colors`}
                   required
                 />
@@ -255,7 +255,7 @@ const Placeorder = () => {
                   value={form.email}
                   onChange={handleInputChange}
                   onBlur={handleBlur}
-                  className={`w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 ${errors.email ? 'border-red-500 focus:ring-red-200' : 'border-gray-300 focus:ring-blue-200'
+                  className={`w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 ${errors.email ? 'border-red-500 focus:ring-red-200' : 'border-gray-700 focus:ring-black'
                     } transition-colors`}
                   required
                 />
@@ -274,7 +274,7 @@ const Placeorder = () => {
                   value={form.address}
                   onChange={handleInputChange}
                   onBlur={handleBlur}
-                  className={`w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 ${errors.address ? 'border-red-500 focus:ring-red-200' : 'border-gray-300 focus:ring-blue-200'
+                  className={`w-full pl-10 pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 ${errors.address ? 'border-red-500 focus:ring-red-200' : 'border-gray-700 focus:ring-black'
                     } transition-colors`}
                   required
                 />
@@ -289,7 +289,7 @@ const Placeorder = () => {
                     name="deliveryArea"
                     value={form.deliveryArea || 'addis'}
                     onChange={handleAreaChange}
-                    className="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-200 appearance-none bg-white"
+                    className="w-full pl-3 pr-10 py-3 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-black appearance-none bg-white"
                   >
                     <option value="addis">Addis Ababa</option>
                     <option value="outside">Outside Addis Ababa</option>
@@ -310,7 +310,7 @@ const Placeorder = () => {
                       value={form.subCity || ''}
                       onChange={handleInputChange}
                       onBlur={handleBlur}
-                      className={`w-full pl-3 pr-10 py-3 border rounded-lg focus:outline-none focus:ring-2 appearance-none bg-white ${errors.subCity ? 'border-red-500 focus:ring-red-200' : 'border-gray-300 focus:ring-blue-200'
+                      className={`w-full pl-3 pr-10 py-3 border rounded-lg focus:outline-none focus:ring-2 appearance-none bg-white ${errors.subCity ? 'border-red-500 focus:ring-red-200' : 'border-gray-700 focus:ring-black'
                         }`}
                     >
                       <option value="">-- Select Sub-city --</option>
@@ -338,7 +338,7 @@ const Placeorder = () => {
                     value={form.city}
                     onChange={handleInputChange}
                     onBlur={handleBlur}
-                    className={`w-full px-3 py-3 border rounded-lg focus:outline-none focus:ring-2 ${errors.city ? 'border-red-500 focus:ring-red-200' : 'border-gray-300 focus:ring-blue-200'
+                    className={`w-full px-3 py-3 border rounded-lg focus:outline-none focus:ring-2 ${errors.city ? 'border-red-500 focus:ring-red-200' : 'border-gray-700 focus:ring-black'
                       } transition-colors`}
                     required
                   />
@@ -356,7 +356,7 @@ const Placeorder = () => {
                   value={form.deliveryLocation}
                   onChange={handleInputChange}
                   onBlur={handleBlur}
-                  className={`w-full px-3 py-3 border rounded-lg focus:outline-none focus:ring-2 ${errors.deliveryLocation ? 'border-red-500 focus:ring-red-200' : 'border-gray-300 focus:ring-blue-200'
+                  className={`w-full px-3 py-3 border rounded-lg focus:outline-none focus:ring-2 ${errors.deliveryLocation ? 'border-red-500 focus:ring-red-200' : 'border-gray-700 focus:ring-black'
                     } transition-colors`}
                   required
                 />
@@ -366,9 +366,9 @@ const Placeorder = () => {
               {/* Phone Number */}
               <div>
                 <label className="block font-medium mb-2 text-gray-700">Phone Number</label>
-                <div className={`flex items-center rounded-lg border-2 transition-colors ${errors.phone ? 'border-red-500' : 'border-gray-300 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200'
+                <div className={`flex items-center rounded-lg border-2 transition-colors ${errors.phone ? 'border-red-500' : 'border-gray-700 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-200'
                   }`}>
-                  <div className="flex items-center px-3 border-r border-gray-300 h-full">
+                  <div className="flex items-center px-3 border-r border-gray-700 h-full">
                     <FiPhone className="text-gray-500 mr-2" size={18} />
                     <span className="text-gray-700 font-bold">+251</span>
                   </div>
@@ -389,21 +389,7 @@ const Placeorder = () => {
               </div>
             </div>
 
-            {/* Delivery Form 
-            <div className="bg-white shadow rounded-lg py-6 px-2 space-y-4 border border-gray-200">
-              <input type="text" name="name" placeholder="Full Name" value={form.name} onChange={handleChange} className="input-style" required />
-              <input type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} className="input-style" required />
-              <input type="text" name="address" placeholder="Address" value={form.address} onChange={handleChange} className="input-style" required />
-              <div className="flex gap-4">
-                <input type="text" name="city" placeholder="City" value={form.city} onChange={handleChange} className="input-style w-1/2" required />
-                <input type="text" name="zip" placeholder="ZIP Code" value={form.zip} onChange={handleChange} className="input-style w-1/2" required />
-              </div>
-              <div className='flex items-center justify-center gap-1 rounded-md border-2 border-gray-200'>
-                <p className='text-black font-bold'>+251</p>
-                <input type="text" name="phone" value={form.phone} onChange={handleChange} className="border-0 w-full p-2 outline-none font-bold" required />
-              </div>
-            </div>
-           */}
+
             {/* Summary */}
             <div className="bg-white shadow rounded-lg p-6 space-y-4 border border-gray-200 flex flex-col">
               <h2 className="text-lg font-medium text-gray-800 mb-4">🧾 Order Summary</h2>
@@ -412,14 +398,14 @@ const Placeorder = () => {
 
               <p>SELECT PAYMENT METHOD</p>
               <div className='flex gap-3 flex-col lg:flex-row lg:items-center p-2'>
-                <div onClick={() => setPaymentMethod('telebirr')} className={`p-3 cursor-pointer rounded-md hover:bg-gray-100 transition-colors ${paymentMethod === 'telebirr' ? 'bg-gray-300' : 'border border-gray-200'}`}>
+                <div onClick={() => setPaymentMethod('telebirr')} className={`px-6 py-2 cursor-pointer rounded-md hover:bg-gray-100 transition-colors ${paymentMethod === 'telebirr' ? 'bg-gray-300' : 'border border-black'}`}>
                   <img className='h-6' src={assets.tele} alt="telebirr icon" />
                 </div>
-                <div onClick={() => { setrWarn(true); setPaymentMethod('bank'); window.scrollTo(0, -4000); }} className={`p-3 cursor-pointer rounded-md hover:bg-gray-100 transition-colors ${paymentMethod === 'bank' ? 'bg-gray-300' : 'border border-gray-200'}`}>
+                <div onClick={() => { setrWarn(true); setPaymentMethod('bank'); window.scrollTo(0, -4000); }} className={`px-6 py-2 cursor-pointer rounded-md hover:bg-gray-100 transition-colors ${paymentMethod === 'bank' ? 'bg-gray-300' : 'border border-black'}`}>
                   <p className='text-gray-700 font-bold'>Bank</p>
                 </div>
-                <div onClick={() => setPaymentMethod('cod')} className={`p-3 cursor-pointer rounded-md hover:bg-gray-100 transition-colors ${paymentMethod === 'cod' ? 'bg-gray-300' : 'border border-gray-200'}`}>
-                  <p className='text-gray-700 font-bold'>CASH ON DELIVERY</p>
+                <div onClick={() => setPaymentMethod('cod')} className={`px-6 py-2 cursor-pointer rounded-md hover:bg-gray-100 transition-colors ${paymentMethod === 'cod' ? 'bg-gray-300' : 'border border-black'}`}>
+                  <p className='text-gray-700 font-bold'>COD</p>
                 </div>
               </div>
 
@@ -434,7 +420,7 @@ const Placeorder = () => {
               )}
 
               <div className='flex items-center justify-end mt-4'>
-                <button onClick={handleSubmit} disabled={loading} className="px-2 mt-4 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md font-medium transition w-[100px]">
+                <button onClick={handleSubmit} disabled={loading} className="px-2 mt-4 bg-black hover:bg-black text-white py-2 rounded-md font-medium transition w-[100px]">
                   {loading ? <ClipLoader size={20} color="#fff" /> : (paymentMethod === 'bank' ? 'Verify' : 'Place Order')}
                 </button>
               </div>
