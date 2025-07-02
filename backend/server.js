@@ -4,7 +4,7 @@ import history from 'connect-history-api-fallback';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import cors from 'cors';
-
+import startBot from './bot/index.js'
 import connectToMongoDB from './configs/mongodb.js';
 import connectCloudinary from './configs/cloudinary.js';
 
@@ -85,10 +85,17 @@ app.use((err, req, res, next) => {
   res.status(500).json({ success: false, message: 'Internal Server Error' });
 });
 
+///////// start the  bot for telegram /////////
+startBot()
+
+
+
 // ==============================
 // ✅ START
 // ==============================
+
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
+
