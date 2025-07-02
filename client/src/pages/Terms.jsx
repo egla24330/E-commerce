@@ -16,6 +16,19 @@ const Terms = () => {
       <meta name="keywords" content="zaycommerce, Terms, Conditions, E-commerce, User Agreement, Payments, Withdrawals" />
       <meta property="og:title" content="Terms & Conditions | zaycommerce" />
       <meta property="og:description" content="Read the Terms & Conditions for using zaycommerce. Learn about user responsibilities, orders, payments, withdrawals, prohibited activities, and more." />
+      <meta property="og:url" content="https://www.zaycommerce.com/terms" />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content="https://www.zaycommerce.com/logo.png" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Terms & Conditions | zaycommerce" />
+      <meta name="twitter:description" content="Read the Terms & Conditions for using zaycommerce. Learn about user responsibilities, orders, payments, withdrawals, prohibited activities, and more." />
+      <meta name="twitter:image" content="https://www.zaycommerce.com/logo.png" />
+      <link rel="canonical" href="https://www.zaycommerce.com/terms" />
+      <link rel="alternate" href="https://www.zaycommerce.com/terms" hreflang="en" />
+      <link rel="alternate" href="https://www.zaycommerce.com/terms" hreflang="x-default" />
+      <link rel="icon" href="https://www.zaycommerce.com/favicon.ico" type="image/x-icon" />
+      <link rel="apple-touch-icon" href="https://www.zaycommerce.com/apple-touch-icon.png" />
+      
     </Helmet>
       <div className="bg-white min-h-screen px-4 py-10 md:px-16 lg:px-32 text-gray-800">
         <motion.div

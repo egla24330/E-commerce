@@ -3,9 +3,11 @@ import { motion } from 'framer-motion';
 import { Truck, TimerReset, Info, Globe, ShieldCheck } from 'lucide-react';
 import { assets } from '../assets/assets/frontend_assets/assets';
 import { Helmet } from 'react-helmet';
+import { useNavigate } from 'react-router-dom';
 
 
 const Shipping = () => {
+    const navi =useNavigate()
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, []);
@@ -24,7 +26,7 @@ const Shipping = () => {
                 <meta name="twitter:description" content="Learn about our local delivery process, fast timelines, and secure packaging within Addis Ababa." />
                 <link rel="canonical" href="https://www.zaycommerce.com/shipping" />
                 <link rel="alternate" href="https://www.zaycommerce.com/shipping" hreflang="en" />
-        
+
 
             </Helmet>
             <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-white px-4 py-10 md:px-8 lg:px-16 xl:px-32 text-gray-800">
@@ -226,8 +228,13 @@ const Shipping = () => {
                     <div>
                         <p className="font-medium mb-1">Need help with your delivery?</p>
                         <p>
-                            If your package hasn’t arrived within the estimated time, please call our local support. We're here to help 24/7 in Amharic, Afaan Oromo, and English.
+                            If your package hasn’t arrived within the estimated time, please Contact our local support. We're here to help 24/7 in Amharic, Afaan Oromo, and English.
                         </p>
+                        <div className='mt-2'>
+                            <button onClick={()=>navi('/contact')} className='py-1 px-3 bg-black text-white font-bold rounded-md'>
+                                Contact
+                            </button>
+                        </div>
                     </div>
                 </motion.div>
             </div>

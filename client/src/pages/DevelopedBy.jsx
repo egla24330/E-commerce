@@ -18,7 +18,7 @@ const DevelopedBy = () => {
       <title>Developed By | Datora</title>
       <meta name="description" content="Learn about Datora, our mission, vision, core values, and how to collaborate. Built and maintained by Abdi." />
     </Helmet>
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-gray-100 px-4 py-8 flex items-center justify-center text-gray-800">
+      <div className="min-h-screen sm:px-2 sm:py-5 flex items-center justify-center text-gray-800">
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -26,12 +26,12 @@ const DevelopedBy = () => {
           className="max-w-4xl w-full bg-white rounded-2xl shadow-lg overflow-hidden"
         >
           {/* Header with Gradient */}
-          <div className="bg-gradient-to-r from-indigo-600 to-purple-600 py-6 px-6 text-white">
+          <div className="bg-gradient-to-r from-black to-purple-600 sm:py-6 sm:px-6 text-white">
             <div className="flex flex-col md:flex-row items-center gap-4">
               <div className="bg-white/20 p-3 rounded-full backdrop-blur-sm">
                 <Building2 className="w-10 h-10 text-white" />
               </div>
-              <div>
+              <div className='text-center'>
                 <h1 className="text-2xl font-bold">Datora</h1>
                 <p className="text-indigo-200 mt-1 text-sm flex items-center gap-2">
                   <BadgeCheck className="w-4 h-4 text-yellow-300" />
@@ -178,9 +178,10 @@ const DevelopedBy = () => {
                   href="mailto:abdidev39@gmail.com"
                   className="flex items-center gap-2 bg-indigo-600 text-white font-medium py-2.5 px-5 rounded-lg hover:bg-indigo-700 transition-all shadow-sm text-sm"
                 >
-                  <Mail className="w-4 h-4" />
-                  <span>abdidev39@gmail.com</span>
+                  <Mail className="w-3 h-3" />
+                  <span>contact</span>
                 </a>
+
 
                 <p className="text-xs text-gray-500 mt-3 flex items-center gap-1">
                   <Globe className="w-3 h-3" />

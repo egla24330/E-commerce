@@ -66,7 +66,7 @@ const navigate =useNavigate()
     >
       {/* Top bar */}
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-xl font-semibold text-indigo-600">Menu</h1>
+        <h1 className="text-xl font-semibold text-black">Menu</h1>
         <button onClick={() =>setToggleStatus(false)} className="text-gray-600 hover:text-red-500">
           <X size={24} />
         </button>
@@ -79,6 +79,8 @@ const navigate =useNavigate()
             <p className=" px-2 py-1 cursor-pointer hover:bg-indigo-100  border-2" onClick={()=>{navigate('/orders');setToggleStatus(false)}}>🛒Orders</p>
             <p className=" px-2 py-1 cursor-pointer hover:bg-indigo-100  border-2" onClick={()=>{navigate('/about');setToggleStatus(false)}}>📖About</p>
             <p className=" px-2 py-1 cursor-pointer hover:bg-indigo-100  border-2" onClick={()=>{navigate('/contact');setToggleStatus(false)}}>📞 Contact</p>
+            <p className=" px-2 py-1 cursor-pointer hover:bg-indigo-100  border-2" onClick={()=>{navigate('/shipping');setToggleStatus(false)}}>Shipping</p>
+            <p className=" px-2 py-1 cursor-pointer hover:bg-indigo-100  border-2" onClick={()=>{navigate('/support');setToggleStatus(false)}}>Help Center</p>
         </ul>
       </nav>
 
