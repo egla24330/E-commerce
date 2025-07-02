@@ -1,6 +1,7 @@
 import TelegramBot from 'node-telegram-bot-api';
 import path from 'path';
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 function startBot() {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const bot = new TelegramBot(token, { polling: true });
