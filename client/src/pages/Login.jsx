@@ -22,6 +22,8 @@ const Login = () => {
   const { backendurl } = useContext(ShopContext)
   const [loading, setLoading] = useState(false)
   const [loadingGoogle, setLoadingGoogle] = useState(false)
+  const [loadingTelegram,setLoadingSetTelegram] =useState(false)
+  
   const [searchParams] = useSearchParams()
 
   const referralCode = searchParams.get('ref') || null
@@ -123,7 +125,7 @@ const Login = () => {
   const handleTelegramLogin = async () => {
     try {
       const initData = window.Telegram.WebApp.initData;
-      setLoadingGoogle(true)
+      setLoadingSetTelegram(true)
       const res = await axios.post(`${backendurl}/api/user/telegram-login`, {
       initData,
       referralCode
@@ -142,7 +144,7 @@ const Login = () => {
       console.log(error)
       toast.error('Telegram login failed. Please try again.')
     } finally {
-      setLoadingGoogle(false)
+      setLoadingSetTelegram(false)
     }
   }
 
@@ -285,11 +287,11 @@ const Login = () => {
             onClick={handleTelegramLogin}
             className="w-full mt-4 py-2 flex items-center justify-center gap-3 border border-gray-700 rounded-lg hover:bg-gray-100 transition"
           >
-            {!loadingGoogle && (
+            {!loadingTelegram && (
                <img src={assets.tg_icon} alt="Telegram" width="25" height="25" />
             )}
             <span className="text-sm font-medium text-gray-700">
-              {loadingGoogle ? <ClipLoader size={20} /> : 'Continue with telegram'}
+              {loadingTelegram ? <ClipLoader size={20} /> : 'Continue with telegram'}
             </span>
           </button>
 

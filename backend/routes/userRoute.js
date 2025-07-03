@@ -9,5 +9,5 @@ userRouter.post('/login', loginUser);
 userRouter.post('/admin', adminLogin);
 userRouter.post('/google-auth', firebase);
 userRouter.get('/user-count',adminMiddleware,countUser)
-userRouter.post("/telegram-login",telegreamAuth)
+userRouter.post("/telegram-login",telegramAuth)
 export default userRouter;

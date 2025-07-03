@@ -221,15 +221,15 @@ const userData = async (req, res) => {
     
  }
 
- const telegreamAuth = async(req,res)=>{
+ const telegramAuth = async(req,res)=>{
     const { initData,referralCode} = req.body;
 
-  if (!verifyTelegramAuth(initData)) {
-    return res.json({
-         success: false,
-         message: "Invalid Telegram login."
-         });
-  }
+ // if (!verifyTelegramAuth(initData)) {
+  //  return res.json({
+     //    success: false,
+      //   message: "Invalid Telegram login."
+       //  });
+ // }
 
   const params = new URLSearchParams(initData);
   const userStr = params.get("user");
@@ -273,4 +273,4 @@ const userData = async (req, res) => {
  }
 
 
-export { loginUser, registerUser, adminLogin, firebase,telegreamAuth,userData,countUser};
+export { loginUser, registerUser, adminLogin, firebase,telegramAuth,userData,countUser};
