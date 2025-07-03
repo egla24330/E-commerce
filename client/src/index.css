@@ -113,5 +113,16 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 
+:root {
+  --tg-theme-bg-color: #ffffff !important;
+  --tg-theme-text-color: #000000 !important;
+  --tg-theme-hint-color: #6c757d !important;
+  --tg-theme-link-color: #0d6efd !important;
+  --tg-theme-button-color: #ffffff !important;
+  --tg-theme-button-text-color: #000000 !important;
+  --tg-theme-secondary-bg-color: #f8f9fa !important;
+}
+
+
 
 
