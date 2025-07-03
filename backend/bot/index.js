@@ -133,7 +133,7 @@ Your referral link is inside the app!
 3️⃣ Tap *Share* to copy your referral link  
 (Users are redirected to login if not authenticated)
 
-🔗 zaycommerce.com/referral
+🔗 zaycommerce.com/profile
         `.trim(), { parse_mode: 'Markdown' });
 
       case "📞 Contact Support":
@@ -167,9 +167,9 @@ More FAQs coming soon!
 🆘 *Need Assistance?*
 
 Tap a button or type one of these:
-- 📋 *How It Works*
-- 🎁 *ZCoin Rewards*
-- 👤 *My Referrals*
+- 📋 *How It Works*\n
+- 🎁 *ZCoin Rewards*\n
+- 👤 *My Referrals*\n
 - 📞 *Contact Support*
 
 We’re here to help you get the best out of ZayCommerce 💡
