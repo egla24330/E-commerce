@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 connectToMongoDB();
 connectCloudinary();
+startBot()
 
 app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json());
@@ -86,7 +87,7 @@ app.use((err, req, res, next) => {
 });
 
 ///////// start the  bot for telegram /////////
-startBot()
+
 
 
 
@@ -98,4 +99,5 @@ const PORT = process.env.PORT || 4000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
+
 

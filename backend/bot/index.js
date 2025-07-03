@@ -3,6 +3,7 @@
 import TelegramBot from 'node-telegram-bot-api';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 // Support for __dirname in ESM
 const __filename = fileURLToPath(import.meta.url);
@@ -26,7 +27,13 @@ function startBot() {
 
     try {
       // 1️⃣ Send welcome image with caption
-      const imagePath = path.join(__dirname, 'assets', 'welcome.jpg') || 'https://www.zaycommerce.com/logo.png'
+    
+
+      let imagePath = path.join(__dirname, 'assets', 'welcome.jpg');
+
+if (!fs.existsSync(imagePath)) {
+  imagePath = 'https://www.zaycommerce.com/logo.png';
+}
 
       await bot.sendPhoto(chatId, imagePath, {
         caption: `👋 Welcome to *ZayCommerce*, ${user}!\nYour gateway to reliable shopping.`,
