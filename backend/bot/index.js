@@ -26,7 +26,7 @@ function startBot() {
 
     try {
       // 1️⃣ Send welcome image with caption
-      const imagePath = path.join(__dirname, 'assets', 'welcome.jpg');
+      const imagePath = path.join(__dirname, 'assets', 'welcome.jpg') || 'https://www.zaycommerce.com/logo.png'
 
       await bot.sendPhoto(chatId, imagePath, {
         caption: `👋 Welcome to *ZayCommerce*, ${user}!\nYour gateway to reliable shopping.`,
