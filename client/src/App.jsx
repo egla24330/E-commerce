@@ -4,6 +4,7 @@ import { Suspense, lazy } from "react";
 import { useContext } from 'react';
 import { ShopContext } from './context/Shopcontext'
 import AuthContext from './context/Authcontext';
+import { useEffect } from "react";
 
 const Home = lazy(() => import("./pages/Home"));
 const Collection = lazy(() => import("./pages/Collection"));
@@ -39,6 +40,26 @@ import Chatbot from './components/Chatbot'
 const App = () => {
 
   const {token} =useContext(AuthContext)
+  useEffect(() => {
+    const forceLightMode = () => {
+      const root = document.documentElement;
+      root.style.setProperty('--tg-theme-bg-color', '#ffffff');
+      root.style.setProperty('--tg-theme-text-color', '#000000');
+      root.style.setProperty('--tg-theme-hint-color', '#6c757d');
+      root.style.setProperty('--tg-theme-link-color', '#0d6efd');
+      root.style.setProperty('--tg-theme-button-color', '#ffffff');
+      root.style.setProperty('--tg-theme-button-text-color', '#000000');
+      root.style.setProperty('--tg-theme-secondary-bg-color', '#f8f9fa');
+
+      // Optionally force background
+      document.body.style.backgroundColor = "#ffffff";
+      document.body.style.color = "#000000";
+    };
+
+    // Wait a tiny bit to override after Telegram injects dark variables
+    setTimeout(forceLightMode, 100);
+  }, []);
+
   // Import the spinner
 
   return (
