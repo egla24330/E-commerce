@@ -1,5 +1,5 @@
 import express from 'express';
-import { loginUser, registerUser, adminLogin,firebase,userData,countUser } from '../controllers/userController.js';
+import { loginUser, registerUser, adminLogin,firebase,userData,countUser,telegreamAuth } from '../controllers/userController.js';
 import auth from '../middlewares/auth.js';
 import adminMiddleware from '../middlewares/admin.js'
 const userRouter = express.Router();
@@ -9,4 +9,5 @@ userRouter.post('/login', loginUser);
 userRouter.post('/admin', adminLogin);
 userRouter.post('/google-auth', firebase);
 userRouter.get('/user-count',adminMiddleware,countUser)
+userRouter.post("/telegram-login",telegreamAuth)
 export default userRouter;

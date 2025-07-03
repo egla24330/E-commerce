@@ -60,7 +60,7 @@ const App = () => {
     setTimeout(forceLightMode, 100);
   }, []);
 
-  // Import the spinner
+
 
   return (
     <>

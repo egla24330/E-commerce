@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { FaUser, FaLock, FaUserPlus, FaGoogle } from 'react-icons/fa'
+import { FaUser, FaLock, FaUserPlus, FaGoogle,FaTelegramPlane  } from 'react-icons/fa'
 import { motion } from 'framer-motion'
 import { ShopContext } from '../context/Shopcontext'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -114,6 +114,32 @@ const Login = () => {
     } catch (error) {
       console.log(error)
       toast.error('Google login failed. Please try again.')
+    } finally {
+      setLoadingGoogle(false)
+    }
+  }
+
+
+  const handleTelegramLogin = async () => {
+    try {
+      setLoadingGoogle(true)
+      const res = await axios.post(`${backendurl}/api/user/telegram-login`, {
+      initData,
+      referralCode
+    });
+      
+
+      if (res.data.success) {
+        setToken(res.data.token)
+        localStorage.setItem('token', res.data.token)
+        navigate('/')
+       
+      } else {
+        toast.error(res.data.message || 'Telegram login failed. Please try again.')
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error('Telegram login failed. Please try again.')
     } finally {
       setLoadingGoogle(false)
     }
@@ -251,6 +277,22 @@ const Login = () => {
               {loadingGoogle ? <ClipLoader size={20} /> : 'Continue with Google'}
             </span>
           </button>
+          
+
+           <button
+            type="button"
+            onClick={handleTelegramLogin}
+            className="w-full mt-4 py-2 flex items-center justify-center gap-3 border border-gray-700 rounded-lg hover:bg-gray-100 transition"
+          >
+            {!loadingGoogle && (
+               <img src={assets.tg_icon} alt="Telegram" width="25" height="25" />
+            )}
+            <span className="text-sm font-medium text-gray-700">
+              {loadingGoogle ? <ClipLoader size={20} /> : 'Continue with telegram'}
+            </span>
+          </button>
+
+
         </motion.div>
       </div>
     </>

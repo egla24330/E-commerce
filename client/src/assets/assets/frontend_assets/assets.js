@@ -36,8 +36,10 @@ import imagecopy from './imagecopy.png'
 
 import logo from './logo.png'   
 import loginbg from './loginbg.png'
+import tg_icon from './tg_icon.png'
 
 export const assets = {
+    tg_icon,
     logo,
     imagecopy,
    imagecopy,

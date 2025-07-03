@@ -221,5 +221,56 @@ const userData = async (req, res) => {
     
  }
 
+ const telegreamAuth = async(req,res)=>{
+    const { initData,referralCode} = req.body;
 
-export { loginUser, registerUser, adminLogin, firebase, userData,countUser};
+  if (!verifyTelegramAuth(initData)) {
+    return res.json({
+         success: false,
+         message: "Invalid Telegram login."
+         });
+  }
+
+  const params = new URLSearchParams(initData);
+  const userStr = params.get("user");
+
+  if (!userStr) {
+    return res.status(400).json({
+         success: false,
+         message:"Missing user info."
+    });
+  }
+
+  const tgUser = JSON.parse(userStr);
+  const { id, first_name, last_name, username, photo_url } = tgUser;
+
+  try {
+        let user = await userModel.findOne({ telegramId:id });
+        if (!user) {
+            user = new userModel({ avatar:photo_url,telegramId:id, name:first_name, email:username, coins: 0, referredBy: referralCode || null, });
+
+            let code;
+            let cond = true
+            while (cond) {
+                code = generateReferralCode()
+                const exists = await userModel.findOne({ referralCode: code })
+                if (!exists) {
+                    cond = false
+                }
+            }
+            user.referralCode = code
+            await user.save();
+        }
+        await user.save();
+        const token = createToken(user._id)
+        res.json({ success: true, user, token });
+    } catch (error) {
+        res.json({
+            success: false,
+            message: error.message
+       })
+    }
+ }
+
+
+export { loginUser, registerUser, adminLogin, firebase,telegreamAuth,userData,countUser};
