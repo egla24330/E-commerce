@@ -122,6 +122,7 @@ const Login = () => {
 
   const handleTelegramLogin = async () => {
     try {
+      const initData = window.Telegram.WebApp.initData;
       setLoadingGoogle(true)
       const res = await axios.post(`${backendurl}/api/user/telegram-login`, {
       initData,
