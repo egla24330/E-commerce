@@ -4,7 +4,7 @@ import userModel from '../models/userModel.js'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import generateReferralCode from '../utils/generateReferralCode.js'
-import { sendWelcomeEmail } from '../config/nodemailer.js';
+import { sendWelcomeEmail } from '../configs/nodemailer.js';
 
 dotenv.config({ path: 'config.env' })
 
