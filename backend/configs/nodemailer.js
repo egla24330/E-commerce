@@ -1,6 +1,10 @@
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 dotenv.config({ path: 'config.env' });
+
+console.log("🧪 Email User:", process.env.EMAIL_USER);
+console.log("🧪 Email Pass:", process.env.EMAIL_PASS ? "Loaded" : "Missing");
+
 const transporter = nodemailer.createTransport({
     host: 'smtp-relay.brevo.com',
     port: 587,
