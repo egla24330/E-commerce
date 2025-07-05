@@ -4,6 +4,7 @@ import userModel from '../models/userModel.js'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import generateReferralCode from '../utils/generateReferralCode.js'
+import { sendWelcomeEmail } from '../config/nodemailer.js';
 
 dotenv.config({ path: 'config.env' })
 
@@ -53,7 +54,7 @@ const registerUser = async (req, res) => {
     try {
 
         const { name, password, email, referralCode } = req.body
-        console.log({name, password, email, referralCode})
+        //console.log({name, password, email, referralCode})
         const exists = await userModel.findOne({ email });
         if (exists) {
             return res.json({ success: false, message: "User already exists" });
@@ -86,7 +87,7 @@ const registerUser = async (req, res) => {
         newUser.referralCode = code
         const user = await newUser.save();
         const token = createToken(user._id)
-
+        sendWelcomeEmail(email,name)
         if (user) {
             res.status(201).json({
                 success: true,
@@ -159,6 +160,7 @@ const firebase = async (req, res) => {
                 }
             }
             user.referralCode = code
+            sendWelcomeEmail(email,name)
             await user.save();
         }
         await user.save();
