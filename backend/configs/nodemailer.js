@@ -49,7 +49,7 @@ export const sendWelcomeEmail = async (email, name) => {
   `,
 });
 
-        // console.log("✅ Welcome email sent:", info.messageId);
+        console.log("✅ Welcome email sent:", info.messageId);
     } catch (error) {
         console.error("❌ Error sending welcome email:", error);
         console.log("🧪 Email User:", process.env.EMAIL_USER);
