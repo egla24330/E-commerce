@@ -39,7 +39,7 @@ Need help? Contact our team at support@zaycommerce.com
     `;
 
     const info = await transporter.sendMail({
-      from: `"ZayCommerce Support" <${process.env.E_SENDER}>`,
+      from: `"support" <${process.env.E_SENDER}>`,
       to: email,
       subject: "Welcome to ZayCommerce 🎉",
       text: textContent,
