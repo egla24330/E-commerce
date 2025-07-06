@@ -15,14 +15,18 @@ const transporter = nodemailer.createTransport({
 export const sendWelcomeEmail = async (email, name) => {
   try {
     const htmlContent = `
-    <div style="background: #f3f4f6; padding: 20px; font-family: 'Segoe UI', sans-serif;">
-      <div style="background: #fff; border-radius: 10px; max-width: 500px; margin: auto; box-shadow: 0 5px 15px rgba(0,0,0,0.1); padding: 30px; text-align: center;">
-        <img src="https://www.zaycommerce.com/logo.png" alt="ZayCommerce Logo" style="width: 120px; margin-bottom: 20px;" />
-        <h2 style="color: #111;">🎉 Welcome to ZayCommerce, ${name}!</h2>
-        <p style="font-size: 15px; color: #444;">We’re thrilled to have you join our growing community. Discover unbeatable deals on electronics, fashion, and more – all from trusted sellers across Ethiopia.</p>
-        <a href="https://www.zaycommerce.com" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #38ef7d, #11998e); color: #fff; padding: 12px 24px; margin-top: 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">🚀 Start Shopping</a>
-        <p style="font-size: 12px; color: #777; margin-top: 25px;">Need help? <a href="mailto:support@zaycommerce.com" style="color: #007BFF; text-decoration: underline;">Contact Support</a></p>
-      </div>
+    <div style="background-color:#f3f4f6; padding: 0; margin: 0; font-family: 'Segoe UI', sans-serif;">
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width:600px; margin:auto; background:#ffffff; border-radius:12px; box-shadow:0 0 20px rgba(0,0,0,0.05);">
+        <tr>
+          <td style="padding: 20px; text-align: center;">
+            <img src="https://www.zaycommerce.com/logo.png" alt="ZayCommerce Logo" style="width: 120px; margin-bottom: 15px;" />
+            <h2 style="font-size: 24px; color: #111111; margin: 10px 0;">🎉 Welcome to ZayCommerce, ${name}!</h2>
+            <p style="font-size: 16px; color: #444444; margin: 0 0 20px;">We’re excited to have you in our growing community. Find trusted deals in electronics, fashion, construction materials, and more across Ethiopia.</p>
+            <a href="https://www.zaycommerce.com" target="_blank" style="display:inline-block; background: linear-gradient(135deg, #38ef7d, #11998e); color:#fff; text-decoration:none; padding: 14px 28px; border-radius:8px; font-weight:600;">🚀 Start Shopping</a>
+            <p style="font-size: 13px; color: #999999; margin-top: 30px;">Need help? <a href="mailto:support@zaycommerce.com" style="color:#007BFF; text-decoration:underline;">Contact our support</a></p>
+          </td>
+        </tr>
+      </table>
     </div>
     `;
 
@@ -39,9 +43,9 @@ Need help? Contact our team at support@zaycommerce.com
     `;
 
     const info = await transporter.sendMail({
-      from: `"support" <${process.env.E_SENDER}>`,
+      from: `ZayCommerce <${process.env.E_SENDER}>`,
       to: email,
-      subject: "Welcome to ZayCommerce 🎉",
+      subject: "🎉 Welcome to ZayCommerce – Your Ethiopian Online Store",
       text: textContent,
       html: htmlContent,
     });
