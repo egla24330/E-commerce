@@ -50,7 +50,7 @@ const Footer = () => {
                 <div className="md:col-span-2 lg:col-span-1">
                     <h3 className="text-lg font-semibold text-gray-900 mb-4">Contact Us</h3>
                     <ul className="space-y-3 text-sm text-gray-600">
-                        <li className="flex items-center gap-2"><Phone size={16} /> +251 912 193 011</li>
+                        {/* <li className="flex items-center gap-2"><Phone size={16} /> +251 912 193 011</li> */}
                         <li className="flex items-center gap-2"><Mail size={16} /> <a href="support@zaycommerce.com" className="hover:text-blue-600">support@zaycommerce.com</a></li>
                         <li className="flex items-center gap-2"><MapPin size={16} /> Addis Ababa, Ethiopia</li>
                     </ul>
