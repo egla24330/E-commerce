@@ -124,7 +124,11 @@ const Login = () => {
 
   const handleTelegramLogin = async () => {
     try {
-      const initData = window.Telegram.WebApp.initData;
+      const initData = window.Telegram?.WebApp?.initData;
+    if (!initData) {
+      toast.error("Telegram is not available");
+      return;
+    }
       setLoadingSetTelegram(true)
       const res = await axios.post(`${backendurl}/api/user/telegram-login`, {
       initData,

@@ -141,7 +141,7 @@ Your referral link is inside the app!
 📞 *Need Help?*
 
 🧠 Ask your question or reach out:
-📬 Telegram: @ZaySupportBot\n
+📞 Contact: zaycommerce.com/contact\n
 📧 Email: support@zaycommerce.com\n
 ⏱️ Response within minutes!
         `.trim(), { parse_mode: 'Markdown' });
