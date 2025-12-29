@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 connectToMongoDB();
 connectCloudinary();
-startBot()
+//startBot()
 
 app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json());
