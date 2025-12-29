@@ -41,7 +41,7 @@ const images = [
     description: 'Furniture: Comfortable and stylish pieces for every room in your home.',
   },
   {
-    url:assets.hero10,
+    url:assets.hero9,
     description: 'Household Essentials: Everyday items for cleaning, cooking, and organizing your home.',
   }
 

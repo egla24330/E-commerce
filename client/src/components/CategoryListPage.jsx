@@ -55,12 +55,13 @@ const categories = [
     slug: "furniture-decor",
     image: assets.hero9
   },
-  {
+ /*
+ {
     name: "Household Essentials",
     slug: "household",
     image: assets.hero10
   }
-
+*/
 
 ];
 
